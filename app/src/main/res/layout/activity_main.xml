@@ -6,13 +6,207 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="279dp"
+        android:layout_height="159dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="268dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/doGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/reGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/miGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/faGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/solGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/laGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/siGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/doGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/reGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/miGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/faGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/solGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/laGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+
+        <ImageView
+            android:id="@+id/siGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_piano" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/doDGamme1"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/reDGamme1"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="93dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/faDGamme1"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="129dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/solDGamme1"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="147dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/laDGamme1"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="165dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/doDGamme2"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="201dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/reDGamme2"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="219dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/faDGamme2"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="255dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/solDGamme2"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="273dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/laDGamme2"
+        android:layout_width="14dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/touche_noire"
+        android:layout_marginLeft="291dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:id="@+id/start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/start_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
