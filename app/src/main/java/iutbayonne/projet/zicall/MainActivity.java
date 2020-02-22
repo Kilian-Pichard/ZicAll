@@ -111,15 +111,37 @@ public class MainActivity extends AppCompatActivity
 
                 activerTouche();
 
+                // Permet de voir à l'affichage pendant combien de temps la touche reste allumée
                 try
                 {
                     Thread.sleep( (long)(notesBellaCiao[i].getDuree() * 1000) );
                 }
                 catch(InterruptedException ie)
                 {
-                    Log.e(LOG_TAG, "Échec du Thread.sleep()");
+                    Log.e(LOG_TAG, "Échec du Thread.sleep()" + notesBellaCiao[i].getDuree() * 1000 + "secondes");
                 }
 
+                // Permet voir la différence si on clique sur la même touche 2 fois de suite par exemple en mettant un délai de 80ms
+
+                if (notesBellaCiao[i].getTouche().estNoire())
+                {
+                    // On change l'image par une touche noire non activée si c'est une touche noire
+                    touche.setImageResource(R.drawable.touche_noire);
+                }
+                else
+                {
+                    // On change l'image par une touche normale non activée si c'est une touche normale
+                    touche.setImageResource(R.drawable.touche_piano);
+                }
+                try
+                {
+                    Thread.sleep( 80);
+                }
+                catch(InterruptedException ie)
+                {
+                    Log.e(LOG_TAG, "Échec du Thread.sleep() (80ms)");
+                }
+                
                 desactiverTouche(notesBellaCiao[i].getTouche().estNoire());
 
             }
