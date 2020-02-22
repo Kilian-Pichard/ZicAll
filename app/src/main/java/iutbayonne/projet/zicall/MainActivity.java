@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         this.start = findViewById(R.id.start);
-
         this.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     private void activerTouche()
     {
-        this.touche.setImageResource(R.drawable.touche_piano_allumee);
+        touche.setImageResource(R.drawable.touche_piano_allumee);
         Log.e(LOG_TAG, "Activation d'une touche");
     }
 
@@ -54,6 +53,14 @@ public class MainActivity extends AppCompatActivity
 
         public void run()
         {
+            /* Désactive le bouton au lancement de la mélodie pour éviter
+            de lancer plusieurs fois la mélodie en même temps */
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    start.setEnabled(false);
+                }
+            });
 
             Note[] notesBellaCiao = {
                     new Note(Clavier.MI_GAMME_2, (float) 0.5),
@@ -114,10 +121,18 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 desactiverTouche(notesBellaCiao[i].getTouche().estNoire());
+
             }
 
             Log.e(LOG_TAG, "Fin de la mélodie");
 
+            // Réactivation du bouton
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    start.setEnabled(true);
+                }
+            });
         }
 
     }
