@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity
     private final int DELAI_ATTENTE = 50;
 
     private static final String LOG_TAG = "PianoTest";
-    private Button start;
+    private ImageButton start;
     private final Note[] notesBellaCiao = {
             new Note(Clavier.MI_GAMME_2, (float) 0.5),
             new Note(Clavier.LA_GAMME_2, (float) 0.5),
