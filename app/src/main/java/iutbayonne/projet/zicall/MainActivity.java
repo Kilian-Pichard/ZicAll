@@ -9,9 +9,52 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity
 {
+    // Délai d'attente arbitraire en ms au cas où l'on joue 2 fois d'affilée la même touche
+    private final int DELAI_ATTENTE = 50;
+
     private static final String LOG_TAG = "PianoTest";
     private Button start;
-    private ImageView touche;
+    private final Note[] notesBellaCiao = {
+            new Note(Clavier.MI_GAMME_2, (float) 0.5),
+            new Note(Clavier.LA_GAMME_2, (float) 0.5),
+            new Note(Clavier.SI_GAMME_2, (float) 0.5),
+            new Note(Clavier.DO_GAMME_2, (float) 0.5),
+            new Note(Clavier.LA_GAMME_2, 2),
+            new Note(Clavier.MI_GAMME_2, (float) 0.5),
+            new Note(Clavier.LA_GAMME_2, (float) 0.5),
+            new Note(Clavier.SI_GAMME_2, (float) 0.5),
+            new Note(Clavier.DO_GAMME_2, (float) 0.5),
+            new Note(Clavier.LA_GAMME_2, 2),
+            new Note(Clavier.MI_GAMME_2, (float) 0.5),
+            new Note(Clavier.LA_GAMME_2, (float) 0.5),
+            new Note(Clavier.SI_GAMME_2, (float) 0.5),
+            new Note(Clavier.DO_GAMME_2, 1),
+            new Note(Clavier.SI_GAMME_2, (float) 0.5),
+            new Note(Clavier.LA_GAMME_2, (float) 0.5),
+            new Note(Clavier.DO_GAMME_2, 1),
+            new Note(Clavier.SI_GAMME_2, (float) 0.5),
+            new Note(Clavier.LA_GAMME_2, (float) 0.5),
+            new Note(Clavier.MI_GAMME_2, 1),
+            new Note(Clavier.MI_GAMME_2, 1),
+            new Note(Clavier.MI_GAMME_2, 1),
+            new Note(Clavier.RE_GAMME_2, (float) 0.5),
+            new Note(Clavier.MI_GAMME_2, (float) 0.5),
+            new Note(Clavier.FA_GAMME_2, (float) 0.5),
+            new Note(Clavier.FA_GAMME_2, 2),
+            new Note(Clavier.FA_GAMME_2, (float) 0.5),
+            new Note(Clavier.MI_GAMME_2, (float) 0.5),
+            new Note(Clavier.RE_GAMME_2, (float) 0.5),
+            new Note(Clavier.FA_GAMME_2, (float) 0.5),
+            new Note(Clavier.MI_GAMME_2, 2),
+            new Note(Clavier.MI_GAMME_2, (float) 0.5),
+            new Note(Clavier.RE_GAMME_2, (float) 0.5),
+            new Note(Clavier.DO_GAMME_2, (float) 0.5),
+            new Note(Clavier.SI_GAMME_2, 1),
+            new Note(Clavier.MI_GAMME_2, 1),
+            new Note(Clavier.DO_GAMME_2, 1),
+            new Note(Clavier.SI_GAMME_2, 1),
+            new Note(Clavier.LA_GAMME_2, 2)
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,20 +73,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void activerTouche()
-    {
-        touche.setImageResource(R.drawable.touche_piano_allumee);
-        Log.e(LOG_TAG, "Activation d'une touche");
-    }
-
-    private void desactiverTouche(boolean estNoire)
-    {
-        this.touche.setImageResource(
-                estNoire ? R.drawable.touche_noire : R.drawable.touche_piano );
-        Log.e(LOG_TAG, "Desactivation d'une touche");
-    }
-
-    public class JouerMelodie extends Thread
+    private class JouerMelodie extends Thread
     {
 
         public JouerMelodie()
@@ -62,88 +92,47 @@ public class MainActivity extends AppCompatActivity
                 }
             });
 
-            Note[] notesBellaCiao = {
-                    new Note(Clavier.MI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.LA_GAMME_2, (float) 0.5),
-                    new Note(Clavier.SI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.DO_GAMME_2, (float) 0.5),
-                    new Note(Clavier.LA_GAMME_2, 2),
-                    new Note(Clavier.MI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.LA_GAMME_2, (float) 0.5),
-                    new Note(Clavier.SI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.DO_GAMME_2, (float) 0.5),
-                    new Note(Clavier.LA_GAMME_2, 2),
-                    new Note(Clavier.MI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.LA_GAMME_2, (float) 0.5),
-                    new Note(Clavier.SI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.DO_GAMME_2, 1),
-                    new Note(Clavier.SI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.LA_GAMME_2, (float) 0.5),
-                    new Note(Clavier.DO_GAMME_2, 1),
-                    new Note(Clavier.SI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.LA_GAMME_2, (float) 0.5),
-                    new Note(Clavier.MI_GAMME_2, 1),
-                    new Note(Clavier.MI_GAMME_2, 1),
-                    new Note(Clavier.MI_GAMME_2, 1),
-                    new Note(Clavier.RE_GAMME_2, (float) 0.5),
-                    new Note(Clavier.MI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.FA_GAMME_2, (float) 0.5),
-                    new Note(Clavier.FA_GAMME_2, 2),
-                    new Note(Clavier.FA_GAMME_2, (float) 0.5),
-                    new Note(Clavier.MI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.RE_GAMME_2, (float) 0.5),
-                    new Note(Clavier.FA_GAMME_2, (float) 0.5),
-                    new Note(Clavier.MI_GAMME_2, 2),
-                    new Note(Clavier.MI_GAMME_2, (float) 0.5),
-                    new Note(Clavier.RE_GAMME_2, (float) 0.5),
-                    new Note(Clavier.DO_GAMME_2, (float) 0.5),
-                    new Note(Clavier.SI_GAMME_2, 1),
-                    new Note(Clavier.MI_GAMME_2, 1),
-                    new Note(Clavier.DO_GAMME_2, 1),
-                    new Note(Clavier.SI_GAMME_2, 1),
-                    new Note(Clavier.LA_GAMME_2, 2)
-
-            };
-
+            /* Délai d'attente à prévoir si l'on joue 2 fois d'affilée la même touche.
+            Ici, il ne nous sert pas encore car nous avons pour l'instant qu'une seule chanson (Bella Ciao)
+            où aucune touche ne se répète, mais cela sera utile si l'on décide d''ajouter des chansons. */
+            int attente;
             for(int i = 0; i < notesBellaCiao.length; i++)
             {
-                touche = findViewById(notesBellaCiao[i].getTouche().getIdImage());
+                runOnUiThread(new ActiverTouche(notesBellaCiao[i].getTouche().getIdImage()));
 
-                activerTouche();
+                attente = 0;
 
-                // Permet de voir à l'affichage pendant combien de temps la touche reste allumée
+                // Pour ne pas comparer à la touche suivante si l'on est déjà sur la dernière
+                if(i < notesBellaCiao.length - 1)
+                {
+                    if(notesBellaCiao[i].getTouche() == notesBellaCiao[i+1].getTouche())
+                    {
+                        attente = DELAI_ATTENTE;
+                    }
+                }
+
+                // Temps pendant lequel la touche reste activée
                 try
                 {
-                    Thread.sleep( (long)(notesBellaCiao[i].getDuree() * 1000) );
+                    Thread.sleep( (long)(notesBellaCiao[i].getDuree() * 1000 - attente) );
                 }
                 catch(InterruptedException ie)
                 {
-                    Log.e(LOG_TAG, "Échec du Thread.sleep()" + notesBellaCiao[i].getDuree() * 1000 + "secondes");
+                    Log.e(LOG_TAG, "Échec du Thread.sleep()");
                 }
 
-                // Permet voir la différence si on clique sur la même touche 2 fois de suite par exemple en mettant un délai de 80ms
+                runOnUiThread(new DesactiverTouche(notesBellaCiao[i].getTouche().getIdImage(),
+                        notesBellaCiao[i].getTouche().estNoire()));
 
-                if (notesBellaCiao[i].getTouche().estNoire())
-                {
-                    // On change l'image par une touche noire non activée si c'est une touche noire
-                    touche.setImageResource(R.drawable.touche_noire);
-                }
-                else
-                {
-                    // On change l'image par une touche normale non activée si c'est une touche normale
-                    touche.setImageResource(R.drawable.touche_piano);
-                }
+                // Temps pendant lequel la touche reste désactivée
                 try
                 {
-                    Thread.sleep( 80);
+                    Thread.sleep(attente);
                 }
                 catch(InterruptedException ie)
                 {
-                    Log.e(LOG_TAG, "Échec du Thread.sleep() (80ms)");
+                    Log.e(LOG_TAG, "Échec du Thread.sleep(attente)");
                 }
-                
-                desactiverTouche(notesBellaCiao[i].getTouche().estNoire());
-
             }
 
             Log.e(LOG_TAG, "Fin de la mélodie");
@@ -157,6 +146,43 @@ public class MainActivity extends AppCompatActivity
             });
         }
 
+    }
+
+    private class ActiverTouche implements Runnable
+    {
+        private int idImage;
+
+        public ActiverTouche(int idImage)
+        {
+            this.idImage = idImage;
+        }
+
+        public void run()
+        {
+            ImageView touche = findViewById(this.idImage);
+            touche.setImageResource(R.drawable.touche_piano_allumee);
+            Log.e(LOG_TAG, "Activation d'une touche");
+        }
+    }
+
+    private class DesactiverTouche implements Runnable
+    {
+        private int idImage;
+        private boolean estNoire;
+
+        public DesactiverTouche(int idImage, boolean estNoire)
+        {
+            this.idImage = idImage;
+            this.estNoire = estNoire;
+        }
+
+        public void run()
+        {
+            ImageView touche = findViewById(this.idImage);
+            touche.setImageResource(
+                    this.estNoire ? R.drawable.touche_noire : R.drawable.touche_piano );
+            Log.e(LOG_TAG, "Desactivation d'une touche");
+        }
     }
 
 }
