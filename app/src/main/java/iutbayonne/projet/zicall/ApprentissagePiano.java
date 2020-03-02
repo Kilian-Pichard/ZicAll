@@ -9,6 +9,9 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import iutbayonne.projet.zicall.ApprentissagePianoPackage.Clavier;
+import iutbayonne.projet.zicall.ApprentissagePianoPackage.Note;
+
 public class ApprentissagePiano extends AppCompatActivity {
 
     // Délai d'attente arbitraire en ms au cas où l'on joue 2 fois d'affilée la même touche

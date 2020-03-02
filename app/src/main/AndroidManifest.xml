@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EcriturePartition"></activity>
+        <activity android:name=".ApprentissageGuitarePackage.Chanson_entrainement_guitare"></activity>
+        <activity android:name=".ApprentissageGuitarePackage.Choix_chanson_entrainement_guitare" />
+        <activity android:name=".ApprentissageGuitarePackage.Recapitulatif_des_accords" />
+        <activity android:name=".EcriturePartition" />
         <activity android:name=".AccordeurGuitare" />
         <activity android:name=".ApprentissageGuitare" />
         <activity android:name=".ApprentissagePiano" />
