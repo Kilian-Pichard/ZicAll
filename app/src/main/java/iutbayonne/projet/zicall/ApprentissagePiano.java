@@ -1,191 +1,140 @@
 package iutbayonne.projet.zicall;
 
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import iutbayonne.projet.zicall.ApprentissagePianoPackage.Clavier;
-import iutbayonne.projet.zicall.ApprentissagePianoPackage.Note;
+import iutbayonne.projet.zicall.ApprentissagePianoPackage.ClavierPianoPackage.Touche;
+import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Melodie;
+import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.NoteMelodie;
 
 public class ApprentissagePiano extends AppCompatActivity {
 
-    // Délai d'attente arbitraire en ms au cas où l'on joue 2 fois d'affilée la même touche
-    private final int DELAI_ATTENTE = 50;
+    private Melodie melodie;
+    private MediaPlayer audioMelodie;
 
     private static final String LOG_TAG = "PianoTest";
-    private ImageButton start;
-    private final Note[] notesBellaCiao = {
-            new Note(Clavier.MI_GAMME_2, (float) 0.5),
-            new Note(Clavier.LA_GAMME_2, (float) 0.5),
-            new Note(Clavier.SI_GAMME_2, (float) 0.5),
-            new Note(Clavier.DO_GAMME_2, (float) 0.5),
-            new Note(Clavier.LA_GAMME_2, 2),
-            new Note(Clavier.MI_GAMME_2, (float) 0.5),
-            new Note(Clavier.LA_GAMME_2, (float) 0.5),
-            new Note(Clavier.SI_GAMME_2, (float) 0.5),
-            new Note(Clavier.DO_GAMME_2, (float) 0.5),
-            new Note(Clavier.LA_GAMME_2, 2),
-            new Note(Clavier.MI_GAMME_2, (float) 0.5),
-            new Note(Clavier.LA_GAMME_2, (float) 0.5),
-            new Note(Clavier.SI_GAMME_2, (float) 0.5),
-            new Note(Clavier.DO_GAMME_2, 1),
-            new Note(Clavier.SI_GAMME_2, (float) 0.5),
-            new Note(Clavier.LA_GAMME_2, (float) 0.5),
-            new Note(Clavier.DO_GAMME_2, 1),
-            new Note(Clavier.SI_GAMME_2, (float) 0.5),
-            new Note(Clavier.LA_GAMME_2, (float) 0.5),
-            new Note(Clavier.MI_GAMME_2, 1),
-            new Note(Clavier.MI_GAMME_2, 1),
-            new Note(Clavier.MI_GAMME_2, 1),
-            new Note(Clavier.RE_GAMME_2, (float) 0.5),
-            new Note(Clavier.MI_GAMME_2, (float) 0.5),
-            new Note(Clavier.FA_GAMME_2, (float) 0.5),
-            new Note(Clavier.FA_GAMME_2, 2),
-            new Note(Clavier.FA_GAMME_2, (float) 0.5),
-            new Note(Clavier.MI_GAMME_2, (float) 0.5),
-            new Note(Clavier.RE_GAMME_2, (float) 0.5),
-            new Note(Clavier.FA_GAMME_2, (float) 0.5),
-            new Note(Clavier.MI_GAMME_2, 2),
-            new Note(Clavier.MI_GAMME_2, (float) 0.5),
-            new Note(Clavier.RE_GAMME_2, (float) 0.5),
-            new Note(Clavier.DO_GAMME_2, (float) 0.5),
-            new Note(Clavier.SI_GAMME_2, 1),
-            new Note(Clavier.MI_GAMME_2, 1),
-            new Note(Clavier.DO_GAMME_2, 1),
-            new Note(Clavier.SI_GAMME_2, 1),
-            new Note(Clavier.LA_GAMME_2, 2)
-    };
+    private ImageButton btnLancerMelodie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apprentissage_piano);
-        this.start = findViewById(R.id.start);
-        this.start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                new ApprentissagePiano.JouerMelodie();
-            }
-        });
 
+        this.melodie = Melodie.BELLA_CIAO;
+        this.btnLancerMelodie = findViewById(R.id.lancerMelodie);
+        this.audioMelodie = MediaPlayer.create(getApplicationContext(), melodie.getAudioMelodie());
+    }
+
+    public void lancerMelodie(View view) {
+        new JouerMelodie(melodie);
     }
 
     private class JouerMelodie extends Thread
     {
 
-        public JouerMelodie()
+        private Melodie melodie;
+
+        public JouerMelodie(Melodie melodie)
         {
+            this.melodie = melodie;
             start();
         }
 
         public void run()
         {
-            /* Désactive le bouton au lancement de la mélodie pour éviter
-            de lancer plusieurs fois la mélodie en même temps */
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    start.setEnabled(false);
-                }
-            });
+            desactiverBtnPlay();
 
-            /* Délai d'attente à prévoir si l'on joue 2 fois d'affilée la même touche.
-            Ici, il ne nous sert pas encore car nous avons pour l'instant qu'une seule chanson (Bella Ciao)
-            où aucune touche ne se répète, mais cela sera utile si l'on décide d''ajouter des chansons. */
-            int attente;
-            for(int i = 0; i < notesBellaCiao.length; i++)
+            NoteMelodie noteCourante;
+            for(int i = 0; i < melodie.getNotesMelodies().length; i++)
             {
-                runOnUiThread(new ApprentissagePiano.ActiverTouche(notesBellaCiao[i].getTouche().getIdImage()));
+                noteCourante = melodie.getNotesMelodies()[i];
 
-                attente = 0;
+                jouerNote(noteCourante);
 
-                // Pour ne pas comparer à la touche suivante si l'on est déjà sur la dernière
-                if(i < notesBellaCiao.length - 1)
-                {
-                    if(notesBellaCiao[i].getTouche() == notesBellaCiao[i+1].getTouche())
-                    {
-                        attente = DELAI_ATTENTE;
-                    }
-                }
-
-                // Temps pendant lequel la touche reste activée
-                try
-                {
-                    Thread.sleep( (long)(notesBellaCiao[i].getDuree() * 1000 - attente) );
-                }
-                catch(InterruptedException ie)
-                {
-                    Log.e(LOG_TAG, "Échec du Thread.sleep()");
-                }
-
-                runOnUiThread(new ApprentissagePiano.DesactiverTouche(notesBellaCiao[i].getTouche().getIdImage(),
-                        notesBellaCiao[i].getTouche().estNoire()));
-
-                // Temps pendant lequel la touche reste désactivée
-                try
-                {
-                    Thread.sleep(attente);
-                }
-                catch(InterruptedException ie)
-                {
-                    Log.e(LOG_TAG, "Échec du Thread.sleep(attente)");
-                }
+                attendreDelaiEntreDeuxNotesIdentiques(i, noteCourante);
             }
 
-            Log.e(LOG_TAG, "Fin de la mélodie");
+            activerBtnPlay();
+        }
 
-            // Réactivation du bouton
+        public void jouerNote(NoteMelodie noteCourante){
+            runOnUiThread(new ApprentissagePiano.ActiverTouche(noteCourante));
+
+            attendre(noteCourante.getDureeActiveEnMillisecondes());
+
+            runOnUiThread(new ApprentissagePiano.DesactiverTouche(noteCourante));
+        }
+
+        public void attendre(float duree){
+            try{
+                Thread.sleep((long) duree);
+            }catch(InterruptedException ie){}
+        }
+
+        public void attendreDelaiEntreDeuxNotesIdentiques(int i, NoteMelodie noteCourante){
+            int indiceDerniereNoteDeLaMelodie = melodie.getNotesMelodies().length - 1;
+            if(i < indiceDerniereNoteDeLaMelodie){
+                Touche toucheSuivante = melodie.getNotesMelodies()[i+1].getTouche();
+                if(noteCourante.getTouche() == toucheSuivante){
+                    attendre(50);
+                }
+            }
+        }
+
+        public void desactiverBtnPlay(){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    start.setEnabled(true);
+                    btnLancerMelodie.setEnabled(false);
                 }
             });
         }
 
+        public void activerBtnPlay(){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    btnLancerMelodie.setEnabled(true);
+                }
+            });
+        }
     }
 
     private class ActiverTouche implements Runnable
     {
-        private int idImage;
+        private NoteMelodie note;
 
-        public ActiverTouche(int idImage)
+        public ActiverTouche(NoteMelodie note)
         {
-            this.idImage = idImage;
+            this.note = note;
         }
 
         public void run()
         {
-            ImageView touche = findViewById(this.idImage);
-            touche.setImageResource(R.drawable.touche_piano_allumee);
-            Log.e(LOG_TAG, "Activation d'une touche");
+            ImageView touche = findViewById(note.getTouche().getIdImage());
+            note.allumerTouche(touche);
         }
     }
 
     private class DesactiverTouche implements Runnable
     {
-        private int idImage;
-        private boolean estNoire;
+        private NoteMelodie note;
 
-        public DesactiverTouche(int idImage, boolean estNoire)
+        public DesactiverTouche(NoteMelodie note)
         {
-            this.idImage = idImage;
-            this.estNoire = estNoire;
+            this.note = note;
         }
 
         public void run()
         {
-            ImageView touche = findViewById(this.idImage);
-            touche.setImageResource(
-                    this.estNoire ? R.drawable.touche_noire : R.drawable.touche_piano );
-            Log.e(LOG_TAG, "Desactivation d'une touche");
+            ImageView touche = findViewById(note.getTouche().getIdImage());
+            note.eteindreTouche(touche);
         }
     }
-
 }

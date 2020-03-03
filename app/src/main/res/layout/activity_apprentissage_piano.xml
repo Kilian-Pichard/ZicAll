@@ -41,7 +41,8 @@
             android:layout_marginTop="20sp">
 
             <ImageButton
-                android:id="@+id/start"
+                android:id="@+id/lancerMelodie"
+                android:onClick="lancerMelodie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -69,98 +70,98 @@
                 android:id="@+id/doGamme1"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/reGamme1"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/doGamme1"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/miGamme1"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/reGamme1"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/faGamme1"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/miGamme1"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/solGamme1"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/faGamme1"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/laGamme1"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/solGamme1"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/siGamme1"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/laGamme1"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/doGamme2"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/siGamme1"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/reGamme2"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/doGamme2"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/miGamme2"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/reGamme2"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/faGamme2"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/miGamme2"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/solGamme2"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/faGamme2"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/laGamme2"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/solGamme2"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <ImageView
                 android:id="@+id/siGamme2"
                 android:layout_width="18dp"
                 android:layout_height="150dp"
                 android:layout_toRightOf="@id/laGamme2"
-                app:srcCompat="@drawable/touche_piano" />
+                app:srcCompat="@drawable/touche_blanche" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"

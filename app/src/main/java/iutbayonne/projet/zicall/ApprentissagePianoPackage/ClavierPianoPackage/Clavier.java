@@ -1,12 +1,11 @@
-package iutbayonne.projet.zicall.ApprentissagePianoPackage;
+package iutbayonne.projet.zicall.ApprentissagePianoPackage.ClavierPianoPackage;
 
 import iutbayonne.projet.zicall.R;
 
 public class Clavier
 {
-    // Touches de la gamme 1
-    public static final Touche DO_GAMME_1 = new Touche("doGamme1", R.id.doGamme1, false);
-    public static final Touche DO_D_GAMME_1 = new Touche("doDGamme1", R.id.doDGamme1, true);
+    public static final Touche DO_GAMME_1 = new Touche("doGamme1",R.id.doGamme1, false);
+    public static final Touche DO_D_GAMME_1  = new Touche("doDGamme1", R.id.doDGamme1, true);
     public static final Touche RE_GAMME_1 = new Touche("reGamme1", R.id.reGamme1, false);
     public static final Touche RE_D_GAMME_1 = new Touche("reDGamme1", R.id.reDGamme1, true);
     public static final Touche MI_GAMME_1 = new Touche("miGamme1", R.id.miGamme1, false);
@@ -17,8 +16,6 @@ public class Clavier
     public static final Touche LA_GAMME_1 = new Touche("laGamme1", R.id.laGamme1, false);
     public static final Touche LA_D_GAMME_1 = new Touche("laDGamme1", R.id.laDGamme1, true);
     public static final Touche SI_GAMME_1 = new Touche("siGamme1", R.id.siGamme1, false);
-
-    // Touches de la gamme 2
     public static final Touche DO_GAMME_2 = new Touche("doGamme2", R.id.doGamme2, false);
     public static final Touche DO_D_GAMME_2 = new Touche("doDGamme2", R.id.doDGamme2, true);
     public static final Touche RE_GAMME_2 = new Touche("reGamme2", R.id.reGamme2, false);
