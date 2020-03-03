@@ -6,50 +6,50 @@ import android.media.MediaPlayer;
 import iutbayonne.projet.zicall.R;
 
 public enum Melodie{
-    BELLA_CIAO("Bella ciao", "Chant des partisans italiens \n interprété par Samuel et Thomas Nadal", R.raw.bella_ciao, EnsembleNotesMelodies.NOTES_BELLA_CIAO);
+    BELLA_CIAO("Bella ciao", "Chant des partisans italiens \n interprété par Samuel et Thomas Nadal", R.raw.bella_ciao, EnsembleNotesMelodies.NOTES_BELLA_CIAO, 0.6, 6);
 
     private String titreMelodie;
     private String informationsSupplementaires;
     private int audioMelodie;
     private EnsembleNotesMelodies notesMelodies;
+    private double multiplicateurDureeNotesReelle;
+    private double attenteDebutChant;
 
-    Melodie(String titreMelodie, String informationsSupplementaires, int audioMelodie, EnsembleNotesMelodies notesMelodies) {
+    Melodie(String titreMelodie, String informationsSupplementaires, int audioMelodie, EnsembleNotesMelodies notesMelodies, double multiplicateurDureeNotesReelle, double attenteDebutChant) {
         this.titreMelodie = titreMelodie;
         this.informationsSupplementaires = informationsSupplementaires;
         this.audioMelodie = audioMelodie;
         this.notesMelodies = notesMelodies;
+        this.multiplicateurDureeNotesReelle = multiplicateurDureeNotesReelle;
+        this.attenteDebutChant = attenteDebutChant;
     }
 
     public String getTitreMelodie() {
         return titreMelodie;
     }
 
-    public void setTitreMelodie(String titreMelodie) {
-        this.titreMelodie = titreMelodie;
-    }
-
     public String getInformationsSupplementaires() {
         return informationsSupplementaires;
-    }
-
-    public void setInformationsSupplementaires(String informationsSupplementaires) {
-        this.informationsSupplementaires = informationsSupplementaires;
     }
 
     public int getAudioMelodie() {
         return audioMelodie;
     }
 
-    public void setAudioMelodie(int audioMelodie) {
-        this.audioMelodie = audioMelodie;
-    }
-
     public NoteMelodie[] getNotesMelodies() {
         return notesMelodies.getEnsembleNotesMelodie();
     }
 
-    public void setNotesMelodies(EnsembleNotesMelodies notesMelodies) {
-        this.notesMelodies = notesMelodies;
+    public double getMultiplicateurDureeNotesReelle() {
+        return multiplicateurDureeNotesReelle;
+    }
+
+    public double getAttenteDebutChant() {
+        return attenteDebutChant;
+    }
+
+    public long getDurreNoteReelle(NoteMelodie note){
+        return (long)(note.getDureeActiveEnMillisecondes()*getMultiplicateurDureeNotesReelle());
     }
 
     public void jouerAudioMelodie(Melodie melodie, Context context){

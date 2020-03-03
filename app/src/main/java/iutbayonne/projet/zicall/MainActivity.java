@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Choix_melodie_entrainement_piano;
+
 public class MainActivity extends AppCompatActivity
 {
 
@@ -16,12 +18,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-    }
-
-    public void accederApprentissagePiano(View view) {
-        Intent otherActivity;
-        otherActivity = new Intent(getApplicationContext(), ApprentissagePiano.class);
-        startActivity(otherActivity);
     }
 
     public void accederApprentissageGuitare(View view) {
@@ -39,6 +35,12 @@ public class MainActivity extends AppCompatActivity
     public void accederEcriturePartition(View view) {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), EcriturePartition.class);
+        startActivity(otherActivity);
+    }
+
+    public void accederChoixMelodieEntrainementPiano(View view) {
+        Intent otherActivity;
+        otherActivity = new Intent(getApplicationContext(), Choix_melodie_entrainement_piano.class);
         startActivity(otherActivity);
     }
 }
