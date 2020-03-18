@@ -7,10 +7,12 @@ import iutbayonne.projet.zicall.R;
 
 public class NoteMelodie{
     private float duree;
+    private int audioPianoNote;
     private Touche touche;
 
-    public NoteMelodie(float duree, Touche touche) {
+    public NoteMelodie(float duree, int audioPianoNote, Touche touche) {
         this.duree = duree;
+        this.audioPianoNote = audioPianoNote;
         this.touche = touche;
     }
 
@@ -32,6 +34,14 @@ public class NoteMelodie{
 
     public void setTouche(Touche touche) {
         this.touche = touche;
+    }
+
+    public int getAudioPianoNote() {
+        return audioPianoNote;
+    }
+
+    public void setAudioPianoNote(int audioPianoNote) {
+        this.audioPianoNote = audioPianoNote;
     }
 
     public void allumerTouche(ImageView image){

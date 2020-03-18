@@ -3,7 +3,9 @@ package iutbayonne.projet.zicall;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,12 +21,12 @@ import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.NoteMel
 public class ApprentissagePiano extends AppCompatActivity {
 
     private Melodie melodie;
-    private MediaPlayer audioMelodie;
     private ImageButton btnLancerMelodie;
     private ImageButton btnArreterMelodie;
     private JouerMelodie joueurDeMelodie;
     private TextView titreMelodie;
     private TextView informatonsMelodie;
+    private static MediaPlayer audioTouche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +41,30 @@ public class ApprentissagePiano extends AppCompatActivity {
         this.titreMelodie.setText(melodie.getTitreMelodie());
         this.informatonsMelodie = findViewById(R.id.informationsMelodie);
         this.informatonsMelodie.setText(melodie.getInformationsSupplementaires());
+
     }
 
     public void lancerMelodie(View view) {
         joueurDeMelodie = new JouerMelodie(melodie);
-        audioMelodie = MediaPlayer.create(getApplicationContext(), this.melodie.getAudioMelodie());
-        joueurDeMelodie.lancerAudioMelodie();
     }
 
     public void arreterMelodie(View view) {
         joueurDeMelodie.setDoitMourrir(true);
-        joueurDeMelodie.arreterAudioMelodie();
     }
 
     private class JouerMelodie extends Thread
     {
         private Melodie melodie;
         private boolean doitMourrir;
+        private ActiverTouche activeurTouche;
+        private DesactiverTouche desactiveurTouche;
 
         public JouerMelodie(Melodie melodie)
         {
             this.melodie = melodie;
             this.doitMourrir = false;
+            this.activeurTouche = new ActiverTouche(null, null);
+            this.desactiveurTouche = new DesactiverTouche(null, null);
             start();
         }
 
@@ -72,14 +76,6 @@ public class ApprentissagePiano extends AppCompatActivity {
             jouerToutesLesNotes();
             activerBouton(btnLancerMelodie);
             desactiverBouton(btnArreterMelodie);
-        }
-
-        public void lancerAudioMelodie(){
-            audioMelodie.start();
-        }
-
-        public void arreterAudioMelodie(){
-            audioMelodie.stop();
         }
 
         public void jouerToutesLesNotes(){
@@ -98,11 +94,15 @@ public class ApprentissagePiano extends AppCompatActivity {
         }
 
         public void jouerNote(NoteMelodie noteCourante){
-            runOnUiThread(new ApprentissagePiano.ActiverTouche(noteCourante));
+            this.activeurTouche.setNote(noteCourante);
+            this.activeurTouche.setAudioTouche(audioTouche);
+            runOnUiThread(activeurTouche);
 
             attendre(melodie.getDurreNoteReelle(noteCourante));
 
-            runOnUiThread(new ApprentissagePiano.DesactiverTouche(noteCourante));
+            this.desactiveurTouche.setNote(noteCourante);
+            this.desactiveurTouche.setAudioTouche(activeurTouche.audioTouche);
+            runOnUiThread(desactiveurTouche);
         }
 
         public void attendre(float duree){
@@ -157,32 +157,55 @@ public class ApprentissagePiano extends AppCompatActivity {
     private class ActiverTouche implements Runnable
     {
         private NoteMelodie note;
+        private MediaPlayer audioTouche;
 
-        public ActiverTouche(NoteMelodie note)
+        public ActiverTouche(NoteMelodie note, MediaPlayer audioTouche)
         {
             this.note = note;
+            this.audioTouche = audioTouche;
         }
 
         public void run()
         {
             ImageView touche = findViewById(note.getTouche().getIdImage());
             note.allumerTouche(touche);
+            audioTouche = MediaPlayer.create(getApplicationContext(), this.note.getAudioPianoNote());
+            audioTouche.start();
+        }
+
+        public void setNote(NoteMelodie note) {
+            this.note = note;
+        }
+
+        public void setAudioTouche(MediaPlayer audioTouche) {
+            this.audioTouche = audioTouche;
         }
     }
 
     private class DesactiverTouche implements Runnable
     {
         private NoteMelodie note;
+        private MediaPlayer audioTouche;
 
-        public DesactiverTouche(NoteMelodie note)
+        public DesactiverTouche(NoteMelodie note, MediaPlayer audioTouche)
         {
             this.note = note;
+            this.audioTouche = audioTouche;
         }
 
         public void run()
         {
             ImageView touche = findViewById(note.getTouche().getIdImage());
             note.eteindreTouche(touche);
+            audioTouche.stop();
+        }
+
+        public void setNote(NoteMelodie note) {
+            this.note = note;
+        }
+
+        public void setAudioTouche(MediaPlayer audioTouche) {
+            this.audioTouche = audioTouche;
         }
     }
 

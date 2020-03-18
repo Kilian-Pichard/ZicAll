@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 import iutbayonne.projet.zicall.R;
 
 public enum Melodie{
-    BELLA_CIAO("Bella ciao", "Chant des partisans italiens \n interprété par Samuel et Thomas Nadal", R.raw.bella_ciao, EnsembleNotesMelodies.NOTES_BELLA_CIAO, 0.6, 6);
+    BELLA_CIAO("Bella ciao", "Chant des partisans italiens \n interprété par Samuel et Thomas Nadal", R.raw.bella_ciao, EnsembleNotesMelodies.NOTES_BELLA_CIAO, 0.6, 1);
 
     private String titreMelodie;
     private String informationsSupplementaires;
@@ -50,10 +50,5 @@ public enum Melodie{
 
     public long getDurreNoteReelle(NoteMelodie note){
         return (long)(note.getDureeActiveEnMillisecondes()*getMultiplicateurDureeNotesReelle());
-    }
-
-    public void jouerAudioMelodie(Melodie melodie, Context context){
-        MediaPlayer audioMelodie = MediaPlayer.create(context, melodie.getAudioMelodie());
-        audioMelodie.start();
     }
 }
