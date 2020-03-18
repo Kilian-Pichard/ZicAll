@@ -169,7 +169,7 @@ public class ApprentissagePiano extends AppCompatActivity {
         {
             ImageView touche = findViewById(note.getTouche().getIdImage());
             note.allumerTouche(touche);
-            audioTouche = MediaPlayer.create(getApplicationContext(), this.note.getAudioPianoNote());
+            audioTouche = MediaPlayer.create(getApplicationContext(), note.getAudioPianoNote());
             audioTouche.start();
         }
 
