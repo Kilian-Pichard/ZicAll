@@ -25,7 +25,7 @@ public class ApprentissagePiano extends AppCompatActivity {
     private ImageButton btnArreterMelodie;
     private JouerMelodie joueurDeMelodie;
     private TextView titreMelodie;
-    private TextView informatonsMelodie;
+    private TextView informationsMelodie;
     private static MediaPlayer audioTouche;
 
     @Override
@@ -39,8 +39,8 @@ public class ApprentissagePiano extends AppCompatActivity {
         this.btnArreterMelodie.setEnabled(false);
         this.titreMelodie = findViewById(R.id.titreMelodie);
         this.titreMelodie.setText(melodie.getTitreMelodie());
-        this.informatonsMelodie = findViewById(R.id.informationsMelodie);
-        this.informatonsMelodie.setText(melodie.getInformationsSupplementaires());
+        this.informationsMelodie = findViewById(R.id.informationsMelodie);
+        this.informationsMelodie.setText(melodie.getInformationsSupplementaires());
 
     }
 
