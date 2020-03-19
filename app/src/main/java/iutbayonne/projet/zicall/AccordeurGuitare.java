@@ -121,7 +121,7 @@ public class AccordeurGuitare extends AppCompatActivity {
 
                     try
                     {
-                        Thread.sleep((long) 500);
+                        Thread.sleep((long) 300);
                     }
                     catch(InterruptedException ie){}
                 }
