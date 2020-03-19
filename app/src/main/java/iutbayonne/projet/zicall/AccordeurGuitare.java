@@ -1,195 +1,140 @@
 package iutbayonne.projet.zicall;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-import android.content.res.ColorStateList;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
+import be.tarsos.dsp.AudioDispatcher;
+import be.tarsos.dsp.AudioEvent;
+import be.tarsos.dsp.AudioProcessor;
+import be.tarsos.dsp.io.android.AudioDispatcherFactory;
+import be.tarsos.dsp.pitch.PitchDetectionHandler;
+import be.tarsos.dsp.pitch.PitchDetectionResult;
+import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class AccordeurGuitare extends AppCompatActivity {
 
-    private TextView frequenceReference;
     private TextView frequenceMesuree;
-    private Button mi;
-    private Button la;
-    private Button re;
-    private Button sol;
-    private Button si;
-    private Button mi2;
-    private Button testOk;
-    private Button testPasOk;
 
-    private String cordeCourante;
+    private Thread audioThread;
+    private AudioDispatcher dispatcher;
 
-    private String frequenceTest;
-    private String frequenceTest2;
+    // Tag qui sera utilisé pour afficher des messages dans la console pour le débogage
+    private static final String LOG_TAG = "AudioRecordTest";
+
+    // Code arbitraire qui sera utilisé lors de la demande de droits et de la réception de la réponse
+    private static final int REQUETE_PERMISSION_ENRERISTRER_AUDIO = 1;
+
+    private boolean permissionDEnregistrerAccordee = false;
+
+    // Permissions à demander. Ici, seulement la permission pour enregistrer le son provenant du micro.
+    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+
+    /* Méthode qui s'exécute lorsque l'on reçoit les résultats de toutes les demandes
+    de permission de l'application. Ici, nous ne nous soucions que de la permission pour
+    enregistrer le son provenant du micro. Sans cette permission accordée, l'application se ferme. */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch(requestCode)
+        {
+            case REQUETE_PERMISSION_ENRERISTRER_AUDIO:
+                permissionDEnregistrerAccordee  = (grantResults[0] == PackageManager.PERMISSION_GRANTED);
+                break;
+
+            // On devrait rajouter des case si on avait d'autres permissions à demander
+        }
+
+        if (!permissionDEnregistrerAccordee)
+        {
+            // Envoi d'un message d'erreur dans la console puis fermeture de l'appli
+            Log.e(LOG_TAG, "Permission d'enregistrer non approuvée");
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accordeur_guitare);
 
+        // Demande la permission d'enregistrer du son
+        ActivityCompat.requestPermissions(this, permissions, REQUETE_PERMISSION_ENRERISTRER_AUDIO);
 
-        this.frequenceReference = findViewById(R.id.frequenceReference);
         this.frequenceMesuree = findViewById(R.id.frequenceMesure);
-
-        this.mi = findViewById(R.id.mi);
-        this.la = findViewById(R.id.la);
-        this.re = findViewById(R.id.re);
-        this.sol = findViewById(R.id.sol);
-        this.si = findViewById(R.id.si);
-        this.mi2 = findViewById(R.id.mi2);
-
-        this.testOk = findViewById(R.id.testOk);
-        this.testPasOk = findViewById(R.id.testPasOk);
-
-        this.cordeCourante = "mi";
-        this.frequenceTest2 = "268,7";
-        this.frequenceTest = "";
-        selectionnerCorde(mi);
-        mi.setEnabled(false);
-
-
-        mi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mi.setEnabled(false);
-                la.setEnabled(true);
-                re.setEnabled(true);
-                sol.setEnabled(true);
-                si.setEnabled(true);
-                mi2.setEnabled(true);
-                frequenceMesuree.setText("");
-                frequenceReference.setText("82.4");
-
-                cordeCourante = "mi";
-                selectionnerCorde(mi);
-            }
-        });
-
-        la.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mi.setEnabled(true);
-                la.setEnabled(false);
-                re.setEnabled(true);
-                sol.setEnabled(true);
-                si.setEnabled(true);
-                mi2.setEnabled(true);
-                frequenceMesuree.setText("");
-                frequenceReference.setText("110.0");
-
-                cordeCourante = "la";
-                selectionnerCorde(la);
-            }
-        });
-
-        re.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mi.setEnabled(true);
-                la.setEnabled(true);
-                re.setEnabled(false);
-                sol.setEnabled(true);
-                si.setEnabled(true);
-                mi2.setEnabled(true);
-                frequenceMesuree.setText("");
-                frequenceReference.setText("146.8");
-
-                cordeCourante = "re";
-                selectionnerCorde(re);
-            }
-        });
-
-        sol.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mi.setEnabled(true);
-                la.setEnabled(true);
-                re.setEnabled(true);
-                sol.setEnabled(false);
-                si.setEnabled(true);
-                mi2.setEnabled(true);
-                frequenceMesuree.setText("");
-                frequenceReference.setText("196");
-
-                cordeCourante = "sol";
-                selectionnerCorde(sol);
-            }
-        });
-
-        si.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mi.setEnabled(true);
-                la.setEnabled(true);
-                re.setEnabled(true);
-                sol.setEnabled(true);
-                si.setEnabled(false);
-                mi2.setEnabled(true);
-                frequenceMesuree.setText("");
-                frequenceReference.setText("246.9");
-
-                cordeCourante = "si";
-                selectionnerCorde(si);
-            }
-        });
-
-        mi2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mi.setEnabled(true);
-                la.setEnabled(true);
-                re.setEnabled(true);
-                sol.setEnabled(true);
-                si.setEnabled(true);
-                mi2.setEnabled(false);
-
-                frequenceMesuree.setText("");
-
-                frequenceReference.setText("329.6");
-
-                cordeCourante = "mi2";
-                selectionnerCorde(mi2);
-            }
-        });
+        new JouerMelodie();
     }
 
-    public void selectionnerCorde(View view) {
-        switch (cordeCourante){
-            case "mi":
-                frequenceTest = "82.4";
-                break;
-            case "la":
-                frequenceTest = "110.0";
-                break;
-            case "re":
-                frequenceTest = "146.8";
-                break;
-            case "sol":
-                frequenceTest = "196";
-                break;
-            case "si":
-                frequenceTest = "246.9";
-                break;
-            case "mi2":
-                frequenceTest = "329.6";
-                break;
+
+    // Détermine ce que l'on affiche en fonction de la fréquence détectée
+    public void traiterFrequence(float frequenceDetectee)
+    {
+        if(frequenceDetectee == -1)
+        {
+            frequenceMesuree.setText("Aucun son audible");
         }
-        //Toast.makeText(getApplicationContext(), String.valueOf(cordeCourante), Toast.LENGTH_SHORT).show();
+        else
+        {
+            frequenceMesuree.setText(frequenceDetectee + " Hz");
+        }
     }
 
+    private class JouerMelodie extends Thread
+    {
+        public JouerMelodie()
+        {
+            start();
+        }
 
-    public void testOk(View view) {
-        frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
-        frequenceMesuree.setText(frequenceTest);
-    }
+        public void run()
+        {
+            // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
+            dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
-    public void testPasOk(View view) {
-        frequenceMesuree.setTextColor(getResources().getColor(R.color.rouge));
-        frequenceMesuree.setText(frequenceTest2);
+            // Création d'un gestionnaire de détection de fréquence
+            PitchDetectionHandler pdh = new PitchDetectionHandler() {
+                @Override
+                public void handlePitch(PitchDetectionResult res, AudioEvent e){
+
+                    /* Récupère le fréquence fondamentale du son capté par le micro en Hz.
+                       Renvoie -1 si aucun son n'est capté. */
+                    final float frequenceDetectee = res.getPitch();
+
+                    /* Le traitement de la fréquence se fait dans la méthode runOnUiThread car notre traitement
+                    implique des changements dans l'interface (affichage de la fréquence par exemple)
+                    qui ne sont faisable qu'en accédant au thread de l'interface utilisateur (UiThread)*/
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new JouerMelodie();
+                            traiterFrequence(frequenceDetectee);
+                        }
+                    });
+
+                    try
+                    {
+                        Thread.sleep((long) 500);
+                    }
+                    catch(InterruptedException ie){}
+                }
+            };
+
+            /* Ajout du gestionnaire de détection au dispatcher.
+            La détection se fera en suivant l'agorithme de Yin */
+            AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
+            dispatcher.addAudioProcessor(pitchProcessor);
+
+            // On lance le dispatcher dans un thread à part
+            audioThread = new Thread(dispatcher, "Audio Thread");
+            audioThread.start();
+        }
     }
 }
