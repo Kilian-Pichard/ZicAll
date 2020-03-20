@@ -24,49 +24,10 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Thread audioThread;
     private AudioDispatcher dispatcher;
 
-    // Tag qui sera utilisé pour afficher des messages dans la console pour le débogage
-    private static final String LOG_TAG = "AudioRecordTest";
-
-    // Code arbitraire qui sera utilisé lors de la demande de droits et de la réception de la réponse
-    private static final int REQUETE_PERMISSION_ENRERISTRER_AUDIO = 1;
-
-    private boolean permissionDEnregistrerAccordee = false;
-
-    // Permissions à demander. Ici, seulement la permission pour enregistrer le son provenant du micro.
-    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
-
-    /* Méthode qui s'exécute lorsque l'on reçoit les résultats de toutes les demandes
-    de permission de l'application. Ici, nous ne nous soucions que de la permission pour
-    enregistrer le son provenant du micro. Sans cette permission accordée, l'application se ferme. */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch(requestCode)
-        {
-            case REQUETE_PERMISSION_ENRERISTRER_AUDIO:
-                permissionDEnregistrerAccordee  = (grantResults[0] == PackageManager.PERMISSION_GRANTED);
-                break;
-
-            // On devrait rajouter des case si on avait d'autres permissions à demander
-        }
-
-        if (!permissionDEnregistrerAccordee)
-        {
-            // Envoi d'un message d'erreur dans la console puis fermeture de l'appli
-            Log.e(LOG_TAG, "Permission d'enregistrer non approuvée");
-            finish();
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accordeur_guitare);
-
-        // Demande la permission d'enregistrer du son
-        ActivityCompat.requestPermissions(this, permissions, REQUETE_PERMISSION_ENRERISTRER_AUDIO);
 
         this.frequenceMesuree = findViewById(R.id.frequenceMesure);
         new JouerMelodie();
