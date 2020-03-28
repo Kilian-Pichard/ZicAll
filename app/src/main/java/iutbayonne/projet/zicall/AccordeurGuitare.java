@@ -16,6 +16,8 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class AccordeurGuitare extends AppCompatActivity {
 
+    private float frequenceDetectee;
+
     private TextView frequenceMesuree;
     private TextView frequenceReference;
     private TextView indication;
@@ -59,7 +61,7 @@ public class AccordeurGuitare extends AppCompatActivity {
         lesFrequences.put("si", 246.9);
         lesFrequences.put("mi2", 329.6);
 
-        new RecupFrequence();
+
 
         mi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,17 +152,9 @@ public class AccordeurGuitare extends AppCompatActivity {
                 frequenceReference.setText("" + lesFrequences.get(cordeCourante));
             }
         });
-    }
 
-    private class RecupFrequence extends Thread
-    {
-        public RecupFrequence()
-        {
-            start();
-        }
 
-        public void run()
-        {
+        //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
             // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
             dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
@@ -169,42 +163,53 @@ public class AccordeurGuitare extends AppCompatActivity {
                 @Override
                 public void handlePitch(PitchDetectionResult res, AudioEvent e){
 
-                    /* Récupère le fréquence fondamentale du son capté par le micro en Hz.
-                       Renvoie -1 si aucun son n'est capté. */
-                    float frequenceDetectee = res.getPitch();
-
-                    /* Le traitement de la fréquence se fait dans la méthode runOnUiThread car notre traitement
-                    implique des changements dans l'interface (affichage de la fréquence par exemple)
-                    qui ne sont faisable qu'en accédant au thread de l'interface utilisateur (UiThread)*/
-
-                    runOnUiThread(new Indication(frequenceDetectee));
-
-                    try
-                    {
-                        Thread.sleep((long) 200);
-                    }
-                    catch(InterruptedException ie){}
+                        /* Récupère le fréquence fondamentale du son capté par le micro en Hz.
+                           Renvoie -1 si aucun son n'est capté. */
+                    frequenceDetectee = res.getPitch();
                 }
             };
 
-            /* Ajout du gestionnaire de détection au dispatcher.
-            La détection se fera en suivant l'agorithme de Yin */
+                /* Ajout du gestionnaire de détection au dispatcher.
+                La détection se fera en suivant l'agorithme de Yin */
             AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
             dispatcher.addAudioProcessor(pitchProcessor);
 
-            // On lance le dispatcher dans un thread à part
+         //CREATION ET LANCEMENT THREAD RECUPERATION FREQUENCE
             audioThread = new Thread(dispatcher, "Audio Thread");
             audioThread.start();
+
+
+
+        //LANCEMENT THREAD DE L'AFFICHAGE
+            new AffichageFrequence();
+
+    }
+
+    private class AffichageFrequence extends Thread
+    {
+        public AffichageFrequence()
+        {
+            start();
+        }
+
+        public void run()
+        {
+            while(true) {
+                runOnUiThread(new Indication());
+
+                try {
+                    Thread.sleep((long) 500);
+                } catch (InterruptedException ie) {
+                }
+            }
         }
     }
 
     private class Indication implements Runnable
     {
-        private float frequenceDetectee;
 
-        public Indication(float frequenceDetectee)
+        public Indication()
         {
-            this.frequenceDetectee = frequenceDetectee;
         }
 
         public void run()
@@ -212,7 +217,6 @@ public class AccordeurGuitare extends AppCompatActivity {
             if(frequenceDetectee == -1)
             {
                 indication.setText("En attente");
-                frequenceMesuree.setText("");
             }
             else
             {
@@ -220,15 +224,15 @@ public class AccordeurGuitare extends AppCompatActivity {
 
                 if(frequenceDetectee < (lesFrequences.get(cordeCourante) - 0.5))
                 {
-                    indication.setText("plus haut");
+                    indication.setText("Tendre la corde");
                 }
                 if(frequenceDetectee > (lesFrequences.get(cordeCourante) + 0.5))
                 {
-                    indication.setText("plus bas");
+                    indication.setText("Détendre la corde");
                 }
                 if(frequenceDetectee >= (lesFrequences.get(cordeCourante) -  0.5) && frequenceDetectee <= (lesFrequences.get(cordeCourante) + 0.5))
                 {
-                    indication.setText("c'est bien");
+                    indication.setText("C'est accordé");
                 }
             }
         }
