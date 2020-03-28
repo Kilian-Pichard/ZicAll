@@ -6,19 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".AccordeurGuitare">
 
+
+
+    <TextView
+        android:id="@+id/indication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="En attente"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="281dp"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/frequenceReference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="82.4"
         android:textColor="@android:color/black"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.087" />
 
     <TextView
         android:id="@+id/frequenceMesure"
@@ -34,14 +47,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.298" />
-
-    <TextView
-        android:id="@+id/indication"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="En attente"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="281dp" />
 
     <Button
         android:id="@+id/mi"
@@ -132,6 +137,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.913" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

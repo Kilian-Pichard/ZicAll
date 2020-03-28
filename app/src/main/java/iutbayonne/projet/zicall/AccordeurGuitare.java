@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import java.util.HashMap;
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
@@ -13,6 +12,7 @@ import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
+import iutbayonne.projet.zicall.AccordeurGuitarePackage.Corde;
 
 public class AccordeurGuitare extends AppCompatActivity {
 
@@ -25,7 +25,14 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Thread audioThread;
     private AudioDispatcher dispatcher;
 
-    HashMap<String, Double> lesFrequences;
+    private Corde cordeMi;
+    private Corde cordeLa;
+    private Corde cordeRe;
+    private Corde cordeSol;
+    private Corde cordeSi;
+    private Corde cordeMiAigu;
+
+    private Corde cordeSelectionne;
 
     private Button mi;
     private Button la;
@@ -33,8 +40,6 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Button sol;
     private Button si;
     private Button mi2;
-
-    private String cordeCourante = "mi";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,107 +57,100 @@ public class AccordeurGuitare extends AppCompatActivity {
         this.frequenceReference = findViewById(R.id.frequenceReference);
         this.indication = findViewById(R.id.indication);
 
-        lesFrequences = new HashMap<String, Double>();
+        this.cordeMi = Corde.MI;
+        this.cordeLa = Corde.LA;
+        this.cordeRe = Corde.RE;
+        this.cordeSol = Corde.SOL;
+        this.cordeSi = Corde.SI;
+        this.cordeMiAigu = Corde.MI_AIGU;
 
-        lesFrequences.put("mi", 82.4);
-        lesFrequences.put("la", 110.0);
-        lesFrequences.put("re", 146.8);
-        lesFrequences.put("sol", 196.0);
-        lesFrequences.put("si", 246.9);
-        lesFrequences.put("mi2", 329.6);
-
-
+        this.cordeSelectionne = cordeMi;
 
         mi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cordeSelectionne = cordeMi;
+                frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
                 mi.setEnabled(false);
                 la.setEnabled(true);
                 re.setEnabled(true);
                 sol.setEnabled(true);
                 si.setEnabled(true);
                 mi2.setEnabled(true);
-
-                cordeCourante = "mi";
-                frequenceReference.setText("" + lesFrequences.get(cordeCourante));
             }
         });
 
         la.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cordeSelectionne = cordeLa;
+                frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
                 mi.setEnabled(true);
                 la.setEnabled(false);
                 re.setEnabled(true);
                 sol.setEnabled(true);
                 si.setEnabled(true);
                 mi2.setEnabled(true);
-
-                cordeCourante = "la";
-                frequenceReference.setText("" + lesFrequences.get(cordeCourante));
             }
         });
 
         re.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cordeSelectionne = cordeRe;
+                frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
                 mi.setEnabled(true);
                 la.setEnabled(true);
                 re.setEnabled(false);
                 sol.setEnabled(true);
                 si.setEnabled(true);
                 mi2.setEnabled(true);
-
-                cordeCourante = "re";
-                frequenceReference.setText("" + lesFrequences.get(cordeCourante));
             }
         });
 
         sol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cordeSelectionne = cordeSol;
+                frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
                 mi.setEnabled(true);
                 la.setEnabled(true);
                 re.setEnabled(true);
                 sol.setEnabled(false);
                 si.setEnabled(true);
                 mi2.setEnabled(true);
-
-                cordeCourante = "sol";
-                frequenceReference.setText("" + lesFrequences.get(cordeCourante));
             }
         });
 
         si.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cordeSelectionne = cordeSi;
+                frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
                 mi.setEnabled(true);
                 la.setEnabled(true);
                 re.setEnabled(true);
                 sol.setEnabled(true);
                 si.setEnabled(false);
                 mi2.setEnabled(true);
-
-                cordeCourante = "si";
-                frequenceReference.setText("" + lesFrequences.get(cordeCourante));
             }
         });
 
         mi2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cordeSelectionne = cordeMiAigu;
+                frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
                 mi.setEnabled(true);
                 la.setEnabled(true);
                 re.setEnabled(true);
                 sol.setEnabled(true);
                 si.setEnabled(true);
                 mi2.setEnabled(false);
-
-                cordeCourante = "mi2";
-                frequenceReference.setText("" + lesFrequences.get(cordeCourante));
             }
         });
 
+        frequenceMesuree.setText("en attente");
 
         //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
             // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
@@ -214,26 +212,15 @@ public class AccordeurGuitare extends AppCompatActivity {
 
         public void run()
         {
-            if(frequenceDetectee == -1)
-            {
-                indication.setText("En attente");
-            }
-            else
-            {
-                frequenceMesuree.setText(frequenceDetectee + " Hz");
+            if(frequenceDetectee != -1){ // si une fréquence est mesurée
+                if(cordeSelectionne.estDansIntervaleFrequenceAcceptable(frequenceDetectee)) {
+                    frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
+                }
+                else {
+                    frequenceMesuree.setTextColor(getResources().getColor(R.color.rouge));
+                }
 
-                if(frequenceDetectee < (lesFrequences.get(cordeCourante) - 0.5))
-                {
-                    indication.setText("Tendre la corde");
-                }
-                if(frequenceDetectee > (lesFrequences.get(cordeCourante) + 0.5))
-                {
-                    indication.setText("Détendre la corde");
-                }
-                if(frequenceDetectee >= (lesFrequences.get(cordeCourante) -  0.5) && frequenceDetectee <= (lesFrequences.get(cordeCourante) + 0.5))
-                {
-                    indication.setText("C'est accordé");
-                }
+                frequenceMesuree.setText(String.valueOf((float) (Math.round(frequenceDetectee * 100.0)/100.0)));
             }
         }
     }
