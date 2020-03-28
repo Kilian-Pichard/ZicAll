@@ -1,5 +1,6 @@
 package iutbayonne.projet.zicall.ApprentissageGuitarePackage;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +20,7 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
     private int indiceAccord;
     private MediaPlayer audioAccordCourant;
     private ImageView imageAccordCourant;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,5 +93,208 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
         startActivity(otherActivity);
+    }
+
+    public void proposerChoixAccord(View view) {
+        PopupChoixAccord popupChoixAccord = new PopupChoixAccord(this);
+        initPopupChoixAccord(popupChoixAccord);
+        popupChoixAccord.build();
+    }
+
+    public void initPopupChoixAccord(final PopupChoixAccord unPopup){
+        unPopup.doMajeur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(0);
+                unPopup.dismiss();
+            }
+        });
+
+
+        unPopup.doMineur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(1);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.doDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(2);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.doMineurDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(3);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.re.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(4);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.reMineur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(5);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.reDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(6);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.reMineurDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(7);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.mi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(8);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.miMineur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(9);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.fa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(10);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.faMineur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(11);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.faDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(12);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.faMineurDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(13);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.sol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(14);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.solMineur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(15);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.solDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(16);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.solMineurDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(17);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.la.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(18);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.laMineur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(19);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.laDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(20);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.laMineurDiese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(21);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.si.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(22);
+                unPopup.dismiss();
+            }
+        });
+
+        unPopup.siMineur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(23);
+                unPopup.dismiss();
+            }
+        });
+
+
     }
 }
