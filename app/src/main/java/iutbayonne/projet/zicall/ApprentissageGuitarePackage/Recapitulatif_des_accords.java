@@ -6,6 +6,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import iutbayonne.projet.zicall.MainActivity;
 import iutbayonne.projet.zicall.R;
 
 public class Recapitulatif_des_accords extends AppCompatActivity {
@@ -325,6 +327,24 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         });
 
 
+    }
+
+    public void accederAccueil(View view)
+    {
+        Intent otherActivity;
+        otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+        // Vide la pile des activity
+        otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        if(this.audioAccordCourant.isPlaying())
+        {
+            this.audioAccordCourant.stop();
+        }
+        this.audioAccordCourant.release();
+        this.audioAccordCourant = null;
+
+        startActivity(otherActivity);
+        finish();
     }
 
     @Override

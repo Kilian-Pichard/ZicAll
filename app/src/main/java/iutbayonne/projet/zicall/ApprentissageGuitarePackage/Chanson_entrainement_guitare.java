@@ -2,7 +2,6 @@ package iutbayonne.projet.zicall.ApprentissageGuitarePackage;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -10,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
+import iutbayonne.projet.zicall.MainActivity;
 import iutbayonne.projet.zicall.R;
 
 public class Chanson_entrainement_guitare extends AppCompatActivity {
@@ -74,6 +73,24 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
             audioChanson.pause();
             this.btnStartPauseAudio.setText("Play");
         }
+    }
+
+    public void accederAccueil(View view)
+    {
+        Intent otherActivity;
+        otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+        // Vide la pile des activity
+        otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        if(audioChanson.isPlaying())
+        {
+            audioChanson.stop();
+        }
+        audioChanson.release();
+        audioChanson = null;
+
+        startActivity(otherActivity);
+        finish();
     }
 
     @Override
