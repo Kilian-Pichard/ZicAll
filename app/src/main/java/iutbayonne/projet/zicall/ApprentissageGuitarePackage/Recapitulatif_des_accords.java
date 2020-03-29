@@ -350,12 +350,16 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        if(this.audioAccordCourant.isPlaying())
+        if(this.audioAccordCourant != null)
         {
-            this.audioAccordCourant.stop();
+            if(this.audioAccordCourant.isPlaying())
+            {
+                this.audioAccordCourant.stop();
+            }
+            this.audioAccordCourant.release();
+            this.audioAccordCourant = null;
         }
-        this.audioAccordCourant.release();
-        this.audioAccordCourant = null;
+
         super.onBackPressed();
     }
 }

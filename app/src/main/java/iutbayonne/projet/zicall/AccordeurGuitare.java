@@ -268,7 +268,10 @@ public class AccordeurGuitare extends AppCompatActivity {
     {
         affichage.arreter();
         audioThread.interrupt();
-        dispatcher.stop();
+        if(!dispatcher.isStopped())
+        {
+            dispatcher.stop();
+        }
         super.onBackPressed();
     }
 }

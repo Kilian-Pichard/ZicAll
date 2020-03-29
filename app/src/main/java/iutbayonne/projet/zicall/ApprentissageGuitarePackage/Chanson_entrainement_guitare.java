@@ -96,13 +96,16 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        if(audioChanson.isPlaying())
+        if(audioChanson != null)
         {
-            audioChanson.stop();
-        }
-        audioChanson.release();
-        audioChanson = null;
+            if(audioChanson.isPlaying())
+            {
+                audioChanson.stop();
+            }
 
+            audioChanson.release();
+            audioChanson = null;
+        }
         super.onBackPressed();
     }
 }
