@@ -1,11 +1,8 @@
 package iutbayonne.projet.zicall;
 
-
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -198,6 +195,8 @@ public class ApprentissagePiano extends AppCompatActivity {
             ImageView touche = findViewById(note.getTouche().getIdImage());
             note.eteindreTouche(touche);
             audioTouche.stop();
+            audioTouche.release();
+            audioTouche = null;
         }
 
         public void setNote(NoteMelodie note) {
@@ -209,7 +208,7 @@ public class ApprentissagePiano extends AppCompatActivity {
         }
     }
 
-    public void accerderChoixMelodie(View view) {
+    public void accederChoixMelodie(View view) {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_melodie_entrainement_piano.class);
         startActivity(otherActivity);

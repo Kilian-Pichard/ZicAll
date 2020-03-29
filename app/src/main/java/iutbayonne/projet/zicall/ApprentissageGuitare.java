@@ -1,11 +1,9 @@
 package iutbayonne.projet.zicall;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import iutbayonne.projet.zicall.ApprentissageGuitarePackage.Choix_chanson_entrainement_guitare;
 import iutbayonne.projet.zicall.ApprentissageGuitarePackage.Recapitulatif_des_accords;
 

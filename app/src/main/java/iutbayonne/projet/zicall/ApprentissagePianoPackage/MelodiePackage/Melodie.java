@@ -1,8 +1,5 @@
 package iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage;
 
-import android.content.Context;
-import android.media.MediaPlayer;
-
 import iutbayonne.projet.zicall.R;
 
 public enum Melodie{
