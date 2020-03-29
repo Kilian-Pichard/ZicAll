@@ -3,7 +3,6 @@ package iutbayonne.projet.zicall.ApprentissageGuitarePackage;
 import android.app.Activity;
 import android.app.Dialog;
 import android.widget.Button;
-
 import iutbayonne.projet.zicall.R;
 
 public class PopupChoixAccord extends Dialog {
@@ -43,7 +42,8 @@ public class PopupChoixAccord extends Dialog {
         this.laMineurDiese = findViewById(R.id.btnLamD);
     }
 
-    public void build(){
+    public void build()
+    {
         show();
     }
 }

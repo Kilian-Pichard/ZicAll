@@ -10,7 +10,8 @@ import iutbayonne.projet.zicall.ApprentissageGuitarePackage.Recapitulatif_des_ac
 public class ApprentissageGuitare extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apprentissage_guitare);
     }

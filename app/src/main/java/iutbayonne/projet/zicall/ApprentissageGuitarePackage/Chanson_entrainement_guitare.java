@@ -22,41 +22,57 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chanson_entrainement_guitare);
 
-       this.layoutAffichageChanson = findViewById(R.id.layoutAffichageChanson);
-       this.chanson = Chanson.BELLA_CIAO;
-       chanson.afficher(layoutAffichageChanson, chanson, this);
-       this.btnStartPauseAudio = findViewById(R.id.playPauseAudio);
-       audioChanson = MediaPlayer.create(getApplicationContext(), this.chanson.getAudioChanson());
+        this.layoutAffichageChanson = findViewById(R.id.layoutAffichageChanson);
+        this.chanson = Chanson.BELLA_CIAO;
+        chanson.afficher(layoutAffichageChanson, chanson, this);
+        this.btnStartPauseAudio = findViewById(R.id.playPauseAudio);
+        audioChanson = MediaPlayer.create(getApplicationContext(), this.chanson.getAudioChanson());
     }
 
     public void accederAuRecapitulatifDesAccords(View view) {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Recapitulatif_des_accords.class);
-        startActivity(otherActivity);
-        if(audioChanson.isPlaying()){
+
+        if(audioChanson.isPlaying())
+        {
             audioChanson.pause();
             this.btnStartPauseAudio.setText("Play");
         }
+        audioChanson.release();
+        audioChanson = null;
+
+        startActivity(otherActivity);
+        finish();
     }
 
     public void choisirAutreChanson(View view){
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
+
+        if(audioChanson.isPlaying())
+        {
+            audioChanson.stop();
+        }
+        audioChanson.release();
+        audioChanson = null;
+
         startActivity(otherActivity);
-        if(audioChanson.isPlaying()){audioChanson.stop();}
         finish();
     }
 
     public void lancerAudioChanson(View view) {
-        if(!audioChanson.isPlaying()){
+        if(!audioChanson.isPlaying())
+        {
             audioChanson.start();
             this.btnStartPauseAudio.setText("Pause");
         }
-        else {
+        else
+            {
             audioChanson.pause();
             this.btnStartPauseAudio.setText("Play");
         }

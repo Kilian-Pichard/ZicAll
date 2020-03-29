@@ -1,16 +1,11 @@
 package iutbayonne.projet.zicall.ApprentissageGuitarePackage;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
-import iutbayonne.projet.zicall.ApprentissageGuitarePackage.Accord;
-import iutbayonne.projet.zicall.ApprentissageGuitarePackage.Choix_chanson_entrainement_guitare;
 import iutbayonne.projet.zicall.R;
 
 public class Recapitulatif_des_accords extends AppCompatActivity {
@@ -23,7 +18,8 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recapitulatif_des_accords);
 
@@ -32,7 +28,8 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         changerAccord(0);
     }
 
-    public void initialiserTableauAccords(){
+    public void initialiserTableauAccords()
+    {
         this.accords = new Accord[]{ Accord.DO,
                                 Accord.DO_MINEUR,
                                 Accord.DO_DIESE,
@@ -60,12 +57,16 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
                                 Accord.AIDE_LECTURE_TABLATURE};
     }
 
-    public void jouerSonAccord(View view) {
+    public void jouerSonAccord(View view)
+    {
         this.audioAccordCourant.start();
     }
 
-    public void obtenirAccordSuivant(View view) {
+    public void obtenirAccordSuivant(View view)
+    {
         this.audioAccordCourant.stop();
+        this.audioAccordCourant.release();
+        this.audioAccordCourant = null;
         indiceAccord++;
         if(indiceAccord == accords.length){
             indiceAccord = 0;
@@ -73,8 +74,11 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         changerAccord(indiceAccord);
     }
 
-    public void obtenirAccordPrecedent(View view) {
+    public void obtenirAccordPrecedent(View view)
+    {
         this.audioAccordCourant.stop();
+        this.audioAccordCourant.release();
+        this.audioAccordCourant = null;
         indiceAccord--;
         if(indiceAccord < 0){
             indiceAccord = accords.length - 1;
@@ -82,20 +86,23 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         changerAccord(indiceAccord);
     }
 
-    public void changerAccord(int nouvelIndiceAccord){
+    public void changerAccord(int nouvelIndiceAccord)
+    {
         this.indiceAccord = nouvelIndiceAccord;
         this.accordCourant = accords[indiceAccord];
         this.audioAccordCourant = MediaPlayer.create(getApplicationContext(), accordCourant.getAudioAccord());
         this.imageAccordCourant.setImageResource(accordCourant.getImageAccord());
     }
 
-    public void accederChoixChansonEntrainement(View view) {
+    public void accederChoixChansonEntrainement(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
         startActivity(otherActivity);
     }
 
-    public void proposerChoixAccord(View view) {
+    public void proposerChoixAccord(View view)
+    {
         PopupChoixAccord popupChoixAccord = new PopupChoixAccord(this);
         initPopupChoixAccord(popupChoixAccord);
         popupChoixAccord.build();
