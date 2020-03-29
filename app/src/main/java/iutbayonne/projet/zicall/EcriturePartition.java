@@ -229,4 +229,13 @@ public class EcriturePartition extends AppCompatActivity {
             frequenceDetectee = -1;
         }
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        affichageNotes.arreter();
+        audioThread.interrupt();
+        dispatcher.stop();
+        super.onBackPressed();
+    }
 }
