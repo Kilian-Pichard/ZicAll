@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,9 @@ public class ApprentissagePiano extends AppCompatActivity {
     private TextView titreMelodie;
     private TextView informationsMelodie;
     private static MediaPlayer audioTouche;
+    private double vitesseMelodie;
+
+    private Button vitesseUnQuart, vitesseUnDemi, vitesseReelle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,43 @@ public class ApprentissagePiano extends AppCompatActivity {
         this.titreMelodie.setText(melodie.getTitreMelodie());
         this.informationsMelodie = findViewById(R.id.informationsMelodie);
         this.informationsMelodie.setText(melodie.getInformationsSupplementaires());
+
+        this.vitesseMelodie = 1.0;
+        this.vitesseUnQuart = findViewById(R.id.btnVitesseMelodieUnQuart);
+        this.vitesseUnQuart.setEnabled(true);
+        this.vitesseUnQuart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vitesseMelodie = 0.25;
+                vitesseUnQuart.setEnabled(false);
+                vitesseUnDemi.setEnabled(true);
+                vitesseReelle.setEnabled(true);
+            }
+        });
+
+        this.vitesseUnDemi = findViewById(R.id.btnVitesseMelodieUnDemi);
+        this.vitesseUnDemi.setEnabled(true);
+        this.vitesseUnDemi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vitesseMelodie = 0.5;
+                vitesseUnQuart.setEnabled(true);
+                vitesseUnDemi.setEnabled(false);
+                vitesseReelle.setEnabled(true);
+            }
+        });
+
+        this.vitesseReelle = findViewById(R.id.btnVitesseMelodieReelle);
+        this.vitesseReelle.setEnabled(false);
+        this.vitesseReelle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vitesseMelodie = 1.0;
+                vitesseUnQuart.setEnabled(true);
+                vitesseUnDemi.setEnabled(true);
+                vitesseReelle.setEnabled(false);
+            }
+        });
 
         this.joueurDeMelodie = null;
     }
@@ -71,7 +112,6 @@ public class ApprentissagePiano extends AppCompatActivity {
         {
             desactiverBouton(btnLancerMelodie);
             activerBouton(btnArreterMelodie);
-            attendreDebutChant(melodie.getAttenteDebutChant());
             jouerToutesLesNotes();
             activerBouton(btnLancerMelodie);
             desactiverBouton(btnArreterMelodie);
@@ -97,7 +137,7 @@ public class ApprentissagePiano extends AppCompatActivity {
             this.activeurTouche.setAudioTouche(audioTouche);
             runOnUiThread(activeurTouche);
 
-            attendre(melodie.getDurreNoteReelle(noteCourante));
+            attendre((float)(melodie.getDurreNoteReelle(noteCourante)/vitesseMelodie));
 
             this.desactiveurTouche.setNote(noteCourante);
             this.desactiveurTouche.setAudioTouche(activeurTouche.audioTouche);
