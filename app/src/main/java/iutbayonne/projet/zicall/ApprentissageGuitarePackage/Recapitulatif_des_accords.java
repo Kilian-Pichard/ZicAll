@@ -28,6 +28,14 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         changerAccord(0);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        this.imageAccordCourant = findViewById(R.id.imageAccordCourant);
+        changerAccord(0);
+    }
+
     public void initialiserTableauAccords()
     {
         this.accords = new Accord[]{ Accord.DO,
@@ -64,7 +72,10 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
 
     public void obtenirAccordSuivant(View view)
     {
-        this.audioAccordCourant.stop();
+        if(this.audioAccordCourant.isPlaying())
+        {
+            this.audioAccordCourant.stop();
+        }
         this.audioAccordCourant.release();
         this.audioAccordCourant = null;
         indiceAccord++;
@@ -76,7 +87,10 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
 
     public void obtenirAccordPrecedent(View view)
     {
-        this.audioAccordCourant.stop();
+        if(this.audioAccordCourant.isPlaying())
+        {
+            this.audioAccordCourant.stop();
+        }
         this.audioAccordCourant.release();
         this.audioAccordCourant = null;
         indiceAccord--;
@@ -98,6 +112,14 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
     {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
+
+        if(this.audioAccordCourant.isPlaying())
+        {
+            this.audioAccordCourant.stop();
+        }
+        this.audioAccordCourant.release();
+        this.audioAccordCourant = null;
+
         startActivity(otherActivity);
     }
 
@@ -303,5 +325,17 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(this.audioAccordCourant.isPlaying())
+        {
+            this.audioAccordCourant.stop();
+        }
+        this.audioAccordCourant.release();
+        this.audioAccordCourant = null;
+        super.onBackPressed();
     }
 }

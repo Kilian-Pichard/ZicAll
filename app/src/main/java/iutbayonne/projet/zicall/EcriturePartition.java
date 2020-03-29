@@ -160,7 +160,7 @@ public class EcriturePartition extends AppCompatActivity {
                     partition.setWritting(false);
 
                     //rafraichir les onclicks sur les notes
-                       /* partition.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
+                        partition.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
                                         new NotePartition(PARTITION_VIERGER),
                                         new NotePartition(PARTITION_VIERGER),
                                         new NotePartition(PARTITION_VIERGER),
@@ -169,7 +169,7 @@ public class EcriturePartition extends AppCompatActivity {
                                 )
                         );
                         partition.supprimerLigne(partition.getLignes().get(partition.getIndiceLigneCourante()+1));//supprimer la dernière ligne
-                        partition.afficher(listeLignesPartition, getApplicationContext());*/
+                        partition.afficher(listeLignesPartition, getApplicationContext());
                 }
 
                 if(ecritureTerminee){

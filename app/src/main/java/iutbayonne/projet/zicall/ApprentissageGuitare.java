@@ -16,16 +16,17 @@ public class ApprentissageGuitare extends AppCompatActivity {
         setContentView(R.layout.activity_apprentissage_guitare);
     }
 
-    public void accederAuRecapitulatifDesAccords(View view) {
+    public void accederAuRecapitulatifDesAccords(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Recapitulatif_des_accords.class);
         startActivity(otherActivity);
     }
 
-    public void proposerDesChansonsEntrainement(View view) {
+    public void proposerDesChansonsEntrainement(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
         startActivity(otherActivity);
-
     }
 }

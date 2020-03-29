@@ -39,13 +39,15 @@ public class ApprentissagePiano extends AppCompatActivity {
         this.informationsMelodie = findViewById(R.id.informationsMelodie);
         this.informationsMelodie.setText(melodie.getInformationsSupplementaires());
 
+        this.joueurDeMelodie = null;
     }
 
     public void lancerMelodie(View view) {
         joueurDeMelodie = new JouerMelodie(melodie);
     }
 
-    public void arreterMelodie(View view) {
+    public void arreterMelodie(View view)
+    {
         joueurDeMelodie.setDoitMourrir(true);
     }
 
@@ -212,15 +214,31 @@ public class ApprentissagePiano extends AppCompatActivity {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_melodie_entrainement_piano.class);
         startActivity(otherActivity);
-        finish();
     }
-
 
     public void accederAccueil(View view) {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+        // Vide la pile des activity
+        otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        if(joueurDeMelodie != null)
+        {
+            arreterMelodie(null);
+        }
 
         startActivity(otherActivity);
         finish();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(joueurDeMelodie != null)
+        {
+            arreterMelodie(null);
+        }
+
+        super.onBackPressed();
     }
 }

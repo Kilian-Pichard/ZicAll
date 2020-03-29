@@ -47,7 +47,6 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
         audioChanson = null;
 
         startActivity(otherActivity);
-        finish();
     }
 
     public void choisirAutreChanson(View view){
@@ -62,7 +61,6 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
         audioChanson = null;
 
         startActivity(otherActivity);
-        finish();
     }
 
     public void lancerAudioChanson(View view) {
@@ -76,5 +74,18 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
             audioChanson.pause();
             this.btnStartPauseAudio.setText("Play");
         }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(audioChanson.isPlaying())
+        {
+            audioChanson.stop();
+        }
+        audioChanson.release();
+        audioChanson = null;
+
+        super.onBackPressed();
     }
 }
