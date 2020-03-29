@@ -7,6 +7,15 @@
     tools:context=".ApprentissageGuitarePackage.Choix_chanson_entrainement_guitare">
 
     <Button
+        android:id="@+id/accueil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accueil"
+        android:onClick="accederAccueil"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <Button
         android:layout_width="213dp"
         android:layout_height="65dp"
         android:onClick="accederChanson"

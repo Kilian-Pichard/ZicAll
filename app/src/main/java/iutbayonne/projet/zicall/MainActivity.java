@@ -65,25 +65,29 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void accederApprentissageGuitare(View view) {
+    public void accederApprentissageGuitare(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), ApprentissageGuitare.class);
         startActivity(otherActivity);
     }
 
-    public void accederAccordeurGuitare(View view) {
+    public void accederAccordeurGuitare(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), AccordeurGuitare.class);
         startActivity(otherActivity);
     }
 
-    public void accederEcriturePartition(View view) {
+    public void accederEcriturePartition(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), EcriturePartition.class);
         startActivity(otherActivity);
     }
 
-    public void accederChoixMelodieEntrainementPiano(View view) {
+    public void accederChoixMelodieEntrainementPiano(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_melodie_entrainement_piano.class);
         startActivity(otherActivity);

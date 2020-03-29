@@ -29,4 +29,15 @@ public class ApprentissageGuitare extends AppCompatActivity {
         otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
         startActivity(otherActivity);
     }
+
+    public void accederAccueil(View view)
+    {
+        Intent otherActivity;
+        otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+        // Vide la pile des activity
+        otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        startActivity(otherActivity);
+        finish();
+    }
 }
