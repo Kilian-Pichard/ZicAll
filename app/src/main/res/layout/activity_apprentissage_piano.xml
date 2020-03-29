@@ -21,8 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/titreMelodie"
@@ -73,13 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:srcCompat="@android:drawable/ic_media_pause" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="20sp">
 
             <Button
                 android:id="@+id/btnVitesseMelodieUnQuart"
@@ -104,192 +97,192 @@
 
         </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="151dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/doGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/reGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/doGamme1"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/miGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/reGamme1"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/faGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/miGamme1"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/solGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/faGamme1"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/laGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/solGamme1"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/siGamme1"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/laGamme1"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/doGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/siGamme1"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/reGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/doGamme2"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/miGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/reGamme2"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/faGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/miGamme2"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/solGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/faGamme2"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/laGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/solGamme2"
+            app:srcCompat="@drawable/touche_blanche" />
+
+        <ImageView
+            android:id="@+id/siGamme2"
+            android:layout_width="18dp"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@id/laGamme2"
+            app:srcCompat="@drawable/touche_blanche" />
+
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="151dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
 
             <ImageView
-                android:id="@+id/doGamme1"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/doDGamme1"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="11dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/reGamme1"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/doGamme1"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/reDGamme1"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="29dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/miGamme1"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/reGamme1"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/faDGamme1"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="65dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/faGamme1"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/miGamme1"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/solDGamme1"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="83dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/solGamme1"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/faGamme1"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/laDGamme1"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="101dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/laGamme1"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/solGamme1"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/doDGamme2"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="137dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/siGamme1"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/laGamme1"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/reDGamme2"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="155dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/doGamme2"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/siGamme1"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/faDGamme2"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="191dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/reGamme2"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/doGamme2"
-                app:srcCompat="@drawable/touche_blanche" />
+                android:id="@+id/solDGamme2"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="209dp"
+                app:srcCompat="@drawable/touche_noire" />
 
             <ImageView
-                android:id="@+id/miGamme2"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/reGamme2"
-                app:srcCompat="@drawable/touche_blanche" />
-
-            <ImageView
-                android:id="@+id/faGamme2"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/miGamme2"
-                app:srcCompat="@drawable/touche_blanche" />
-
-            <ImageView
-                android:id="@+id/solGamme2"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/faGamme2"
-                app:srcCompat="@drawable/touche_blanche" />
-
-            <ImageView
-                android:id="@+id/laGamme2"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/solGamme2"
-                app:srcCompat="@drawable/touche_blanche" />
-
-            <ImageView
-                android:id="@+id/siGamme2"
-                android:layout_width="18dp"
-                android:layout_height="150dp"
-                android:layout_toRightOf="@id/laGamme2"
-                app:srcCompat="@drawable/touche_blanche" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true">
-
-                <ImageView
-                    android:id="@+id/doDGamme1"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="11dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/reDGamme1"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="29dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/faDGamme1"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="65dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/solDGamme1"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="83dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/laDGamme1"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="101dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/doDGamme2"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="137dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/reDGamme2"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="155dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/faDGamme2"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="191dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/solDGamme2"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="209dp"
-                    app:srcCompat="@drawable/touche_noire" />
-
-                <ImageView
-                    android:id="@+id/laDGamme2"
-                    android:layout_width="14dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="227dp"
-                    app:srcCompat="@drawable/touche_noire" />
-            </RelativeLayout>
-
+                android:id="@+id/laDGamme2"
+                android:layout_width="14dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="227dp"
+                app:srcCompat="@drawable/touche_noire" />
         </RelativeLayout>
 
-        <LinearLayout
+    </RelativeLayout>
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
