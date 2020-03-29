@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AccordeurGuitare">
 
-
-
-    <TextView
-        android:id="@+id/indication"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="En attente"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="281dp"
-        tools:ignore="MissingConstraints" />
-
     <TextView
         android:id="@+id/frequenceReference"
         android:layout_width="wrap_content"

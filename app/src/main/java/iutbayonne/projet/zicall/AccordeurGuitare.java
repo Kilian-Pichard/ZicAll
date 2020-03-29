@@ -22,9 +22,6 @@ public class AccordeurGuitare extends AppCompatActivity {
 
     private TextView frequenceMesuree;
     private TextView frequenceReference;
-    private TextView indication;
-
-
 
     private Corde cordeMi;
     private Corde cordeLa;
@@ -32,7 +29,6 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Corde cordeSol;
     private Corde cordeSi;
     private Corde cordeMiAigu;
-
     private Corde cordeSelectionne;
 
     private Button mi;
@@ -41,6 +37,8 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Button sol;
     private Button si;
     private Button mi2;
+
+    private AffichageFrequence affichage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +54,6 @@ public class AccordeurGuitare extends AppCompatActivity {
 
         this.frequenceMesuree = findViewById(R.id.frequenceMesure);
         this.frequenceReference = findViewById(R.id.frequenceReference);
-        this.indication = findViewById(R.id.indication);
 
         this.cordeMi = Corde.MI;
         this.cordeLa = Corde.LA;
@@ -154,53 +151,65 @@ public class AccordeurGuitare extends AppCompatActivity {
         frequenceMesuree.setText("en attente");
 
         //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
-            // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
-            dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
+        // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
+        dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
-            // Création d'un gestionnaire de détection de fréquence
-            PitchDetectionHandler pdh = new PitchDetectionHandler() {
-                @Override
-                public void handlePitch(PitchDetectionResult res, AudioEvent e){
+        // Création d'un gestionnaire de détection de fréquence
+        PitchDetectionHandler pdh = new PitchDetectionHandler() {
+            @Override
+            public void handlePitch(PitchDetectionResult res, AudioEvent e)
+            {
+                /* Récupère le fréquence fondamentale du son capté par le micro en Hz.
+                   Renvoie -1 si aucun son n'est capté. */
+                frequenceDetectee = res.getPitch();
+            }
+        };
 
-                        /* Récupère le fréquence fondamentale du son capté par le micro en Hz.
-                           Renvoie -1 si aucun son n'est capté. */
-                    frequenceDetectee = res.getPitch();
-                }
-            };
-
-                /* Ajout du gestionnaire de détection au dispatcher.
-                La détection se fera en suivant l'agorithme de Yin */
-            AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
-            dispatcher.addAudioProcessor(pitchProcessor);
+        /* Ajout du gestionnaire de détection au dispatcher.
+           La détection se fera en suivant l'agorithme de Yin */
+        AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
+        dispatcher.addAudioProcessor(pitchProcessor);
 
          //CREATION ET LANCEMENT THREAD RECUPERATION FREQUENCE
-            audioThread = new Thread(dispatcher, "Audio Thread");
-            audioThread.start();
-
-
+        audioThread = new Thread(dispatcher, "Audio Thread");
+        audioThread.start();
 
         //LANCEMENT THREAD DE L'AFFICHAGE
-            new AffichageFrequence();
+        affichage = new AffichageFrequence();
 
     }
 
     private class AffichageFrequence extends Thread
     {
+        boolean enMarche;
+
         public AffichageFrequence()
         {
+            this.enMarche = true;
             start();
         }
 
         public void run()
         {
-            while(true) {
+            while(enMarche)
+            {
                 runOnUiThread(new Indication());
 
-                try {
+                try
+                {
                     Thread.sleep((long) 500);
-                } catch (InterruptedException ie) {
+                }
+                catch (InterruptedException ie)
+                {
+
                 }
             }
+        }
+
+        public void arreter()
+        {
+            this.enMarche = false;
+            this.interrupt();
         }
     }
 
@@ -209,20 +218,34 @@ public class AccordeurGuitare extends AppCompatActivity {
 
         public Indication()
         {
+
         }
 
         public void run()
         {
-            if(frequenceDetectee != -1){ // si une fréquence est mesurée
-                if(cordeSelectionne.estDansIntervaleFrequenceAcceptable(frequenceDetectee)) {
+            // si une fréquence est mesurée
+            if(frequenceDetectee != -1)
+            {
+                if(cordeSelectionne.estDansIntervaleFrequenceAcceptable(frequenceDetectee))
+                {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
                 }
-                else {
+                else
+                {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.rouge));
                 }
 
                 frequenceMesuree.setText(String.valueOf((float) (Math.round(frequenceDetectee * 100.0)/100.0)));
             }
         }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        affichage.arreter();
+        audioThread.interrupt();
+        dispatcher.stop();
+        super.onBackPressed();
     }
 }
