@@ -31,7 +31,8 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestart() {
+    protected void onRestart()
+    {
         super.onRestart();
 
         this.imageAccordCourant = findViewById(R.id.imageAccordCourant);

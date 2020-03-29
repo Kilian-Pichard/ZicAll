@@ -250,13 +250,15 @@ public class ApprentissagePiano extends AppCompatActivity {
         }
     }
 
-    public void accederChoixMelodie(View view) {
+    public void accederChoixMelodie(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_melodie_entrainement_piano.class);
         startActivity(otherActivity);
     }
 
-    public void accederAccueil(View view) {
+    public void accederAccueil(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), MainActivity.class);
         // Vide la pile des activity

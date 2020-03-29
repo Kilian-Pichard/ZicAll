@@ -9,15 +9,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+
 import iutbayonne.projet.zicall.MainActivity;
 import iutbayonne.projet.zicall.R;
 
 public class Chanson_entrainement_guitare extends AppCompatActivity {
 
+    private ScrollView scrollView;
     private LinearLayout layoutAffichageChanson;
     private Chanson chanson;
     private Button btnStartPauseAudio;
     private MediaPlayer audioChanson;
+    private AutoScroll autoScroll;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -26,35 +30,41 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chanson_entrainement_guitare);
 
+        this.scrollView = findViewById(R.id.scrollViewChanson);
         this.layoutAffichageChanson = findViewById(R.id.layoutAffichageChanson);
+
         this.chanson = Chanson.BELLA_CIAO;
-        chanson.afficher(layoutAffichageChanson, chanson, this);
+        this.chanson.afficher(layoutAffichageChanson, chanson, this);
         this.btnStartPauseAudio = findViewById(R.id.playPauseAudio);
-        audioChanson = MediaPlayer.create(getApplicationContext(), this.chanson.getAudioChanson());
+        this.audioChanson = MediaPlayer.create(getApplicationContext(), this.chanson.getAudioChanson());
     }
 
-    public void accederAuRecapitulatifDesAccords(View view) {
+    public void accederAuRecapitulatifDesAccords(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Recapitulatif_des_accords.class);
 
-        if(audioChanson.isPlaying())
+        if(this.audioChanson.isPlaying())
         {
-            audioChanson.pause();
+            this.audioChanson.stop();
+            this.autoScroll.arreter();
             this.btnStartPauseAudio.setText("Play");
         }
-        audioChanson.release();
-        audioChanson = null;
+        this.audioChanson.release();
+        this.audioChanson = null;
 
         startActivity(otherActivity);
     }
 
-    public void choisirAutreChanson(View view){
+    public void choisirAutreChanson(View view)
+    {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
 
-        if(audioChanson.isPlaying())
+        if(this.audioChanson.isPlaying())
         {
-            audioChanson.stop();
+            this.audioChanson.stop();
+            this.autoScroll.arreter();
         }
         audioChanson.release();
         audioChanson = null;
@@ -62,15 +72,18 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
         startActivity(otherActivity);
     }
 
-    public void lancerAudioChanson(View view) {
+    public void lancerAudioChanson(View view)
+    {
         if(!audioChanson.isPlaying())
         {
-            audioChanson.start();
+            this.audioChanson.start();
+            this.autoScroll = new AutoScroll();
             this.btnStartPauseAudio.setText("Pause");
         }
         else
-            {
-            audioChanson.pause();
+        {
+            this.audioChanson.pause();
+            this.autoScroll.arreter();
             this.btnStartPauseAudio.setText("Play");
         }
     }
@@ -85,12 +98,46 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
         if(audioChanson.isPlaying())
         {
             audioChanson.stop();
+            autoScroll.arreter();
         }
         audioChanson.release();
         audioChanson = null;
 
         startActivity(otherActivity);
         finish();
+    }
+
+    public class AutoScroll extends Thread
+    {
+        private boolean enMarche;
+
+        public AutoScroll()
+        {
+            this.enMarche = true;
+            start();
+        }
+
+        public void run()
+        {
+            while(enMarche && audioChanson.isPlaying())
+            {
+                try
+                {
+                    Thread.sleep(125);
+                }
+                catch(InterruptedException ie)
+                {
+
+                }
+                scrollView.smoothScrollBy(0, 2);
+            }
+        }
+
+        public void arreter()
+        {
+            this.enMarche = false;
+            this.interrupt();
+        }
     }
 
     @Override
@@ -101,11 +148,13 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
             if(audioChanson.isPlaying())
             {
                 audioChanson.stop();
+                autoScroll.arreter();
             }
 
             audioChanson.release();
             audioChanson = null;
         }
+
         super.onBackPressed();
     }
 }
