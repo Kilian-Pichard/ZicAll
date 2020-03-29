@@ -235,7 +235,10 @@ public class EcriturePartition extends AppCompatActivity {
     {
         affichageNotes.arreter();
         audioThread.interrupt();
-        dispatcher.stop();
+        if(!dispatcher.isStopped())
+        {
+            dispatcher.stop();
+        }
         super.onBackPressed();
     }
 }
