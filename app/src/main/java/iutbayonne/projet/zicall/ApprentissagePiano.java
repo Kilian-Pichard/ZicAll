@@ -219,6 +219,7 @@ public class ApprentissagePiano extends AppCompatActivity {
     public void accederAccueil(View view) {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+
         startActivity(otherActivity);
         finish();
     }
