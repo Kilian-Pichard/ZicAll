@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,96 +8,173 @@
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Zic'All"
-        android:textColor="#FF000000"
-        android:textSize="70sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:rowCount="1">
 
-    <Button
-        android:layout_width="129dp"
-        android:layout_height="84dp"
-        android:onClick="accederChoixMelodieEntrainementPiano"
-        android:text="Apprendre à jouer du piano"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.351" />
+        <androidx.cardview.widget.CardView
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/guitarecardview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:onClick="accederApprentissageGuitare"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="132dp"
+                    android:layout_height="98dp"
+                    android:src="@drawable/guitar_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Guitare"
+                    android:textColor="#6f6f6f"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/pianocardview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:onClick="accederChoixMelodieEntrainementPiano"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="132dp"
+                    android:layout_height="98dp"
+                    android:src="@drawable/keyboard_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Piano"
+                    android:textColor="#6f6f6f"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:rowCount="1">
+
+        <androidx.cardview.widget.CardView
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/accordeurcardview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:onClick="accederAccordeurGuitare"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="132dp"
+                    android:layout_height="98dp"
+                    android:src="@drawable/tete_de_guitare" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Accordeur"
+                    android:textColor="#6f6f6f"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/partitioncardview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:onClick="accederEcriturePartition"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="132dp"
+                    android:layout_height="98dp"
+                    android:src="@drawable/music_stand" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Partition"
+                    android:textColor="#6f6f6f"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
 
 
-    <Button
-        android:layout_width="129dp"
-        android:layout_height="84dp"
-        android:onClick="accederApprentissageGuitare"
-        android:text="Apprendre à jouer de la guitare"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.858"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35" />
-
-
-    <Button
-        android:layout_width="129dp"
-        android:layout_height="84dp"
-        android:onClick="accederAccordeurGuitare"
-        android:text="Accorder sa guitare"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.156"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646" />
-
-
-    <Button
-        android:layout_width="129dp"
-        android:layout_height="84dp"
-        android:onClick="accederEcriturePartition"
-        android:text="Ecrire une partition"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.858"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Created by Thomas, Kilian, Christopher and Ayoub"
-        android:textColor="#FF000000"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.945" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

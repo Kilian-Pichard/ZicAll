@@ -2,6 +2,7 @@ package iutbayonne.projet.zicall;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -15,8 +16,6 @@ import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Choix_m
 
 public class MainActivity extends AppCompatActivity
 {
-
-
     // Tag qui sera utilisé pour afficher des messages dans la console pour le débogage
     private static final String LOG_TAG = "AudioRecordTest";
 
@@ -53,6 +52,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private CardView CV_piano;
+    private CardView CV_guitare;
+    private CardView CV_partition;
+    private CardView CV_accordeur;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -62,7 +66,38 @@ public class MainActivity extends AppCompatActivity
         // Demande la permission d'enregistrer du son
         ActivityCompat.requestPermissions(this, permissions, REQUETE_PERMISSION_ENRERISTRER_AUDIO);
 
+        CV_guitare = findViewById(R.id.guitarecardview);
+        CV_piano = findViewById(R.id.pianocardview);
+        CV_accordeur = findViewById(R.id.accordeurcardview);
+        CV_partition = findViewById(R.id.partitioncardview);
 
+        CV_guitare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accederApprentissageGuitare(v);
+            }
+        });
+
+        CV_piano.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accederChoixMelodieEntrainementPiano(v);
+            }
+        });
+
+        CV_accordeur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accederAccordeurGuitare(v);
+            }
+        });
+
+        CV_partition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accederEcriturePartition(v);
+            }
+        });
     }
 
     public void accederApprentissageGuitare(View view)
