@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".AccordeurGuitare">
 
+    <Button
+        android:id="@+id/accueil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accueil"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
     <TextView
         android:id="@+id/frequenceReference"
         android:layout_width="wrap_content"

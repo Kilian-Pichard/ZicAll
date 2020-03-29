@@ -1,6 +1,8 @@
 package iutbayonne.projet.zicall;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +39,7 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Button sol;
     private Button si;
     private Button mi2;
+    private Button btnAccueil;
 
     private AffichageFrequence affichage;
 
@@ -51,6 +54,7 @@ public class AccordeurGuitare extends AppCompatActivity {
         this.sol = findViewById(R.id.sol);
         this.si = findViewById(R.id.si);
         this.mi2 = findViewById(R.id.mi2);
+        this.btnAccueil = findViewById(R.id.accueil);
 
         this.frequenceMesuree = findViewById(R.id.frequenceMesure);
         this.frequenceReference = findViewById(R.id.frequenceReference);
@@ -145,6 +149,25 @@ public class AccordeurGuitare extends AppCompatActivity {
                 sol.setEnabled(true);
                 si.setEnabled(true);
                 mi2.setEnabled(false);
+            }
+        });
+
+        btnAccueil.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent otherActivity;
+                otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+                // Vide la pile des activity
+                otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                affichage.arreter();
+                audioThread.interrupt();
+                dispatcher.stop();
+
+                startActivity(otherActivity);
+                finish();
             }
         });
 
