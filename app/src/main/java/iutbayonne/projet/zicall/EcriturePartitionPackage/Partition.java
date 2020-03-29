@@ -19,14 +19,14 @@ public class Partition {
     public Partition(){
         lignes = new ArrayList<>();
         this.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
-                                    new NotePartition(PARTITION_VIERGER),
-                                    new NotePartition(PARTITION_VIERGER),
-                                    new NotePartition(PARTITION_VIERGER),
-                                    new NotePartition(PARTITION_VIERGER),
-                                    new NotePartition(PARTITION_VIERGER)
-                                    )
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER)
+                )
 
-                            );
+        );
 
         notes = new ArrayList<>();
         indiceLigneCourante = 0;
@@ -80,13 +80,13 @@ public class Partition {
 
     public void ajouterNouvelleLigneVierge(){
         ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
-                                new NotePartition(PARTITION_VIERGER),
-                                new NotePartition(PARTITION_VIERGER),
-                                new NotePartition(PARTITION_VIERGER),
-                                new NotePartition(PARTITION_VIERGER),
-                                new NotePartition(PARTITION_VIERGER)
-                                )
-                    );
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER)
+                )
+        );
         actualiserIndiceLigneCourante();
     }
 

@@ -45,7 +45,7 @@ public class GestionnaireTypeNotePartition {
                         case "ronde":
                             nouvelleSource = SourceImageNotePartition.DO_GAMME_1_RONDE;
                             break;
-                     }
+                    }
                 }
                 else{
                     switch(getTypeToucheSouhaite()){
@@ -175,38 +175,38 @@ public class GestionnaireTypeNotePartition {
             }
             else{
                 if(Pattern.matches("MI.*", source)){
-                        if(Pattern.matches(".*GAMME_1.*", source)){
-                            switch(getTypeToucheSouhaite()){
-                                case "croche":
-                                    nouvelleSource = SourceImageNotePartition.MI_GAMME_1_CROCHE;
-                                    break;
-                                case "noire":
-                                    nouvelleSource = SourceImageNotePartition.MI_GAMME_1_NOIRE;
-                                    break;
-                                case "blanche":
-                                    nouvelleSource = SourceImageNotePartition.MI_GAMME_1_BLANCHE;
-                                    break;
-                                case "ronde":
-                                    nouvelleSource = SourceImageNotePartition.MI_GAMME_1_RONDE;
-                                    break;
-                            }
+                    if(Pattern.matches(".*GAMME_1.*", source)){
+                        switch(getTypeToucheSouhaite()){
+                            case "croche":
+                                nouvelleSource = SourceImageNotePartition.MI_GAMME_1_CROCHE;
+                                break;
+                            case "noire":
+                                nouvelleSource = SourceImageNotePartition.MI_GAMME_1_NOIRE;
+                                break;
+                            case "blanche":
+                                nouvelleSource = SourceImageNotePartition.MI_GAMME_1_BLANCHE;
+                                break;
+                            case "ronde":
+                                nouvelleSource = SourceImageNotePartition.MI_GAMME_1_RONDE;
+                                break;
                         }
-                        else{
-                            switch(getTypeToucheSouhaite()){
-                                case "croche":
-                                    nouvelleSource = SourceImageNotePartition.MI_GAMME_0_CROCHE;
-                                    break;
-                                case "noire":
-                                    nouvelleSource = SourceImageNotePartition.MI_GAMME_0_NOIRE;
-                                    break;
-                                case "blanche":
-                                    nouvelleSource = SourceImageNotePartition.MI_GAMME_0_BLANCHE;
-                                    break;
-                                case "ronde":
-                                    nouvelleSource = SourceImageNotePartition.MI_GAMME_0_RONDE;
-                                    break;
-                            }
+                    }
+                    else{
+                        switch(getTypeToucheSouhaite()){
+                            case "croche":
+                                nouvelleSource = SourceImageNotePartition.MI_GAMME_0_CROCHE;
+                                break;
+                            case "noire":
+                                nouvelleSource = SourceImageNotePartition.MI_GAMME_0_NOIRE;
+                                break;
+                            case "blanche":
+                                nouvelleSource = SourceImageNotePartition.MI_GAMME_0_BLANCHE;
+                                break;
+                            case "ronde":
+                                nouvelleSource = SourceImageNotePartition.MI_GAMME_0_RONDE;
+                                break;
                         }
+                    }
                 }else{
                     if(Pattern.matches("FA.*", source)){
                         if(Pattern.matches(".*FA_GAMME.*", source)){
@@ -426,38 +426,38 @@ public class GestionnaireTypeNotePartition {
                             }
                             else{
                                 if(Pattern.matches("SI.*", source)){
-                                        if(Pattern.matches(".*GAMME_1.*", source)){
-                                            switch(getTypeToucheSouhaite()){
-                                                case "croche":
-                                                    nouvelleSource = SourceImageNotePartition.SI_GAMME_1_CROCHE;
-                                                    break;
-                                                case "noire":
-                                                    nouvelleSource = SourceImageNotePartition.SI_GAMME_1_NOIRE;
-                                                    break;
-                                                case "blanche":
-                                                    nouvelleSource = SourceImageNotePartition.SI_GAMME_1_BLANCHE;
-                                                    break;
-                                                case "ronde":
-                                                    nouvelleSource = SourceImageNotePartition.SI_GAMME_1_RONDE;
-                                                    break;
-                                            }
+                                    if(Pattern.matches(".*GAMME_1.*", source)){
+                                        switch(getTypeToucheSouhaite()){
+                                            case "croche":
+                                                nouvelleSource = SourceImageNotePartition.SI_GAMME_1_CROCHE;
+                                                break;
+                                            case "noire":
+                                                nouvelleSource = SourceImageNotePartition.SI_GAMME_1_NOIRE;
+                                                break;
+                                            case "blanche":
+                                                nouvelleSource = SourceImageNotePartition.SI_GAMME_1_BLANCHE;
+                                                break;
+                                            case "ronde":
+                                                nouvelleSource = SourceImageNotePartition.SI_GAMME_1_RONDE;
+                                                break;
                                         }
-                                        else{
-                                            switch(getTypeToucheSouhaite()){
-                                                case "croche":
-                                                    nouvelleSource = SourceImageNotePartition.SI_GAMME_0_CROCHE;
-                                                    break;
-                                                case "noire":
-                                                    nouvelleSource = SourceImageNotePartition.SI_GAMME_0_NOIRE;
-                                                    break;
-                                                case "blanche":
-                                                    nouvelleSource = SourceImageNotePartition.SI_GAMME_0_BLANCHE;
-                                                    break;
-                                                case "ronde":
-                                                    nouvelleSource = SourceImageNotePartition.SI_GAMME_0_RONDE;
-                                                    break;
-                                            }
+                                    }
+                                    else{
+                                        switch(getTypeToucheSouhaite()){
+                                            case "croche":
+                                                nouvelleSource = SourceImageNotePartition.SI_GAMME_0_CROCHE;
+                                                break;
+                                            case "noire":
+                                                nouvelleSource = SourceImageNotePartition.SI_GAMME_0_NOIRE;
+                                                break;
+                                            case "blanche":
+                                                nouvelleSource = SourceImageNotePartition.SI_GAMME_0_BLANCHE;
+                                                break;
+                                            case "ronde":
+                                                nouvelleSource = SourceImageNotePartition.SI_GAMME_0_RONDE;
+                                                break;
                                         }
+                                    }
 
                                 }
                             }
