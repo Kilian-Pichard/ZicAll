@@ -17,13 +17,14 @@ import iutbayonne.projet.zicall.AccordeurGuitarePackage.Corde;
 public class AccordeurGuitare extends AppCompatActivity {
 
     private float frequenceDetectee;
+    private Thread audioThread;
+    private AudioDispatcher dispatcher;
 
     private TextView frequenceMesuree;
     private TextView frequenceReference;
     private TextView indication;
 
-    private Thread audioThread;
-    private AudioDispatcher dispatcher;
+
 
     private Corde cordeMi;
     private Corde cordeLa;

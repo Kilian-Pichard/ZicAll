@@ -6,7 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import be.tarsos.dsp.AudioDispatcher;
+import be.tarsos.dsp.AudioEvent;
+import be.tarsos.dsp.AudioProcessor;
+import be.tarsos.dsp.io.android.AudioDispatcherFactory;
+import be.tarsos.dsp.pitch.PitchDetectionHandler;
+import be.tarsos.dsp.pitch.PitchDetectionResult;
+import be.tarsos.dsp.pitch.PitchProcessor;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.Ligne;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.NotePartition;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.Partition;
@@ -15,6 +25,12 @@ import iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartitio
 import static iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition.*;
 
 public class EcriturePartition extends AppCompatActivity {
+
+    private float frequenceDetectee;
+    private Thread audioThread;
+    private AudioDispatcher dispatcher;
+    private AffichageNotes affichageNotes;
+    private boolean demandeInterruption;
 
     private Partition partition;
     private ListView listeLignesPartition;
@@ -46,46 +62,99 @@ public class EcriturePartition extends AppCompatActivity {
 
         configurerLesBouttons();
 
-
-
-
         desactiverBouttonsNotes();
 
+        frequenceDetectee = -1;
+
+        demandeInterruption = false;
+
         partition.afficher(listeLignesPartition, getApplicationContext());
-    }
+        affichageNotes = null;
 
-    public void demarrerArreterEcriture(View view) {
-        //onclick sur le bouton demarrer/arreter
-        if(partition.isWritting()){
-            desactiverBouttonsNotes();
-            btnDemarrageStopEcriture.setText("Demarrer écriture");
-            partition.setWritting(false);
-            partition.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
-                            new NotePartition(PARTITION_VIERGER),
-                            new NotePartition(PARTITION_VIERGER),
-                            new NotePartition(PARTITION_VIERGER),
-                            new NotePartition(PARTITION_VIERGER),
-                            new NotePartition(PARTITION_VIERGER)
-                    )
-            );
-            partition.supprimerLigne(partition.getLignes().get(partition.getIndiceLigneCourante()+1));//supprimer la dernière ligne
-            partition.afficher(listeLignesPartition, this);
-        }
-        else{
-            activerBouttonsNotes();
-            partition.setWritting(true);
-            btnDemarrageStopEcriture.setText("Arrêter écriture");
-        }
-    }
 
-    public void configurerBouttonAjoutNote(Button bouton, int idBouton, final SourceImageNotePartition source){
-        bouton = findViewById(idBouton);
-        bouton.setOnClickListener(new View.OnClickListener() {
+
+        //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
+        // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
+        dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
+
+        // Création d'un gestionnaire de détection de fréquence
+        PitchDetectionHandler pdh = new PitchDetectionHandler() {
+            @Override
+            public void handlePitch(PitchDetectionResult res, AudioEvent e){
+                if(partition.isWritting()) {
+                                /* Récupère le fréquence fondamentale du son capté par le micro en Hz.
+                                   Renvoie -1 si aucun son n'est capté. */
+                    if (frequenceDetectee == -1) {
+                        frequenceDetectee = res.getPitch();
+                    }
+
+                }
+            }
+        };
+
+                        /* Ajout du gestionnaire de détection au dispatcher.
+                        La détection se fera en suivant l'agorithme de Yin */
+        AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
+        dispatcher.addAudioProcessor(pitchProcessor);
+
+        //CREATION ET LANCEMENT THREAD RECUPERATION FREQUENCE
+        audioThread = new Thread(dispatcher, "Audio Thread");
+
+        audioThread.start();
+        affichageNotes = new AffichageNotes();
+
+        btnDemarrageStopEcriture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                partition.ajouterNote(new NotePartition(source), listeLignesPartition, getApplicationContext());
+                if(partition.isWritting()){
+                    //affichageNotes.interrupt();
+                    //demandeInterruption = true;
+                    desactiverBouttonsNotes();
+                    btnDemarrageStopEcriture.setText("Demarrer écriture");
+                    partition.setWritting(false);
+
+                    //rafraichir les onclicks sur les notes
+                    partition.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
+                                    new NotePartition(PARTITION_VIERGER),
+                                    new NotePartition(PARTITION_VIERGER),
+                                    new NotePartition(PARTITION_VIERGER),
+                                    new NotePartition(PARTITION_VIERGER),
+                                    new NotePartition(PARTITION_VIERGER)
+                            )
+                    );
+                    partition.supprimerLigne(partition.getLignes().get(partition.getIndiceLigneCourante()+1));//supprimer la dernière ligne
+                    partition.afficher(listeLignesPartition, getApplicationContext());
+                }
+                else{
+                    //demandeInterruption = false;
+                    activerBouttonsNotes();
+                    partition.setWritting(true);
+                    btnDemarrageStopEcriture.setText("Arrêter écriture");
+                }
             }
         });
+
+        //while(!demandeInterruption){}
+
+        //audioThread.interrupt();
+        //dispatcher.stop();
+
+        //partition.ajouterNote(new NotePartition(DO_GAMME_1_NOIRE), listeLignesPartition, getApplicationContext());
+
+
+    }
+
+    public void rafraichirClickSurNotes(){
+        partition.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER),
+                        new NotePartition(PARTITION_VIERGER)
+                )
+        );
+        partition.supprimerLigne(partition.getLignes().get(partition.getIndiceLigneCourante()+1));//supprimer la dernière ligne
+        partition.afficher(listeLignesPartition, getApplicationContext());
     }
 
     public void configurerLesBouttons(){
@@ -146,8 +215,6 @@ public class EcriturePartition extends AppCompatActivity {
             }
         });
 
-        //////////////////////
-
         btnDo0 = findViewById(R.id.btnDo0);
         btnDo0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,22 +270,6 @@ public class EcriturePartition extends AppCompatActivity {
                 partition.ajouterNote(new NotePartition(SI_GAMME_0_NOIRE), listeLignesPartition, getApplicationContext());
             }
         });
-
-
-        /*configurerBouttonAjoutNote(btnDo1, R.id.btnDo1, DO_GAMME_1_RONDE);
-        configurerBouttonAjoutNote(btnRe1, R.id.btnRe1, RE_GAMME_1_RONDE);
-        configurerBouttonAjoutNote(btnMi1, R.id.btnMi1, MI_GAMME_1_RONDE);
-        configurerBouttonAjoutNote(btnFa1, R.id.btnFa1, FA_GAMME_1_RONDE);
-        configurerBouttonAjoutNote(btnSol1, R.id.btnSol1, SOL_GAMME_1_RONDE);
-        configurerBouttonAjoutNote(btnLa1, R.id.btnLa1, LA_GAMME_1_RONDE);
-        configurerBouttonAjoutNote(btnSi1, R.id.btnSi1, SI_GAMME_1_RONDE);
-        configurerBouttonAjoutNote(btnDo0, R.id.btnDo0, DO_GAMME_0_RONDE);
-        configurerBouttonAjoutNote(btnRe0, R.id.btnRe0, RE_GAMME_0_RONDE);
-        configurerBouttonAjoutNote(btnMi0, R.id.btnMi0, MI_GAMME_0_RONDE);
-        configurerBouttonAjoutNote(btnFa0, R.id.btnFa0, FA_GAMME_0_RONDE);
-        configurerBouttonAjoutNote(btnSol0, R.id.btnSol0, SOL_GAMME_0_RONDE);
-        configurerBouttonAjoutNote(btnLa0, R.id.btnLa0, LA_GAMME_0_RONDE);
-        configurerBouttonAjoutNote(btnSi0, R.id.btnSi0, SI_GAMME_0_RONDE);*/
     }
 
     public void desactiverBouttonsNotes(){
@@ -293,5 +344,262 @@ public class EcriturePartition extends AppCompatActivity {
                 )
 
         );
+    }
+
+
+    public NotePartition determinerNote(double frequence){
+        NotePartition note = null;
+
+        if(250 < frequenceDetectee && frequenceDetectee < 500) {//gamme 1
+            if (250 < frequenceDetectee && frequenceDetectee < 269) {
+                note = new NotePartition(DO_GAMME_1_NOIRE);
+            }
+            else {
+                if (269 < frequenceDetectee && frequenceDetectee < 285) {
+                    note = new NotePartition(DO_DIESE_GAMME_1_NOIRE);
+                }
+            }
+        }
+        if(frequenceDetectee == -1){
+            note = new NotePartition(SI_GAMME_1_RONDE);
+        }
+
+        /*if(120 < frequenceDetectee && frequenceDetectee < 250){//gamme 0
+            if(120 < frequenceDetectee && frequenceDetectee < 134){
+                note = new NotePartition(DO_GAMME_0_NOIRE);
+            }
+            else{
+                if(134 < frequenceDetectee && frequenceDetectee < 142){
+                    note = new NotePartition(DO_DIESE_GAMME_0_NOIRE);
+                }
+                else{
+                    if(142 < frequenceDetectee && frequenceDetectee < 150.5){
+                        note = new NotePartition(RE_GAMME_0_NOIRE);
+                    }
+                    else{
+                        if(150.5 < frequenceDetectee && frequenceDetectee < 159.5){
+                            note = new NotePartition(RE_DIESE_GAMME_0_NOIRE);
+                        }
+                        else{
+                            if(159.5 < frequenceDetectee && frequenceDetectee < 169){
+                                note = new NotePartition(MI_GAMME_0_NOIRE);
+                            }
+                            else{
+                                if(169 < frequenceDetectee && frequenceDetectee < 179){
+                                    note = new NotePartition(FA_DIESE_GAMME_1_NOIRE);
+                                }
+                                else{
+                                    if(179 < frequenceDetectee && frequenceDetectee < 189.5){
+                                        note = new NotePartition(FA_DIESE_GAMME_1_NOIRE);
+                                    }
+                                    else{
+                                        if(189.5 < frequenceDetectee && frequenceDetectee < 285){
+                                            note = new NotePartition(SOL_GAMME_0_NOIRE);
+                                        }
+                                        else{
+                                            if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                note = new NotePartition(SOL_DIESE_GAMME_0_NOIRE);
+                                            }
+                                            else{
+                                                if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                    note = new NotePartition(LA_GAMME_0_NOIRE);
+                                                }
+                                                else{
+                                                    if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                        note = new NotePartition(LA_DIESE_GAMME_0_NOIRE);
+                                                    }
+                                                    else{
+                                                        if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                            note = new NotePartition(SI_GAMME_0_NOIRE);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            if(250 < frequenceDetectee && frequenceDetectee < 500){//gamme 1
+                if(250 < frequenceDetectee && frequenceDetectee < 269){
+                    note = new NotePartition(DO_GAMME_1_NOIRE);
+                }
+                else{
+                    if(269 < frequenceDetectee && frequenceDetectee < 285){
+                        note = new NotePartition(DO_DIESE_GAMME_1_NOIRE);
+                    }
+                    else{
+                        if(269 < frequenceDetectee && frequenceDetectee < 285){
+                            note = new NotePartition(RE_GAMME_1_NOIRE);
+                        }
+                        else{
+                            if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                note = new NotePartition(RE_DIESE_GAMME_1_NOIRE);
+                            }
+                            else{
+                                if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                    note = new NotePartition(MI_GAMME_1_NOIRE);
+                                }
+                                else{
+                                    if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                        note = new NotePartition(FA_DIESE_GAMME_1_NOIRE);
+                                    }
+                                    else{
+                                        if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                            note = new NotePartition(FA_DIESE_GAMME_1_NOIRE);
+                                        }
+                                        else{
+                                            if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                note = new NotePartition(SOL_GAMME_1_NOIRE);
+                                            }
+                                            else{
+                                                if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                    note = new NotePartition(SOL_DIESE_GAMME_1_NOIRE);
+                                                }
+                                                else{
+                                                    if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                        note = new NotePartition(LA_GAMME_1_NOIRE);
+                                                    }
+                                                    else{
+                                                        if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                            note = new NotePartition(LA_DIESE_GAMME_1_NOIRE);
+                                                        }
+                                                        else{
+                                                            if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                                note = new NotePartition(SI_GAMME_1_NOIRE);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                if(250 < frequenceDetectee && frequenceDetectee < 500){//gamme 2
+                    if(250 < frequenceDetectee && frequenceDetectee < 269){
+                        note = new NotePartition(DO_GAMME_1_NOIRE);
+                    }
+                    else{
+                        if(269 < frequenceDetectee && frequenceDetectee < 285){
+                            note = new NotePartition(DO_DIESE_GAMME_1_NOIRE);
+                        }
+                        else{
+                            if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                note = new NotePartition(RE_GAMME_1_NOIRE);
+                            }
+                            else{
+                                if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                    note = new NotePartition(RE_DIESE_GAMME_1_NOIRE);
+                                }
+                                else{
+                                    if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                        note = new NotePartition(MI_GAMME_1_NOIRE);
+                                    }
+                                    else{
+                                        if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                            note = new NotePartition(FA_DIESE_GAMME_1_NOIRE);
+                                        }
+                                        else{
+                                            if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                note = new NotePartition(FA_DIESE_GAMME_1_NOIRE);
+                                            }
+                                            else{
+                                                if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                    note = new NotePartition(SOL_GAMME_1_NOIRE);
+                                                }
+                                                else{
+                                                    if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                        note = new NotePartition(SOL_DIESE_GAMME_1_NOIRE);
+                                                    }
+                                                    else{
+                                                        if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                            note = new NotePartition(LA_GAMME_1_NOIRE);
+                                                        }
+                                                        else{
+                                                            if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                                note = new NotePartition(LA_DIESE_GAMME_1_NOIRE);
+                                                            }
+                                                            else{
+                                                                if(269 < frequenceDetectee && frequenceDetectee < 285){
+                                                                    note = new NotePartition(SI_GAMME_1_NOIRE);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }*/
+
+        return note;
+    }
+
+    private class AffichageNotes extends Thread
+    {
+
+        public AffichageNotes()
+        {
+            start();
+        }
+
+        public void run()
+        {
+            while(true) {
+
+                if(partition.isWritting()) {
+                    runOnUiThread(new EcrireNote());
+
+                    try {
+                        Thread.sleep((long) 800);
+                    } catch (InterruptedException ie) {
+                    }
+                }
+            }
+        }
+    }
+
+    private class EcrireNote implements Runnable
+    {
+
+        public EcrireNote()
+        {
+        }
+
+        public void run()
+        {
+            if (frequenceDetectee != -1){
+
+                if(250 < frequenceDetectee && frequenceDetectee < 500) {//gamme 1
+                    if (250 < frequenceDetectee && frequenceDetectee < 269) {
+                        partition.ajouterNote(new NotePartition(DO_GAMME_1_NOIRE), listeLignesPartition, getApplicationContext());
+                    }
+                    else {
+                        if (269 < frequenceDetectee && frequenceDetectee < 285) {
+                            partition.ajouterNote(new NotePartition(DO_DIESE_GAMME_1_NOIRE), listeLignesPartition, getApplicationContext());
+                        }
+                    }
+                }
+            }
+
+            frequenceDetectee = -1;
+        }
     }
 }
