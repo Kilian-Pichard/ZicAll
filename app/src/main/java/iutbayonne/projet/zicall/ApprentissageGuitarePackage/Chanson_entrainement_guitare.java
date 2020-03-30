@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-
 import iutbayonne.projet.zicall.MainActivity;
 import iutbayonne.projet.zicall.R;
 
-public class Chanson_entrainement_guitare extends AppCompatActivity {
+public class Chanson_entrainement_guitare extends AppCompatActivity
+{
 
     private ScrollView scrollView;
     private LinearLayout layoutAffichageChanson;
@@ -36,6 +36,15 @@ public class Chanson_entrainement_guitare extends AppCompatActivity {
         this.chanson = Chanson.BELLA_CIAO;
         this.chanson.afficher(layoutAffichageChanson, chanson, this);
         this.btnStartPauseAudio = findViewById(R.id.playPauseAudio);
+        this.audioChanson = MediaPlayer.create(getApplicationContext(), this.chanson.getAudioChanson());
+    }
+
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+
+        this.scrollView.scrollTo(0,0);
         this.audioChanson = MediaPlayer.create(getApplicationContext(), this.chanson.getAudioChanson());
     }
 
