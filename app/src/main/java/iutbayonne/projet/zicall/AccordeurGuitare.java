@@ -171,7 +171,7 @@ public class AccordeurGuitare extends AppCompatActivity {
             }
         });
 
-        frequenceMesuree.setText("en attente");
+        frequenceMesuree.setText("En attente");
 
         //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
         // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
