@@ -3,10 +3,8 @@ package iutbayonne.projet.zicall.EcriturePartitionPackage;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition.PARTITION_VIERGER;
 
 public class Partition {
@@ -47,7 +45,6 @@ public class Partition {
         getLignes().remove(ligne);
     }
 
-
     public void ajouterNote(NotePartition note,  ListView listView, Context context){
         getNotes().add(note); //ajout dans la liste de notes
 
@@ -61,6 +58,7 @@ public class Partition {
         ligne.getNoteViaIndex(indiceNoteCourante).setSourceimage(note.getSourceImage());
         this.afficher(listView, context);
         passerALaNoteSuivante();
+        listView.setSelection(this.getIndiceLigneCourante());
     }
 
     public void actualiserIndiceLigneCourante(){
@@ -97,7 +95,6 @@ public class Partition {
     public boolean estEnFinDeLigne(){
         return getIndiceNoteCourante()==0;
     }
-
 
     //getters & setters
     public List<Ligne> getLignes() {

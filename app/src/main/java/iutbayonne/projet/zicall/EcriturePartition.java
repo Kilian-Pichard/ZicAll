@@ -152,13 +152,14 @@ public class EcriturePartition extends AppCompatActivity {
         btnDemarrageStopEcriture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!partition.isWritting()){
+                if(!partition.isWritting())
+                {
                     btnDo1.setEnabled(true);
                     partition.setWritting(true);
                     btnDemarrageStopEcriture.setText("Arrêter écriture");
-
                 }
-                else{
+                else
+                {
                     ecritureTerminee = true;
                     dispatcher.stop();
                     audioThread.interrupt();
@@ -168,19 +169,20 @@ public class EcriturePartition extends AppCompatActivity {
                     partition.setWritting(false);
 
                     //rafraichir les onclicks sur les notes
-                        partition.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
+                    partition.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
                                         new NotePartition(PARTITION_VIERGER),
                                         new NotePartition(PARTITION_VIERGER),
                                         new NotePartition(PARTITION_VIERGER),
                                         new NotePartition(PARTITION_VIERGER),
                                         new NotePartition(PARTITION_VIERGER)
                                 )
-                        );
-                        partition.supprimerLigne(partition.getLignes().get(partition.getIndiceLigneCourante()+1));//supprimer la dernière ligne
-                        partition.afficher(listeLignesPartition, getApplicationContext());
+                    );
+                    partition.supprimerLigne(partition.getLignes().get(partition.getIndiceLigneCourante()+1));//supprimer la dernière ligne
+                    partition.afficher(listeLignesPartition, getApplicationContext());
                 }
 
-                if(ecritureTerminee){
+                if(ecritureTerminee)
+                {
                     btnDemarrageStopEcriture.setEnabled(false); //empêcher de relancer l'enregistrement
                 }
             }
