@@ -62,26 +62,11 @@
         android:text="Ecouter le son de l'accord"
         android:textStyle="italic|bold"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnEntrainementGuitareDepuisRecapitulatifAccords"
         app:layout_constraintEnd_toEndOf="@+id/btnJouerSonAccord"
         app:layout_constraintStart_toStartOf="@+id/btnJouerSonAccord"
         app:layout_constraintTop_toBottomOf="@+id/btnJouerSonAccord"
         app:layout_constraintVertical_bias="0.175" />
 
-    <Button
-        android:id="@+id/btnEntrainementGuitareDepuisRecapitulatifAccords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="accederChoixChansonEntrainement"
-        android:text="S'entraîner avec des chansons"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.535"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.954" />
 
     <ImageView
         android:layout_width="41dp"

@@ -119,21 +119,6 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         this.imageAccordCourant.setImageResource(accordCourant.getImageAccord());
     }
 
-    public void accederChoixChansonEntrainement(View view)
-    {
-        Intent otherActivity;
-        otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
-
-        if(this.audioAccordCourant.isPlaying())
-        {
-            this.audioAccordCourant.stop();
-        }
-        this.audioAccordCourant.release();
-        this.audioAccordCourant = null;
-
-        startActivity(otherActivity);
-    }
-
     public void proposerChoixAccord(View view)
     {
         PopupChoixAccord popupChoixAccord = new PopupChoixAccord(this);

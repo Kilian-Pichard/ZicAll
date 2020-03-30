@@ -56,40 +56,6 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
         this.audioChanson = MediaPlayer.create(getApplicationContext(), this.chanson.getAudioChanson());
     }
 
-    public void accederAuRecapitulatifDesAccords(View view)
-    {
-        Intent otherActivity;
-        otherActivity = new Intent(getApplicationContext(), Recapitulatif_des_accords.class);
-
-        if(this.audioChanson.isPlaying())
-        {
-            this.audioChanson.stop();
-            this.autoScroll.arreter();
-            this.btnStartPauseAudio.setText("Play");
-        }
-        this.audioChanson.release();
-        this.audioChanson = null;
-
-        startActivity(otherActivity);
-    }
-
-    public void choisirAutreChanson(View view)
-    {
-        Intent otherActivity;
-        otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
-
-        if(this.audioChanson.isPlaying())
-        {
-            this.audioChanson.stop();
-            this.autoScroll.arreter();
-        }
-        audioChanson.release();
-        audioChanson = null;
-
-        this.finish();
-        startActivity(otherActivity);
-    }
-
     public void lancerAudioChanson(View view)
     {
         if(!audioChanson.isPlaying())
