@@ -65,4 +65,9 @@ public enum Accord {
     public void setAudioAccord(int audioAccord) {
         this.audioAccord = audioAccord;
     }
+
+    public static int getCount()
+    {
+        return Accord.values().length;
+    }
 }
