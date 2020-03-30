@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ApprentissageGuitarePackage.Choix_chanson_entrainement_guitare">
 
-    <Button
-        android:id="@+id/accueil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accueil"
-        android:onClick="accederAccueil"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:layout_width="213dp"

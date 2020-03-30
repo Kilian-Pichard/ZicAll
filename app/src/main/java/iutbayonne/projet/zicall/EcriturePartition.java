@@ -1,8 +1,13 @@
 package iutbayonne.projet.zicall;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -93,6 +98,9 @@ public class EcriturePartition extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecriture_partition);
+
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         partition = new Partition();
         frequenceDetectee = -1;
@@ -240,5 +248,35 @@ public class EcriturePartition extends AppCompatActivity {
             dispatcher.stop();
         }
         super.onBackPressed();
+    }
+
+    public void accederAccueil()
+    {
+        Intent otherActivity;
+        otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+        // Vide la pile des activity
+        otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        startActivity(otherActivity);
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_touteslesactivites, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                accederAccueil();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

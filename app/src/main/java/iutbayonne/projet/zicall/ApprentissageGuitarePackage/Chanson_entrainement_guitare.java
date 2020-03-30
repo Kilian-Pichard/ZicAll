@@ -2,10 +2,15 @@ package iutbayonne.projet.zicall.ApprentissageGuitarePackage;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -29,6 +34,9 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chanson_entrainement_guitare);
+
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         this.scrollView = findViewById(R.id.scrollViewChanson);
         this.layoutAffichageChanson = findViewById(R.id.layoutAffichageChanson);
@@ -98,7 +106,7 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
         }
     }
 
-    public void accederAccueil(View view)
+    public void accederAccueil()
     {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), MainActivity.class);
@@ -166,5 +174,24 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
         }
 
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_touteslesactivites, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                accederAccueil();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

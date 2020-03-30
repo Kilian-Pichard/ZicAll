@@ -1,9 +1,14 @@
 package iutbayonne.projet.zicall.ApprentissageGuitarePackage;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -24,6 +29,9 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recapitulatif_des_accords);
+
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         initialiserTableauAccords();
         this.imageAccordCourant = findViewById(R.id.imageAccordCourant);
@@ -334,11 +342,9 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
                 unPopup.dismiss();
             }
         });
-
-
     }
 
-    public void accederAccueil(View view)
+    public void accederAccueil()
     {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), MainActivity.class);
@@ -370,5 +376,24 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         }
 
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_touteslesactivites, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                accederAccueil();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

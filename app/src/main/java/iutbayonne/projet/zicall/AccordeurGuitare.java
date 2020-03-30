@@ -1,9 +1,13 @@
 package iutbayonne.projet.zicall;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -39,7 +43,6 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Button sol;
     private Button si;
     private Button mi2;
-    private Button btnAccueil;
 
     private AffichageFrequence affichage;
 
@@ -48,13 +51,15 @@ public class AccordeurGuitare extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accordeur_guitare);
 
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         this.mi = findViewById(R.id.mi);
         this.la = findViewById(R.id.la);
         this.re = findViewById(R.id.re);
         this.sol = findViewById(R.id.sol);
         this.si = findViewById(R.id.si);
         this.mi2 = findViewById(R.id.mi2);
-        this.btnAccueil = findViewById(R.id.accueil);
 
         this.frequenceMesuree = findViewById(R.id.frequenceMesure);
         this.frequenceReference = findViewById(R.id.frequenceReference);
@@ -152,24 +157,6 @@ public class AccordeurGuitare extends AppCompatActivity {
             }
         });
 
-        btnAccueil.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent otherActivity;
-                otherActivity = new Intent(getApplicationContext(), MainActivity.class);
-                // Vide la pile des activity
-                otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                affichage.arreter();
-                audioThread.interrupt();
-                dispatcher.stop();
-
-                startActivity(otherActivity);
-                finish();
-            }
-        });
 
         frequenceMesuree.setText("En attente");
 
@@ -263,6 +250,21 @@ public class AccordeurGuitare extends AppCompatActivity {
         }
     }
 
+    public void accederAccueil()
+    {
+        Intent otherActivity;
+        otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+        // Vide la pile des activity
+        otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        affichage.arreter();
+        audioThread.interrupt();
+        dispatcher.stop();
+
+        startActivity(otherActivity);
+        finish();
+    }
+
     @Override
     public void onBackPressed()
     {
@@ -273,5 +275,24 @@ public class AccordeurGuitare extends AppCompatActivity {
             dispatcher.stop();
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_touteslesactivites, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                accederAccueil();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
