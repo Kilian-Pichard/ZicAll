@@ -25,7 +25,6 @@
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:onClick="accederApprentissageGuitare"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp"
             android:focusable="true">
@@ -62,7 +61,6 @@
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:onClick="accederChoixMelodieEntrainementPiano"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp"
             android:focusable="true">
@@ -109,7 +107,6 @@
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:onClick="accederAccordeurGuitare"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp"
             android:focusable="true">
@@ -146,7 +143,6 @@
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:onClick="accederEcriturePartition"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp"
             android:focusable="true">
