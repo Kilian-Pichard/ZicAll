@@ -257,6 +257,13 @@ public class EcriturePartition extends AppCompatActivity {
         // Vide la pile des activity
         otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
+        affichageNotes.arreter();
+        audioThread.interrupt();
+        if(!dispatcher.isStopped())
+        {
+            dispatcher.stop();
+        }
+
         startActivity(otherActivity);
         finish();
     }
