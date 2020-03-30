@@ -327,6 +327,14 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
             }
         });
 
+        unPopup.aide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changerAccord(24);
+                unPopup.dismiss();
+            }
+        });
+
 
     }
 

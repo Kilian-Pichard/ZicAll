@@ -78,6 +78,7 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
         audioChanson.release();
         audioChanson = null;
 
+        this.finish();
         startActivity(otherActivity);
     }
 

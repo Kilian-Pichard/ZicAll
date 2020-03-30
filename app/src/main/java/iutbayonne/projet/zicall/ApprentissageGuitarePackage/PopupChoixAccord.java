@@ -9,8 +9,9 @@ public class PopupChoixAccord extends Dialog {
 
     public Button doMajeur,re,mi,fa,sol,la,si,
                     doMineur,reMineur,miMineur,faMineur,solMineur,laMineur,siMineur,
-                    doDiese,reDiese,miDiese,faDiese,solDiese,laDiese,siDiese,
-                    doMineurDiese,reMineurDiese,miMineurDiese,faMineurDiese,solMineurDiese,laMineurDiese,siMineurDiese;
+                    doDiese,reDiese,faDiese,solDiese,laDiese,
+                    doMineurDiese,reMineurDiese,faMineurDiese,solMineurDiese,laMineurDiese,
+                    aide;
 
     public PopupChoixAccord(Activity activity){
         super(activity, R.style.Theme_AppCompat_Dialog);
@@ -40,6 +41,7 @@ public class PopupChoixAccord extends Dialog {
         this.faMineurDiese = findViewById(R.id.btnFamD);
         this.solMineurDiese = findViewById(R.id.btnSolmD);
         this.laMineurDiese = findViewById(R.id.btnLamD);
+        this.aide = findViewById(R.id.aide);
     }
 
     public void build()

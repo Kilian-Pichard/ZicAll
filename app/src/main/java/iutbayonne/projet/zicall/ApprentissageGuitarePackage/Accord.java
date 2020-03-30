@@ -41,6 +41,7 @@ public enum Accord {
         this.audioAccord = audioAccord;
     }
 
+
     public String getNomAccord() {
         return nomAccord;
     }

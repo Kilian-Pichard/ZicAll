@@ -18,6 +18,7 @@ public class Choix_chanson_entrainement_guitare extends AppCompatActivity {
     public void accederChanson(View view) {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Chanson_entrainement_guitare.class);
+        this.finish();
         startActivity(otherActivity);
     }
 

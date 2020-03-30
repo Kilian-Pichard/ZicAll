@@ -23,6 +23,7 @@ public class Choix_melodie_entrainement_piano extends AppCompatActivity {
     {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), ApprentissagePiano.class);
+        this.finish();
         startActivity(otherActivity);
     }
 
