@@ -47,7 +47,7 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
 
         mSlideViewPager.setAdapter(sliderAdapter);
         mSlideViewPager.setPadding(250,0,250,0);
-        mSlideViewPager.addOnPageChangeListener(viewListner);
+        mSlideViewPager.addOnPageChangeListener(viewListener);
 
         cv_accord = findViewById(R.id.accordselectioncardview);
 
@@ -111,7 +111,7 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         this.audioAccordCourant = MediaPlayer.create(getApplicationContext(), accordCourant.getAudioAccord());
     }
 
-    ViewPager.OnPageChangeListener viewListner = new ViewPager.OnPageChangeListener() {
+    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

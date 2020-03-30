@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageAccordCourant"
         android:layout_width="match_parent"
-        android:layout_height="274dp"
+        android:layout_height="292dp"
         android:adjustViewBounds="true"
         android:layout_gravity="center"/>
 
