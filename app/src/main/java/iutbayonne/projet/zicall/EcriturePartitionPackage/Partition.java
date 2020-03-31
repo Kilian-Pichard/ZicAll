@@ -13,6 +13,7 @@ public class Partition {
     private int indiceLigneCourante;
     private int indiceNoteCourante;
     private boolean writting;
+    private boolean enCoursDeModification;
 
     public Partition(){
         lignes = new ArrayList<>();
@@ -30,6 +31,7 @@ public class Partition {
         indiceLigneCourante = 0;
         indiceNoteCourante = 0;
         writting = false;
+        enCoursDeModification = false;
 
     }
 
@@ -129,11 +131,24 @@ public class Partition {
         this.indiceNoteCourante = indiceNoteCourante;
     }
 
+    public void initialiserModificationPartition(){
+        this.setIndiceLigneCourante(0);
+        this.setIndiceNoteCourante(0);
+    }
+
     public boolean isWritting() {
         return writting;
     }
 
     public void setWritting(boolean writting) {
         this.writting = writting;
+    }
+
+    public boolean isEnCoursDeModification() {
+        return enCoursDeModification;
+    }
+
+    public void setEnCoursDeModification(boolean enCoursDeModification) {
+        this.enCoursDeModification = enCoursDeModification;
     }
 }

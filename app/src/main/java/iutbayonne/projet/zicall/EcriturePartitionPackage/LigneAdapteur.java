@@ -95,7 +95,7 @@ public class LigneAdapteur extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     if(notes[finalI].getSourceImage().getSourceImage() != R.drawable.partition_vierge){
-
+                        partition.setEnCoursDeModification(true);
                         //éviter qu'une note sélectionnée pour modification et non modifiée garde l'image de modification
                         afficherToutesLesNotes(notes, images);
                                 //.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage());
@@ -105,9 +105,6 @@ public class LigneAdapteur extends BaseAdapter {
 
                         //définir image de la note courante sur "note en cours de modifaction"
                         images[finalI].setImageResource(R.drawable.image_note_en_cours_de_modification);//on met à jour la vue
-
-
-
                     }
                 }
             });

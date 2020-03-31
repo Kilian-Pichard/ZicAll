@@ -54,6 +54,7 @@ public class EcriturePartition extends AppCompatActivity {
     private ImageView ronde;
 
     private JouerPartition joueurDePartition;
+    private boolean partitionEstEntrainDEtreJouee;
 
     private double intervalesFrequencesReconnaissanceNotes[][] = {  {120, 134}, //  do_gamme_0
                                                                     {134, 142}, //  do_diese_gamme_0
@@ -118,23 +119,27 @@ public class EcriturePartition extends AppCompatActivity {
         partition = new Partition();
         frequenceDetectee = -1;
         ecritureTerminee = false;
+        partitionEstEntrainDEtreJouee = false;
         affichageNotes = null;
 
         this.croche = findViewById(R.id.choix_croche);
         this.croche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
-                        new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "croche");
+                if (!partition.isWritting()) {
+                    GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
+                            new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "croche");
 
-                //on modifie la source dans l'objet note
-                partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+                    //on modifie la source dans l'objet note
+                    partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
 
-                //on modifie la durée en secondes de la note en fonction de son nouveau type
-                partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(0.5);
+                    //on modifie la durée en secondes de la note en fonction de son nouveau type
+                    partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(0.5);
 
-                //on met à jour la vue
-                partition.afficher(listeLignesPartition, getApplicationContext());
+                    //on met à jour la vue
+                    partition.afficher(listeLignesPartition, getApplicationContext());
+                    partition.setEnCoursDeModification(false);
+                }
             }
         });
 
@@ -142,17 +147,20 @@ public class EcriturePartition extends AppCompatActivity {
         this.noire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
-                        new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "noire");
+                if (!partition.isWritting()) {
+                    GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
+                            new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "noire");
 
-                //on modifie l'image de l'objet note
-                partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+                    //on modifie l'image de l'objet note
+                    partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
 
-                //on modifie la durée en secondes de la note en fonction de son nouveau type
-                partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(1.0);
+                    //on modifie la durée en secondes de la note en fonction de son nouveau type
+                    partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(1.0);
 
-                //on met à jour la vue
-                partition.afficher(listeLignesPartition, getApplicationContext());
+                    //on met à jour la vue
+                    partition.afficher(listeLignesPartition, getApplicationContext());
+                    partition.setEnCoursDeModification(false);
+                }
             }
         });
 
@@ -160,17 +168,20 @@ public class EcriturePartition extends AppCompatActivity {
         this.blanche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
-                        new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "blanche");
+                if (!partition.isWritting()) {
+                    GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
+                            new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "blanche");
 
-                //on modifie la source dans l'objet note
-                partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+                    //on modifie la source dans l'objet note
+                    partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
 
-                //on modifie la durée en secondes de la note en fonction de son nouveau type
-                partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(2.0);
+                    //on modifie la durée en secondes de la note en fonction de son nouveau type
+                    partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(2.0);
 
-                //on met à jour la vue
-                partition.afficher(listeLignesPartition, getApplicationContext());
+                    //on met à jour la vue
+                    partition.afficher(listeLignesPartition, getApplicationContext());
+                    partition.setEnCoursDeModification(false);
+                }
             }
         });
 
@@ -178,17 +189,20 @@ public class EcriturePartition extends AppCompatActivity {
         this.ronde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
-                        new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "ronde");
+                if (!partition.isWritting()) {
+                    GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
+                            new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "ronde");
 
-                //on modifie la source dans l'objet note
-                partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+                    //on modifie la source dans l'objet note
+                    partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
 
-                //on modifie la durée en secondes de la note en fonction de son nouveau type
-                partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(4.0);
+                    //on modifie la durée en secondes de la note en fonction de son nouveau type
+                    partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(4.0);
 
-                //on met à jour la vue
-                partition.afficher(listeLignesPartition, getApplicationContext());
+                    //on met à jour la vue
+                    partition.afficher(listeLignesPartition, getApplicationContext());
+                    partition.setEnCoursDeModification(false);
+                }
             }
         });
 
@@ -240,8 +254,8 @@ public class EcriturePartition extends AppCompatActivity {
                 if(!partition.isWritting())
                 {
                     btnDo1.setEnabled(true);
-                    partition.setWritting(true);
                     btnDemarrageStopEcriture.setText("Arrêter écriture");
+                    partition.setWritting(true);
                 }
                 else
                 {
@@ -252,6 +266,7 @@ public class EcriturePartition extends AppCompatActivity {
                     btnDo1.setEnabled(false);
                     btnDemarrageStopEcriture.setText("Demarrer écriture");
                     partition.setWritting(false);
+                    partition.initialiserModificationPartition();
                     btnJouerPartition.setEnabled(true);
                 }
 
@@ -268,7 +283,9 @@ public class EcriturePartition extends AppCompatActivity {
         this.btnJouerPartition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lancerPartition();
+                if(!partition.isEnCoursDeModification() && !partitionEstEntrainDEtreJouee) {
+                    lancerPartition();
+                }
             }
         });
 
@@ -398,7 +415,11 @@ public class EcriturePartition extends AppCompatActivity {
 
         public void run()
         {
+            //btnJouerPartition.setEnabled(false);
+            partitionEstEntrainDEtreJouee = true;
             jouerToutesLesNotes();
+            //btnJouerPartition.setEnabled(true);
+            partitionEstEntrainDEtreJouee = false;
         }
 
         public void jouerToutesLesNotes(){
@@ -430,9 +451,15 @@ public class EcriturePartition extends AppCompatActivity {
                 public void run() {
                     audioNote.stop();
                     audioNote.release();
-                    //audioNote = null;
+                    detruireAudio(audioNote);
                 }
             });
+
+
+        }
+
+        public void detruireAudio(MediaPlayer audio){
+            audio = null;
         }
 
         public void attendre(long duree){
