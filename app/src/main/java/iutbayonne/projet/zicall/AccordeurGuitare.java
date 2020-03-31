@@ -5,7 +5,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -88,6 +87,30 @@ public class AccordeurGuitare extends AppCompatActivity {
         mi2.setOnClickListener(new SelectionCorde());
 
         frequenceMesuree.setText("En attente");
+
+        //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
+        // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
+        dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
+
+        // Création d'un gestionnaire de détection de fréquence
+        PitchDetectionHandler pdh = new PitchDetectionHandler() {
+            @Override
+            public void handlePitch(PitchDetectionResult res, AudioEvent e)
+            {
+                /* Récupère le fréquence fondamentale du son capté par le micro en Hz.
+                   Renvoie -1 si aucun son n'est capté. */
+                frequenceDetectee = res.getPitch();
+            }
+        };
+
+        /* Ajout du gestionnaire de détection au dispatcher.
+           La détection se fera en suivant l'agorithme de Yin */
+        AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
+        dispatcher.addAudioProcessor(pitchProcessor);
+
+        //CREATION ET LANCEMENT THREAD RECUPERATION FREQUENCE
+        audioThread = new Thread(dispatcher, "Audio Thread");
+        audioThread.start();
     }
 
     private class SelectionCorde implements View.OnClickListener
@@ -122,30 +145,6 @@ public class AccordeurGuitare extends AppCompatActivity {
                     frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
                     break;
             }
-
-            //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
-            // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
-            dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
-
-            // Création d'un gestionnaire de détection de fréquence
-            PitchDetectionHandler pdh = new PitchDetectionHandler() {
-                @Override
-                public void handlePitch(PitchDetectionResult res, AudioEvent e)
-                {
-                /* Récupère le fréquence fondamentale du son capté par le micro en Hz.
-                   Renvoie -1 si aucun son n'est capté. */
-                    frequenceDetectee = res.getPitch();
-                }
-            };
-
-        /* Ajout du gestionnaire de détection au dispatcher.
-           La détection se fera en suivant l'agorithme de Yin */
-            AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
-            dispatcher.addAudioProcessor(pitchProcessor);
-
-            //CREATION ET LANCEMENT THREAD RECUPERATION FREQUENCE
-            audioThread = new Thread(dispatcher, "Audio Thread");
-            audioThread.start();
 
             //LANCEMENT THREAD DE L'AFFICHAGE
             affichage = new AffichageFrequence();
