@@ -42,11 +42,10 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        mSlideViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mSlideViewPager = findViewById(R.id.viewpager);
         sliderAdapter = new SliderAdapter(this);
 
         mSlideViewPager.setAdapter(sliderAdapter);
-        mSlideViewPager.setPadding(250,0,250,0);
         mSlideViewPager.addOnPageChangeListener(viewListener);
 
         cv_accord = findViewById(R.id.accordselectioncardview);
