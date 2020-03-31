@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import be.tarsos.dsp.AudioDispatcher;
@@ -23,6 +25,7 @@ import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
+import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.NoteMelodie;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.GestionnaireTypeNotePartition;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.Ligne;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.NotePartition;
@@ -42,12 +45,15 @@ public class EcriturePartition extends AppCompatActivity {
     private Partition partition;
     private ListView listeLignesPartition;
     private Button btnDemarrageStopEcriture;
+    private Button btnJouerPartition;
     private Button btnDo1;
 
     private ImageView croche;
     private ImageView noire;
     private ImageView blanche;
     private ImageView ronde;
+
+    private JouerPartition joueurDePartition;
 
     private double intervalesFrequencesReconnaissanceNotes[][] = {  {120, 134}, //  do_gamme_0
                                                                     {134, 142}, //  do_diese_gamme_0
@@ -75,30 +81,30 @@ public class EcriturePartition extends AppCompatActivity {
                                                                     {479, 508} //   si_gamme_1
                                                                 };
 
-    private NotePartition listeNotes[] = {  new NotePartition(DO_GAMME_0_NOIRE),
-                                            new NotePartition(DO_DIESE_GAMME_0_NOIRE),
-                                            new NotePartition(RE_GAMME_0_NOIRE),
-                                            new NotePartition(RE_DIESE_GAMME_0_NOIRE),
-                                            new NotePartition(MI_GAMME_0_NOIRE),
-                                            new NotePartition(FA_GAMME_0_NOIRE),
-                                            new NotePartition(FA_DIESE_GAMME_0_NOIRE),
-                                            new NotePartition(SOL_GAMME_0_NOIRE),
-                                            new NotePartition(SOL_DIESE_GAMME_0_NOIRE),
-                                            new NotePartition(LA_GAMME_0_NOIRE),
-                                            new NotePartition(LA_DIESE_GAMME_0_NOIRE),
-                                            new NotePartition(SI_GAMME_0_NOIRE),
-                                            new NotePartition(DO_GAMME_1_NOIRE),
-                                            new NotePartition(DO_DIESE_GAMME_1_NOIRE),
-                                            new NotePartition(RE_GAMME_1_NOIRE),
-                                            new NotePartition(RE_DIESE_GAMME_1_NOIRE),
-                                            new NotePartition(MI_GAMME_1_NOIRE),
-                                            new NotePartition(FA_GAMME_1_NOIRE),
-                                            new NotePartition(FA_DIESE_GAMME_1_NOIRE),
-                                            new NotePartition(SOL_GAMME_1_NOIRE),
-                                            new NotePartition(SOL_DIESE_GAMME_1_NOIRE),
-                                            new NotePartition(LA_GAMME_1_NOIRE),
-                                            new NotePartition(LA_DIESE_GAMME_1_NOIRE),
-                                            new NotePartition(SI_GAMME_1_NOIRE),
+    private NotePartition listeNotes[] = {  new NotePartition(DO_GAMME_0_NOIRE, R.raw.do1, 1.0),
+                                            new NotePartition(DO_DIESE_GAMME_0_NOIRE, R.raw.dod1, 1.0),
+                                            new NotePartition(RE_GAMME_0_NOIRE, R.raw.re1, 1.0),
+                                            new NotePartition(RE_DIESE_GAMME_0_NOIRE, R.raw.red1, 1.0),
+                                            new NotePartition(MI_GAMME_0_NOIRE, R.raw.mi1, 1.0),
+                                            new NotePartition(FA_GAMME_0_NOIRE, R.raw.fa1, 1.0),
+                                            new NotePartition(FA_DIESE_GAMME_0_NOIRE, R.raw.fad1, 1.0),
+                                            new NotePartition(SOL_GAMME_0_NOIRE, R.raw.sol1, 1.0),
+                                            new NotePartition(SOL_DIESE_GAMME_0_NOIRE, R.raw.sold1, 1.0),
+                                            new NotePartition(LA_GAMME_0_NOIRE, R.raw.la1, 1.0),
+                                            new NotePartition(LA_DIESE_GAMME_0_NOIRE, R.raw.lad1, 1.0),
+                                            new NotePartition(SI_GAMME_0_NOIRE, R.raw.si1, 1.0),
+                                            new NotePartition(DO_GAMME_1_NOIRE, R.raw.do2, 1.0),
+                                            new NotePartition(DO_DIESE_GAMME_1_NOIRE, R.raw.dod2, 1.0),
+                                            new NotePartition(RE_GAMME_1_NOIRE, R.raw.re2, 1.0),
+                                            new NotePartition(RE_DIESE_GAMME_1_NOIRE, R.raw.red2, 1.0),
+                                            new NotePartition(MI_GAMME_1_NOIRE, R.raw.mi2, 1.0),
+                                            new NotePartition(FA_GAMME_1_NOIRE, R.raw.fa2, 1.0),
+                                            new NotePartition(FA_DIESE_GAMME_1_NOIRE, R.raw.fad2, 1.0),
+                                            new NotePartition(SOL_GAMME_1_NOIRE, R.raw.sol2, 1.0),
+                                            new NotePartition(SOL_DIESE_GAMME_1_NOIRE, R.raw.sold2, 1.0),
+                                            new NotePartition(LA_GAMME_1_NOIRE, R.raw.la2, 1.0),
+                                            new NotePartition(LA_DIESE_GAMME_1_NOIRE, R.raw.lad2, 1.0),
+                                            new NotePartition(SI_GAMME_1_NOIRE, R.raw.si2, 1.0),
                                          };
 
     @Override
@@ -124,6 +130,9 @@ public class EcriturePartition extends AppCompatActivity {
                 //on modifie la source dans l'objet note
                 partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
 
+                //on modifie la durée en secondes de la note en fonction de son nouveau type
+                partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(0.5);
+
                 //on met à jour la vue
                 partition.afficher(listeLignesPartition, getApplicationContext());
             }
@@ -136,8 +145,11 @@ public class EcriturePartition extends AppCompatActivity {
                 GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
                         new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "noire");
 
-                //on modifie la source dans l'objet note
+                //on modifie l'image de l'objet note
                 partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+
+                //on modifie la durée en secondes de la note en fonction de son nouveau type
+                partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(1.0);
 
                 //on met à jour la vue
                 partition.afficher(listeLignesPartition, getApplicationContext());
@@ -154,6 +166,9 @@ public class EcriturePartition extends AppCompatActivity {
                 //on modifie la source dans l'objet note
                 partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
 
+                //on modifie la durée en secondes de la note en fonction de son nouveau type
+                partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(2.0);
+
                 //on met à jour la vue
                 partition.afficher(listeLignesPartition, getApplicationContext());
             }
@@ -169,6 +184,9 @@ public class EcriturePartition extends AppCompatActivity {
                 //on modifie la source dans l'objet note
                 partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
 
+                //on modifie la durée en secondes de la note en fonction de son nouveau type
+                partition.getNotes().get(partition.getIndiceNoteCourante()).setDuree(4.0);
+
                 //on met à jour la vue
                 partition.afficher(listeLignesPartition, getApplicationContext());
             }
@@ -183,7 +201,7 @@ public class EcriturePartition extends AppCompatActivity {
         btnDo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                partition.ajouterNote(new NotePartition(DO_GAMME_1_NOIRE), listeLignesPartition, getApplicationContext());
+                partition.ajouterNote(new NotePartition(DO_GAMME_1_NOIRE, R.raw.do2, 1.0), listeLignesPartition, getApplicationContext());
             }
         });
         //------------------------------------------------
@@ -234,12 +252,23 @@ public class EcriturePartition extends AppCompatActivity {
                     btnDo1.setEnabled(false);
                     btnDemarrageStopEcriture.setText("Demarrer écriture");
                     partition.setWritting(false);
+                    btnJouerPartition.setEnabled(true);
                 }
 
                 if(ecritureTerminee)
                 {
                     btnDemarrageStopEcriture.setEnabled(false); //empêcher de relancer l'enregistrement
                 }
+            }
+        });
+
+
+        this.btnJouerPartition = findViewById(R.id.btnJouerPartition);
+        this.btnJouerPartition.setEnabled(false);
+        this.btnJouerPartition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lancerPartition();
             }
         });
 
@@ -346,5 +375,70 @@ public class EcriturePartition extends AppCompatActivity {
 
     public ListView getListeLignesPartition() {
         return listeLignesPartition;
+    }
+
+
+    //Pour jouer la mélodie
+
+    public void lancerPartition() {
+        joueurDePartition = new JouerPartition(partition);
+    }
+
+    private class JouerPartition extends Thread
+    {
+        private Partition melodie;
+        private boolean doitMourrir;
+
+        public JouerPartition(Partition melodie)
+        {
+            this.melodie = melodie;
+            this.doitMourrir = false;
+            start();
+        }
+
+        public void run()
+        {
+            jouerToutesLesNotes();
+        }
+
+        public void jouerToutesLesNotes(){
+            NotePartition noteCourante;
+            List<NotePartition> liste = partition.getNotes();
+            for(int i=0; i<liste.size(); i++){
+                noteCourante = liste.get(i);
+                jouerNote(noteCourante);
+            }
+        }
+
+        private void jouerNote(final NotePartition noteCourante) {
+
+            final MediaPlayer audioNote;
+            audioNote = MediaPlayer.create(getApplicationContext(), noteCourante.getAudioNote());
+            final SourceImageNotePartition sourceNoteMemoire = partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    audioNote.start();
+                }
+            });
+
+            attendre((long) (noteCourante.getDuree()*1000));
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    audioNote.stop();
+                    audioNote.release();
+                    //audioNote = null;
+                }
+            });
+        }
+
+        public void attendre(long duree){
+            try{
+                Thread.sleep(duree);
+            }catch(InterruptedException ie){}
+        }
     }
 }
