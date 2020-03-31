@@ -120,6 +120,22 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         this.audioAccordCourant = MediaPlayer.create(getApplicationContext(), accordCourant.getAudioAccord());
     }
 
+    public void accederChoixChansonEntrainement(View view)
+    {
+        Intent otherActivity;
+        otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
+
+        if(this.audioAccordCourant.isPlaying())
+        {
+            this.audioAccordCourant.stop();
+        }
+        this.audioAccordCourant.release();
+        this.audioAccordCourant = null;
+
+        startActivity(otherActivity);
+    }
+
+
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
