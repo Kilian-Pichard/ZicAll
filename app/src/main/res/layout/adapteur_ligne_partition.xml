@@ -4,52 +4,52 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp">
 
-    <ImageView
-        android:id="@+id/debut_ligne"
-        android:layout_width="36dp"
-        android:layout_height="122dp"
-        android:src="@drawable/debut_ligne" />
+        <ImageView
+            android:id="@+id/debut_ligne"
+            android:layout_width="36dp"
+            android:layout_height="122dp"
+            android:src="@drawable/debut_ligne" />
 
-    <ImageView
-        android:id="@+id/note_1"
-        android:layout_width="36dp"
-        android:layout_height="122dp"
-        android:src="@drawable/partition_vierge" />
+        <ImageView
+            android:id="@+id/note_1"
+            android:layout_width="36dp"
+            android:layout_height="122dp"
+            android:src="@drawable/partition_vierge" />
 
-    <ImageView
-        android:id="@+id/note_2"
-        android:layout_width="36dp"
-        android:layout_height="122dp"
-        android:src="@drawable/partition_vierge" />
+        <ImageView
+            android:id="@+id/note_2"
+            android:layout_width="36dp"
+            android:layout_height="122dp"
+            android:src="@drawable/partition_vierge" />
 
-    <ImageView
-        android:id="@+id/note_3"
-        android:layout_width="36dp"
-        android:layout_height="122dp"
-        android:src="@drawable/partition_vierge" />
+        <ImageView
+            android:id="@+id/note_3"
+            android:layout_width="36dp"
+            android:layout_height="122dp"
+            android:src="@drawable/partition_vierge" />
 
-    <ImageView
-        android:id="@+id/note_4"
-        android:layout_width="36dp"
-        android:layout_height="122dp"
-        android:src="@drawable/partition_vierge" />
+        <ImageView
+            android:id="@+id/note_4"
+            android:layout_width="36dp"
+            android:layout_height="122dp"
+            android:src="@drawable/partition_vierge" />
 
-    <ImageView
-        android:id="@+id/note_5"
-        android:layout_width="36dp"
-        android:layout_height="122dp"
-        android:src="@drawable/partition_vierge" />
+        <ImageView
+            android:id="@+id/note_5"
+            android:layout_width="36dp"
+            android:layout_height="122dp"
+            android:src="@drawable/partition_vierge" />
 
-    <ImageView
-        android:id="@+id/note_6"
-        android:layout_width="36dp"
-        android:layout_height="122dp"
-        android:src="@drawable/partition_vierge" />
+        <ImageView
+            android:id="@+id/note_6"
+            android:layout_width="36dp"
+            android:layout_height="122dp"
+            android:src="@drawable/partition_vierge" />
 
-    <ImageView
-        android:id="@+id/fin_ligne"
-        android:layout_width="36dp"
-        android:layout_height="122dp"
-        android:src="@drawable/fin_ligne" />
+        <ImageView
+            android:id="@+id/fin_ligne"
+            android:layout_width="36dp"
+            android:layout_height="122dp"
+            android:src="@drawable/fin_ligne" />
 
 </LinearLayout>

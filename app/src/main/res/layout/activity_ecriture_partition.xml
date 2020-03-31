@@ -28,6 +28,13 @@
             android:text="Demarrer écriture"
             android:textSize="10dp" />
 
+        <Button
+            android:id="@+id/btnJouerPartition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jouer la partition"
+            android:textSize="10dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -42,6 +49,52 @@
             android:text="Do 1"
             android:textSize="10dp" />
 
+        <ImageView
+            android:id="@+id/choix_croche"
+            android:layout_width="39dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/choix_croche"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateIds,MissingConstraints"
+            tools:layout_editor_absoluteX="90dp"
+            android:layout_margin="5px"/>
+
+        <ImageView
+            android:id="@+id/choix_noire"
+            android:layout_width="39dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/choix_noire"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateIds,MissingConstraints"
+            tools:layout_editor_absoluteX="90dp"
+            android:layout_margin="5px" />
+
+        <ImageView
+            android:id="@+id/choix_blanche"
+            android:layout_width="39dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/choix_blanche"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateIds,MissingConstraints"
+            tools:layout_editor_absoluteX="90dp"
+            android:layout_margin="5px" />
+
+        <ImageView
+            android:id="@+id/choix_ronde"
+            android:layout_width="39dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/choix_ronde"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateIds,MissingConstraints"
+            tools:layout_editor_absoluteX="90dp"
+            android:layout_margin="5px" />
+
+
+
     </LinearLayout>
 
 
@@ -54,7 +107,12 @@
 
     </ListView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
+    </LinearLayout>
 
 
 </LinearLayout>

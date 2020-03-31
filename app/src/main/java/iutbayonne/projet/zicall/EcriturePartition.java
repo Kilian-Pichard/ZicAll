@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
+import iutbayonne.projet.zicall.EcriturePartitionPackage.GestionnaireTypeNotePartition;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.Ligne;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.NotePartition;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.Partition;
@@ -41,6 +43,11 @@ public class EcriturePartition extends AppCompatActivity {
     private ListView listeLignesPartition;
     private Button btnDemarrageStopEcriture;
     private Button btnDo1;
+
+    private ImageView croche;
+    private ImageView noire;
+    private ImageView blanche;
+    private ImageView ronde;
 
     private double intervalesFrequencesReconnaissanceNotes[][] = {  {120, 134}, //  do_gamme_0
                                                                     {134, 142}, //  do_diese_gamme_0
@@ -107,6 +114,66 @@ public class EcriturePartition extends AppCompatActivity {
         ecritureTerminee = false;
         affichageNotes = null;
 
+        this.croche = findViewById(R.id.choix_croche);
+        this.croche.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
+                        new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "croche");
+
+                //on modifie la source dans l'objet note
+                partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+
+                //on met à jour la vue
+                partition.afficher(listeLignesPartition, getApplicationContext());
+            }
+        });
+
+        this.noire = findViewById(R.id.choix_noire);
+        this.noire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
+                        new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "noire");
+
+                //on modifie la source dans l'objet note
+                partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+
+                //on met à jour la vue
+                partition.afficher(listeLignesPartition, getApplicationContext());
+            }
+        });
+
+        this.blanche = findViewById(R.id.choix_blanche);
+        this.blanche.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
+                        new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "blanche");
+
+                //on modifie la source dans l'objet note
+                partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+
+                //on met à jour la vue
+                partition.afficher(listeLignesPartition, getApplicationContext());
+            }
+        });
+
+        this.ronde = findViewById(R.id.choix_ronde);
+        this.ronde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
+                        new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "ronde");
+
+                //on modifie la source dans l'objet note
+                partition.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), gestionnaireTypeNotePartition.getNouvelleSourceImageNote());
+
+                //on met à jour la vue
+                partition.afficher(listeLignesPartition, getApplicationContext());
+            }
+        });
+
         listeLignesPartition = findViewById(R.id.partition_List_view);
         partition.afficher(listeLignesPartition, getApplicationContext());
 
@@ -167,18 +234,6 @@ public class EcriturePartition extends AppCompatActivity {
                     btnDo1.setEnabled(false);
                     btnDemarrageStopEcriture.setText("Demarrer écriture");
                     partition.setWritting(false);
-
-                    //rafraichir les onclicks sur les notes
-                    partition.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
-                                        new NotePartition(PARTITION_VIERGER),
-                                        new NotePartition(PARTITION_VIERGER),
-                                        new NotePartition(PARTITION_VIERGER),
-                                        new NotePartition(PARTITION_VIERGER),
-                                        new NotePartition(PARTITION_VIERGER)
-                                )
-                    );
-                    partition.supprimerLigne(partition.getLignes().get(partition.getIndiceLigneCourante()+1));//supprimer la dernière ligne
-                    partition.afficher(listeLignesPartition, getApplicationContext());
                 }
 
                 if(ecritureTerminee)
@@ -287,5 +342,9 @@ public class EcriturePartition extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public ListView getListeLignesPartition() {
+        return listeLignesPartition;
     }
 }
