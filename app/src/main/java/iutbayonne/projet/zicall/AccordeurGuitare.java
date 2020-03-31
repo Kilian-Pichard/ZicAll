@@ -50,7 +50,7 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Button si;
     private Button mi2;
 
-    private AffichageFrequence affichage;
+    private AffichageFrequence affichage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,7 +235,10 @@ public class AccordeurGuitare extends AppCompatActivity {
         // Vide la pile des activity
         otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        affichage.arreter();
+        if(affichage != null)
+        {
+            affichage.arreter();
+        }
         audioThread.interrupt();
         dispatcher.stop();
 
@@ -246,7 +249,10 @@ public class AccordeurGuitare extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        affichage.arreter();
+        if(affichage != null)
+        {
+            affichage.arreter();
+        }
         audioThread.interrupt();
         if(!dispatcher.isStopped())
         {

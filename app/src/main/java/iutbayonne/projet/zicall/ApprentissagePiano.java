@@ -7,13 +7,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.ClavierPianoPackage.Touche;
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Choix_melodie_entrainement_piano;
@@ -23,15 +22,15 @@ import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.NoteMel
 public class ApprentissagePiano extends AppCompatActivity {
 
     private Melodie melodie;
-    private ImageButton btnLancerMelodie;
-    private ImageButton btnArreterMelodie;
+    private ImageView btnLancerMelodie;
+    private ImageView btnArreterMelodie;
     private JouerMelodie joueurDeMelodie;
     private TextView titreMelodie;
     private TextView informationsMelodie;
     private static MediaPlayer audioTouche;
     private double vitesseMelodie;
 
-    private Button vitesseUnQuart, vitesseUnDemi, vitesseReelle;
+    private CardView vitesseUnQuart, vitesseUnDemi, vitesseReelle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +172,7 @@ public class ApprentissagePiano extends AppCompatActivity {
             }catch(InterruptedException ie){}
         }
 
-        public void desactiverBouton(final ImageButton boutton){
+        public void desactiverBouton(final ImageView boutton){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -182,7 +181,7 @@ public class ApprentissagePiano extends AppCompatActivity {
             });
         }
 
-        public void activerBouton(final ImageButton boutton){
+        public void activerBouton(final ImageView boutton){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

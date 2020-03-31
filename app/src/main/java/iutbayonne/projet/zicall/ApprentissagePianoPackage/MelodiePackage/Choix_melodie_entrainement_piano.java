@@ -2,6 +2,7 @@ package iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import iutbayonne.projet.zicall.R;
 
 public class Choix_melodie_entrainement_piano extends AppCompatActivity {
 
+    private CardView cv_bellaciao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,15 @@ public class Choix_melodie_entrainement_piano extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        cv_bellaciao = findViewById(R.id.cv_bellaciaopiano);
+
+        cv_bellaciao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accederMelodie(v);
+            }
+        });
     }
 
     public void accederMelodie(View view)

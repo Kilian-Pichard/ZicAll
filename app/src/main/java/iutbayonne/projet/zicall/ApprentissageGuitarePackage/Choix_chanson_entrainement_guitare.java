@@ -2,6 +2,7 @@ package iutbayonne.projet.zicall.ApprentissageGuitarePackage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import iutbayonne.projet.zicall.R;
 
 public class Choix_chanson_entrainement_guitare extends AppCompatActivity {
 
+    private CardView cv_bellaciao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,15 @@ public class Choix_chanson_entrainement_guitare extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        cv_bellaciao = findViewById(R.id.cv_bellaciaoguitare);
+
+        cv_bellaciao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accederChanson(v);
+            }
+        });
     }
 
     public void accederChanson(View view) {
