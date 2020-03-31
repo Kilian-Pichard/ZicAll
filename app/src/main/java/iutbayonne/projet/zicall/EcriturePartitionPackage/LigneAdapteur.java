@@ -1,15 +1,20 @@
 package iutbayonne.projet.zicall.EcriturePartitionPackage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import iutbayonne.projet.zicall.R;
+
+import static iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition.NOTE_EN_COURS_MODIFICATION;
 
 public class LigneAdapteur extends BaseAdapter {
     private Context context;
@@ -67,7 +72,7 @@ public class LigneAdapteur extends BaseAdapter {
         afficherToutesLesNotes(notesDeLaLigne, imagesDesNotesDeLaLigne);
 
         if (!partition.isWritting()){
-            setOncliksImagesNotes(ligneCourante, notesDeLaLigne, imagesDesNotesDeLaLigne);
+            setOncliksImagesNotes(ligneCourante, notesDeLaLigne, imagesDesNotesDeLaLigne, position, context);
         }
 
         return convertView;
@@ -83,64 +88,26 @@ public class LigneAdapteur extends BaseAdapter {
         }
     }
 
-    public void setOncliksImagesNotes(final Ligne ligne, final NotePartition[] notes, final ImageView[] images ){
+    public void setOncliksImagesNotes(final Ligne ligne, final NotePartition[] notes, final ImageView[] images, final int position, final Context context){
         for (int i = 0; i < notes.length; i++) {
             final int finalI = i;
             images[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(notes[finalI].getSourceImage().getSourceImage() != R.drawable.partition_vierge){
 
-                    if(!partition.isWritting()){
+                        //éviter qu'une note sélectionnée pour modification et non modifiée garde l'image de modification
+                        afficherToutesLesNotes(notes, images);
+                                //.getLigneCourante().setImageNote(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()), partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage());
+
+                        partition.setIndiceLigneCourante(position);
+                        partition.setIndiceNoteCourante(finalI);
+
+                        //définir image de la note courante sur "note en cours de modifaction"
+                        images[finalI].setImageResource(R.drawable.image_note_en_cours_de_modification);//on met à jour la vue
 
 
-                        if(notes[finalI].getSourceImage().getSourceImage() != R.drawable.partition_vierge){
-                            final PopupChoixTypeNote popupChoixTypeNote = new PopupChoixTypeNote(context);
-                            popupChoixTypeNote.build();
 
-                            popupChoixTypeNote.getChoix_croche().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
-                                            new GestionnaireTypeNotePartition(ligne.getSourceImageNote(notes[finalI]), "croche");
-                                    ligne.setImageNote(notes[finalI], gestionnaireTypeNotePartition.getNouvelleSourceImageNote());//on modifie la source dans l'objet note
-                                    images[finalI].setImageResource(ligne.getSourceImageNote(notes[finalI]).getSourceImage());//on met à jour la vue
-                                    popupChoixTypeNote.dismiss();
-                                }
-                            });
-
-                            popupChoixTypeNote.getChoix_noire().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
-                                            new GestionnaireTypeNotePartition(ligne.getSourceImageNote(notes[finalI]), "noire");
-                                    ligne.setImageNote(notes[finalI], gestionnaireTypeNotePartition.getNouvelleSourceImageNote());//on modifie la source dans l'objet note
-                                    images[finalI].setImageResource(ligne.getSourceImageNote(notes[finalI]).getSourceImage());//on met à jour la vue
-                                    popupChoixTypeNote.dismiss();
-                                }
-                            });
-
-                            popupChoixTypeNote.getChoix_blanche().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
-                                            new GestionnaireTypeNotePartition(ligne.getSourceImageNote(notes[finalI]), "blanche");
-                                    ligne.setImageNote(notes[finalI], gestionnaireTypeNotePartition.getNouvelleSourceImageNote());//on modifie la source dans l'objet note
-                                    images[finalI].setImageResource(ligne.getSourceImageNote(notes[finalI]).getSourceImage());//on met à jour la vue
-                                    popupChoixTypeNote.dismiss();
-                                }
-                            });
-
-                            popupChoixTypeNote.getChoix_ronde().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
-                                            new GestionnaireTypeNotePartition(ligne.getSourceImageNote(notes[finalI]), "ronde");
-                                    ligne.setImageNote(notes[finalI], gestionnaireTypeNotePartition.getNouvelleSourceImageNote());//on modifie la source dans l'objet note
-                                    images[finalI].setImageResource(ligne.getSourceImageNote(notes[finalI]).getSourceImage());//on met à jour la vue
-                                    popupChoixTypeNote.dismiss();
-                                }
-                            });
-                        }
                     }
                 }
             });

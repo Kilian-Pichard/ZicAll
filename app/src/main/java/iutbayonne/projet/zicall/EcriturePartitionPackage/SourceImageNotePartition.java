@@ -7,6 +7,7 @@ public enum SourceImageNotePartition {
     DEBUT_LIGNE(R.drawable.debut_ligne),
     FIN_LIGNE(R.drawable.fin_ligne),
     FIN_PARTITION(R.drawable.fin_partition),
+    NOTE_EN_COURS_MODIFICATION(R.drawable.image_note_en_cours_de_modification),
 
     DO_GAMME_1_CROCHE(R.drawable.do_gamme_1_croche),
     DO_GAMME_1_NOIRE(R.drawable.do_gamme_1_noire),
