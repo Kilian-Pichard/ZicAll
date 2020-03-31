@@ -105,6 +105,16 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
 
     public void changerAccord(int nouvelIndiceAccord)
     {
+        if (nouvelIndiceAccord != 0)
+        {
+            if(this.audioAccordCourant.isPlaying())
+            {
+                this.audioAccordCourant.stop();
+            }
+            this.audioAccordCourant.release();
+            this.audioAccordCourant = null;
+        }
+
         this.indiceAccord = nouvelIndiceAccord;
         this.accordCourant = accords[indiceAccord];
         this.audioAccordCourant = MediaPlayer.create(getApplicationContext(), accordCourant.getAudioAccord());
