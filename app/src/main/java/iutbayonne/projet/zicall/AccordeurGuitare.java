@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -59,6 +60,8 @@ public class AccordeurGuitare extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All </font>"));
+
 
         this.mi = findViewById(R.id.mi);
         this.la = findViewById(R.id.la);
