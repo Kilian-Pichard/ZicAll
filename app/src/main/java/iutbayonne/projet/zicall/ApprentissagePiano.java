@@ -26,7 +26,6 @@ public class ApprentissagePiano extends AppCompatActivity {
     private ImageView btnArreterMelodie;
     private JouerMelodie joueurDeMelodie;
     private TextView titreMelodie;
-    private TextView informationsMelodie;
     private static MediaPlayer audioTouche;
     private double vitesseMelodie;
 
@@ -46,8 +45,6 @@ public class ApprentissagePiano extends AppCompatActivity {
         this.btnArreterMelodie.setEnabled(false);
         this.titreMelodie = findViewById(R.id.titreMelodie);
         this.titreMelodie.setText(melodie.getTitreMelodie());
-        this.informationsMelodie = findViewById(R.id.informationsMelodie);
-        this.informationsMelodie.setText(melodie.getInformationsSupplementaires());
 
         this.vitesseMelodie = 1.0;
         this.vitesseUnQuart = findViewById(R.id.btnVitesseMelodieUnQuart);
