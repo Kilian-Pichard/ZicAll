@@ -86,8 +86,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        android:foregroundGravity="center">
+        app:layout_constraintVertical_bias="0.499">
 
         <TextView
             android:layout_width="match_parent"

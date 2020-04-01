@@ -217,11 +217,11 @@ public class AccordeurGuitare extends AppCompatActivity {
                 if(margeFrequence > 0)
                 {
                     erreurDroite.setText("");
-                    erreurGauche.setText("Détendre\nla corde");
+                    erreurGauche.setText("Tendre\nla corde");
                 }
                 if(margeFrequence < 0)
                 {
-                    erreurDroite.setText("Tendre\nla corde");
+                    erreurDroite.setText("Détendre\nla corde");
                     erreurGauche.setText("");
                 }
             }
