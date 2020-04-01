@@ -33,7 +33,6 @@ public class AccordeurGuitare extends AppCompatActivity {
     private TextView erreurGauche;
     private TextView erreurDroite;
 
-    private String margeFrequenceArrondi;
     private float frequenceReferenceFloat;
 
     private Corde cordeMi;
@@ -217,14 +216,12 @@ public class AccordeurGuitare extends AppCompatActivity {
 
                 if(margeFrequence > 0)
                 {
-                    margeFrequenceArrondi = (String.valueOf((float) Math.round(margeFrequence * 100)/100));
                     erreurDroite.setText("");
-                    erreurGauche.setText("- "+ margeFrequenceArrondi);
+                    erreurGauche.setText("Détendre\nla corde");
                 }
                 if(margeFrequence < 0)
                 {
-                    margeFrequenceArrondi = (String.valueOf((float) (Math.round(margeFrequence * 100)/100) * -1));
-                    erreurDroite.setText("+ " + (margeFrequenceArrondi));
+                    erreurDroite.setText("Tendre\nla corde");
                     erreurGauche.setText("");
                 }
             }
