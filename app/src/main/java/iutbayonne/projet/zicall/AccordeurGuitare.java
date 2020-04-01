@@ -2,6 +2,7 @@ package iutbayonne.projet.zicall;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -43,12 +43,12 @@ public class AccordeurGuitare extends AppCompatActivity {
     private Corde cordeMiAigu;
     private Corde cordeSelectionne;
 
-    private Button mi;
-    private Button la;
-    private Button re;
-    private Button sol;
-    private Button si;
-    private Button mi2;
+    private CardView mi;
+    private CardView la;
+    private CardView re;
+    private CardView sol;
+    private CardView si;
+    private CardView mi2;
 
     private AffichageFrequence affichage = null;
 
