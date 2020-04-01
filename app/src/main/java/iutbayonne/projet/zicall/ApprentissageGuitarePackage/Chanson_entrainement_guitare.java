@@ -110,18 +110,7 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
 
     public void choisirAutreChanson(View view)
     {
-        Intent otherActivity;
-        otherActivity = new Intent(getApplicationContext(), Choix_chanson_entrainement_guitare.class);
-
-        if(this.audioChanson.isPlaying())
-        {
-            this.audioChanson.stop();
-            this.autoScroll.arreter();
-        }
-        audioChanson.release();
-        audioChanson = null;
-
-        startActivity(otherActivity);
+        onBackPressed();
     }
 
     public class AutoScroll extends Thread
