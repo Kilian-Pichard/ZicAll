@@ -16,21 +16,24 @@
             android:layout_width="46dp"
             android:layout_height="wrap_content"
             android:text="Do\nC"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnDom"
             android:layout_width="46dp"
             android:layout_height="wrap_content"
             android:text="Dom\nCm"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnDoD"
             android:layout_width="46dp"
             android:layout_height="wrap_content"
             android:text="Do#\nC#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
         <Button
@@ -38,7 +41,8 @@
             android:layout_width="68dp"
             android:layout_height="wrap_content"
             android:text="Dom#\nCm#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
     </LinearLayout>
@@ -55,21 +59,24 @@
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Re\nD"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnRem"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Rem\nDm"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnReD"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Re#\nD#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
 
@@ -78,7 +85,8 @@
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Rem#\nDm#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
     </LinearLayout>
@@ -95,14 +103,16 @@
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Mi\nE"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnMim"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Mim\nEm"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 
@@ -111,28 +121,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        >
 
         <Button
             android:id="@+id/btnFa"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Fa\nF"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnFam"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Fam\nFm"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnFaD"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Fa#\nF#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
 
@@ -141,7 +155,8 @@
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Fam#\nFm#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
     </LinearLayout>
@@ -160,21 +175,24 @@
             android:layout_width="46dp"
             android:layout_height="wrap_content"
             android:text="Sol\nG"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnSolm"
             android:layout_width="68dp"
             android:layout_height="wrap_content"
             android:text="Solm\nGm"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnSolD"
             android:layout_width="68dp"
             android:layout_height="wrap_content"
             android:text="Sol#\nG#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
         <Button
@@ -182,7 +200,8 @@
             android:layout_width="68dp"
             android:layout_height="wrap_content"
             android:text="Solm#\nGm#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
     </LinearLayout>
@@ -199,21 +218,24 @@
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="La\nA"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnLam"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Lam\nAm"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnLaD"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="La#\nA#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
 
@@ -222,7 +244,8 @@
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Lam#\nAm#"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
 
     </LinearLayout>
@@ -239,14 +262,16 @@
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Si\nB"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnSim"
             android:layout_width="51dp"
             android:layout_height="wrap_content"
             android:text="Sim\nBm"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 
@@ -263,7 +288,8 @@
             android:layout_width="241dp"
             android:layout_height="wrap_content"
             android:text="Comment lire une\ntablature ?"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 
