@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.ClavierPianoPackage.Touche;
-import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Choix_melodie_entrainement_piano;
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Melodie;
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.NoteMelodie;
 
@@ -29,7 +30,7 @@ public class ApprentissagePiano extends AppCompatActivity {
     private static MediaPlayer audioTouche;
     private double vitesseMelodie;
 
-    private CardView vitesseUnQuart, vitesseUnDemi, vitesseReelle;
+    private Spinner s_vitesse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,40 +47,28 @@ public class ApprentissagePiano extends AppCompatActivity {
         this.titreMelodie = findViewById(R.id.titreMelodie);
         this.titreMelodie.setText(melodie.getTitreMelodie());
 
-        this.vitesseMelodie = 1.0;
-        this.vitesseUnQuart = findViewById(R.id.btnVitesseMelodieUnQuart);
-        this.vitesseUnQuart.setEnabled(true);
-        this.vitesseUnQuart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vitesseMelodie = 0.25;
-                vitesseUnQuart.setEnabled(false);
-                vitesseUnDemi.setEnabled(true);
-                vitesseReelle.setEnabled(true);
-            }
-        });
+        this.s_vitesse = findViewById(R.id.S_vitesse);
 
-        this.vitesseUnDemi = findViewById(R.id.btnVitesseMelodieUnDemi);
-        this.vitesseUnDemi.setEnabled(true);
-        this.vitesseUnDemi.setOnClickListener(new View.OnClickListener() {
+        s_vitesse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                vitesseMelodie = 0.5;
-                vitesseUnQuart.setEnabled(true);
-                vitesseUnDemi.setEnabled(false);
-                vitesseReelle.setEnabled(true);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0)
+                {
+                    vitesseMelodie = 1.0;
+                }
+                if(position == 1)
+                {
+                    vitesseMelodie = 0.5;
+                }
+                if(position == 2)
+                {
+                    vitesseMelodie = 0.25;
+                }
             }
-        });
 
-        this.vitesseReelle = findViewById(R.id.btnVitesseMelodieReelle);
-        this.vitesseReelle.setEnabled(false);
-        this.vitesseReelle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                vitesseMelodie = 1.0;
-                vitesseUnQuart.setEnabled(true);
-                vitesseUnDemi.setEnabled(true);
-                vitesseReelle.setEnabled(false);
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 

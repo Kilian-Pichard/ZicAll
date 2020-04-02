@@ -43,98 +43,66 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="20sp">
+            android:layout_marginTop="20sp"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/btnLancerMelodie"
-                android:layout_margin="10dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:onClick="lancerMelodie"
-                app:srcCompat="@drawable/start"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/btnLancerMelodie"
+                    android:layout_margin="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:onClick="lancerMelodie"
+                    app:srcCompat="@drawable/start"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
 
-            <ImageView
-                android:layout_margin="10dp"
-                android:id="@+id/btnArreterMelodie"
-                android:onClick="arreterMelodie"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/pause"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"/>
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:id="@+id/btnArreterMelodie"
+                    android:onClick="arreterMelodie"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/pause"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"/>
+            </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btnVitesseMelodieUnQuart"
-                android:layout_margin="10dp"
-                android:layout_width="55dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardCornerRadius="8dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardElevation="2dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="Vitesse de lecture"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+
+                <Spinner
+                    android:id="@+id/S_vitesse"
+                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:entries="@array/vitesse"
                     android:layout_gravity="center"
-                    android:text="x0,25"
-                    android:textColor="#6f6f6f"
-                    android:textSize="20sp" />
+                    android:gravity="center"
+                    android:spinnerMode="dialog"/>
+            </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btnVitesseMelodieUnDemi"
-                android:layout_width="55dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="x0,5"
-                    android:textColor="#6f6f6f"
-                    android:textSize="20sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btnVitesseMelodieReelle"
-                android:layout_margin="10dp"
-                android:layout_width="55dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardCornerRadius="8dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardElevation="2dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="x1"
-                    android:textColor="#6f6f6f"
-                    android:textSize="20sp" />
-
-            </androidx.cardview.widget.CardView>
         </LinearLayout>
 
     <RelativeLayout
