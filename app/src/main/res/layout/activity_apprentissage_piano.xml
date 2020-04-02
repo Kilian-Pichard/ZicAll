@@ -73,7 +73,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/pause"
+                    app:srcCompat="@drawable/stop"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"/>

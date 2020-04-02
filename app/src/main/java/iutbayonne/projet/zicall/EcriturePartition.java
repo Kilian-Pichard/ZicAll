@@ -46,7 +46,6 @@ public class EcriturePartition extends AppCompatActivity {
     private ListView listeLignesPartition;
     private Button btnDemarrageStopEcriture;
     private Button btnJouerPartition;
-    private Button btnDo1;
 
     private ImageView croche;
     private ImageView noire;
@@ -210,17 +209,6 @@ public class EcriturePartition extends AppCompatActivity {
         listeLignesPartition = findViewById(R.id.partition_List_view);
         partition.afficher(listeLignesPartition, getApplicationContext());
 
-        //----ON POURRA SUPPRIMER çA A LA FIN-------------
-        btnDo1 = findViewById(R.id.btnDo1);
-        btnDo1.setEnabled(false);
-        btnDo1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                partition.ajouterNote(new NotePartition(DO_GAMME_1_NOIRE, R.raw.do2, 1.0), listeLignesPartition, getApplicationContext());
-            }
-        });
-        //------------------------------------------------
-
         //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
             // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
             dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
@@ -254,7 +242,6 @@ public class EcriturePartition extends AppCompatActivity {
             public void onClick(View v) {
                 if(!partition.isWritting())
                 {
-                    btnDo1.setEnabled(true);
                     btnDemarrageStopEcriture.setText("Arrêter écriture");
                     partition.setWritting(true);
                 }
@@ -264,7 +251,6 @@ public class EcriturePartition extends AppCompatActivity {
                     dispatcher.stop();
                     audioThread.interrupt();
                     affichageNotes.arreter();
-                    btnDo1.setEnabled(false);
                     btnDemarrageStopEcriture.setText("Demarrer écriture");
                     partition.setWritting(false);
                     partition.initialiserModificationPartition();
