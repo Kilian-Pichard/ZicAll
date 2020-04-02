@@ -7,6 +7,184 @@
     tools:context=".Informations"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:ignore="MissingConstraints" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        tools:layout_editor_absoluteX="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="Description de l'application"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/paragraphe_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="@string/paragraphe_desc" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="Crédits"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:textSize="16sp"
+                android:text="Audio" />
+
+            <TextView
+                android:id="@+id/paragraphe_audio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="@string/paragraphe_audio" />
+
+            <TextView
+                android:id="@+id/lien_TarsosDSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:textSize="16sp"
+                android:text="@string/lien_TarsosDSP" />
+
+            <TextView
+                android:id="@+id/paragraphe_TarsosDSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="@string/paragraphe_TarsosDSP" />
+
+            <TextView
+                android:id="@+id/lien_Flaticon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:textSize="16sp"
+                android:text="@string/lien_Flaticon" />
+
+            <TextView
+                android:id="@+id/paragraphe_Flaticon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="@string/paragraphe_Flaticon" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:src="@drawable/guitar_icon"
+                    android:layout_margin="10sp" />
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:src="@drawable/tete_de_guitare"
+                    android:layout_margin="10sp" />
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:src="@drawable/partition_icon"
+                    android:layout_margin="10sp" />
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:src="@drawable/chanson_icon"
+                    android:layout_margin="10sp" />
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:src="@drawable/home_icon_original"
+                    android:layout_margin="10sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/credits_Flaticon_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/credits_Flaticon_Freepik"
+                android:padding="10sp"/>
+
+            <ImageView
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:src="@drawable/piano_icon"
+                android:layout_margin="10sp" />
+
+            <TextView
+                android:id="@+id/credits_Flaticon_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/credits_Flaticon_mynamepong"
+                android:padding="10sp"/>
+
+            <ImageView
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:src="@drawable/accord_icon"
+                android:layout_margin="10sp" />
+
+            <TextView
+                android:id="@+id/credits_Flaticon_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/credits_Flaticon_iconixar"
+                android:padding="10sp"/>
+
+            <ImageView
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:src="@drawable/info_icon_original"
+                android:layout_margin="10sp" />
+
+            <TextView
+                android:id="@+id/credits_Flaticon_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/credits_Flaticon_bqlqn"
+                android:padding="10sp"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="80sp">
+            </Space>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
