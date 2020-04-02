@@ -121,6 +121,7 @@ public class EcriturePartition extends AppCompatActivity {
         ecritureTerminee = false;
         partitionEstEntrainDEtreJouee = false;
         affichageNotes = null;
+        joueurDePartition = null;
 
         this.croche = findViewById(R.id.choix_croche);
         this.croche.setOnClickListener(new View.OnClickListener() {
@@ -350,6 +351,12 @@ public class EcriturePartition extends AppCompatActivity {
         {
             dispatcher.stop();
         }
+
+        if(joueurDePartition != null)
+        {
+            joueurDePartition.arreter();
+        }
+
         super.onBackPressed();
     }
 
@@ -365,6 +372,11 @@ public class EcriturePartition extends AppCompatActivity {
         if(!dispatcher.isStopped())
         {
             dispatcher.stop();
+        }
+
+        if(joueurDePartition != null)
+        {
+            joueurDePartition.arreter();
         }
 
         startActivity(otherActivity);
@@ -397,75 +409,76 @@ public class EcriturePartition extends AppCompatActivity {
 
     //Pour jouer la mélodie
 
-    public void lancerPartition() {
-        joueurDePartition = new JouerPartition(partition);
+    public void lancerPartition()
+    {
+        joueurDePartition = new JouerPartition();
     }
 
     private class JouerPartition extends Thread
     {
-        private Partition melodie;
-        private boolean doitMourrir;
+        private boolean enMarche;
 
-        public JouerPartition(Partition melodie)
+        public JouerPartition()
         {
-            this.melodie = melodie;
-            this.doitMourrir = false;
+            this.enMarche = true;
             start();
         }
 
         public void run()
         {
-            //btnJouerPartition.setEnabled(false);
             partitionEstEntrainDEtreJouee = true;
             jouerToutesLesNotes();
-            //btnJouerPartition.setEnabled(true);
             partitionEstEntrainDEtreJouee = false;
         }
 
-        public void jouerToutesLesNotes(){
+        public void jouerToutesLesNotes()
+        {
             NotePartition noteCourante;
             List<NotePartition> liste = partition.getNotes();
-            for(int i=0; i<liste.size(); i++){
-                noteCourante = liste.get(i);
-                jouerNote(noteCourante);
+
+            for(int i=0; i <liste.size(); i++)
+            {
+                if(this.enMarche)
+                {
+                    noteCourante = liste.get(i);
+                    jouerNote(noteCourante);
+                }
+                else
+                {
+                    break;
+                }
             }
         }
 
-        private void jouerNote(final NotePartition noteCourante) {
-
-            final MediaPlayer audioNote;
+        private void jouerNote(NotePartition noteCourante)
+        {
+            MediaPlayer audioNote;
             audioNote = MediaPlayer.create(getApplicationContext(), noteCourante.getAudioNote());
-            final SourceImageNotePartition sourceNoteMemoire = partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage();
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    audioNote.start();
-                }
-            });
+            audioNote.start();
 
             attendre((long) (noteCourante.getDuree()*1000));
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    audioNote.stop();
-                    audioNote.release();
-                    detruireAudio(audioNote);
-                }
-            });
-
-
+            audioNote.stop();
+            audioNote.release();
+            audioNote = null;
         }
 
-        public void detruireAudio(MediaPlayer audio){
-            audio = null;
-        }
-
-        public void attendre(long duree){
-            try{
+        public void attendre(long duree)
+        {
+            try
+            {
                 Thread.sleep(duree);
-            }catch(InterruptedException ie){}
+            }
+            catch(InterruptedException ie)
+            {}
+        }
+
+        public void arreter()
+        {
+            this.enMarche = false;
+            partitionEstEntrainDEtreJouee = false;
+            this.interrupt();
         }
     }
 }
