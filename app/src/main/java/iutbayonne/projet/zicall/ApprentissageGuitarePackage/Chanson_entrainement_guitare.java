@@ -91,7 +91,7 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
         finish();
     }
 
-    public void accederAuRecapitulatifDesAccords(View view)
+    public void accederAuRecapitulatifDesAccords()
     {
         Intent otherActivity;
         otherActivity = new Intent(getApplicationContext(), Recapitulatif_des_accords.class);
@@ -108,7 +108,7 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
         startActivity(otherActivity);
     }
 
-    public void choisirAutreChanson(View view)
+    public void choisirAutreChanson()
     {
         onBackPressed();
     }
@@ -167,7 +167,7 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_touteslesactivites, menu);
+        inflater.inflate(R.menu.menu_chanson_entrainement_guitare_activity, menu);
         return true;
     }
 
@@ -177,7 +177,12 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
             case R.id.action_home:
                 accederAccueil();
                 return true;
-
+            case R.id.action_accords:
+                accederAuRecapitulatifDesAccords();
+                return true;
+            case R.id.action_chansons:
+                choisirAutreChanson();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
