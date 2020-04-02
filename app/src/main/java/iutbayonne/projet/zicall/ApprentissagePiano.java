@@ -255,15 +255,7 @@ public class ApprentissagePiano extends AppCompatActivity {
 
     public void accederChoixMelodie(View view)
     {
-        Intent otherActivity;
-        otherActivity = new Intent(getApplicationContext(), Choix_melodie_entrainement_piano.class);
-
-        if(joueurDeMelodie != null)
-        {
-            arreterMelodie(null);
-        }
-
-        startActivity(otherActivity);
+        onBackPressed();
     }
 
     public void accederAccueil()
