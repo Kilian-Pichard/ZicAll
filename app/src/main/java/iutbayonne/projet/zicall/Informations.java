@@ -32,6 +32,10 @@ public class Informations extends AppCompatActivity
         paragrapheDesc.setMovementMethod(LinkMovementMethod.getInstance());
         enleverSoulignementDesLiens(paragrapheDesc);
 
+        TextView lienGitHub = findViewById(R.id.lien_GitHub);
+        lienGitHub.setMovementMethod(LinkMovementMethod.getInstance());
+        enleverSoulignementDesLiens(lienGitHub);
+
         TextView lienTarsosDSP = findViewById(R.id.lien_TarsosDSP);
         lienTarsosDSP.setMovementMethod(LinkMovementMethod.getInstance());
         enleverSoulignementDesLiens(lienTarsosDSP);

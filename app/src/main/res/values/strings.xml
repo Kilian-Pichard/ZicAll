@@ -5,7 +5,12 @@
     <string name="paragraphe_desc">Zic\'All
         est une application développée pour smartphones sur Android 5.0 ou plus par Christopher Mirambeau,
         Ayoub Moustakim, Thomas Nadal-Elizalde, et Kilian Pichard dans le cadre d\'un projet universitaire à
-        l\'<a href="https://www.iutbayonne.univ-pau.fr/">IUT de Bayonne et du Pays Basque</a>.
+        l\'<a href="https://www.iutbayonne.univ-pau.fr/">IUT de Bayonne et du Pays Basque</a>. Ce projet suit une
+        license GNU GPL v3.0.
+    </string>
+
+    <string name="lienGitHub">Voici le lien vers le code
+        de l\'application :\n<a href="https://github.com/Kilian-Pichard/ZicAll">https://github.com/Kilian-Pichard/ZicAll</a>
     </string>
 
     <string name="paragraphe_audio">Toutes les sources audio (chansons, notes, accords, etc...)
