@@ -51,6 +51,18 @@ public class Informations extends AppCompatActivity
         TextView creditsFlaticon1 = findViewById(R.id.credits_Flaticon_1);
         creditsFlaticon1.setMovementMethod(LinkMovementMethod.getInstance());
         enleverSoulignementDesLiens(creditsFlaticon1);
+
+        TextView creditsFlaticon2 = findViewById(R.id.credits_Flaticon_2);
+        creditsFlaticon2.setMovementMethod(LinkMovementMethod.getInstance());
+        enleverSoulignementDesLiens(creditsFlaticon2);
+
+        TextView creditsFlaticon3 = findViewById(R.id.credits_Flaticon_3);
+        creditsFlaticon3.setMovementMethod(LinkMovementMethod.getInstance());
+        enleverSoulignementDesLiens(creditsFlaticon3);
+
+        TextView creditsFlaticon4 = findViewById(R.id.credits_Flaticon_4);
+        creditsFlaticon2.setMovementMethod(LinkMovementMethod.getInstance());
+        enleverSoulignementDesLiens(creditsFlaticon4);
     }
 
     @Override

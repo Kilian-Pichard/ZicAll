@@ -2,24 +2,21 @@
     <string name="app_name">Zic\'All</string>
     <string name="start_button">START</string>
 
-    <string name="paragraphe_desc">
-        Zic\'All est une application développée pour smartphones
-        sur Android 5.0 ou plus par Christopher Mirambeau, Ayoub Moustakim, Thomas Nadal-Elizalde,
-        et Kilian Pichard dans le cadre d\'un projet universitaire à l\'
-        <a href="https://www.iutbayonne.univ-pau.fr/">IUT de Bayonne et du Pays Basque</a>.
+    <string name="paragraphe_desc">Zic\'All
+        est une application développée pour smartphones sur Android 5.0 ou plus par Christopher Mirambeau,
+        Ayoub Moustakim, Thomas Nadal-Elizalde, et Kilian Pichard dans le cadre d\'un projet universitaire à
+        l\'<a href="https://www.iutbayonne.univ-pau.fr/">IUT de Bayonne et du Pays Basque</a>.
     </string>
 
-    <string name="paragraphe_audio">
-        Toutes les sources audio (chansons, notes, accords, etc...) que vous pouvez entendre
-        dans Zic\'All ont été enregistrées par notre groupe de projet.
+    <string name="paragraphe_audio">Toutes les sources audio (chansons, notes, accords, etc...)
+        que vous pouvez entendre dans Zic\'All ont été enregistrées par notre groupe de projet.
     </string>
 
     <string name="lien_TarsosDSP">
         <a href="https://github.com/JorenSix/TarsosDSP">TarsosDSP</a>
     </string>
 
-    <string name="paragraphe_TarsosDSP">
-        Zic\'All utilise dans ses fonctionnalités "Accordeur" et "Partition" la bibliothèque
+    <string name="paragraphe_TarsosDSP">Zic\'All utilise dans ses fonctionnalités "Accordeur" et "Partition" la bibliothèque
         <a href="https://github.com/JorenSix/TarsosDSP">TarsosDSP</a>, pour récupérer la fréquence d\'un
         son au travers du microphone du smartphone de l\'utilisateur.
         <a href="https://github.com/JorenSix/TarsosDSP">TarsosDSP</a>  a été développée à l\'
@@ -31,10 +28,8 @@
         <a href="https://www.flaticon.com">Flaticon</a>
     </string>
 
-    <string name="paragraphe_Flaticon">
-        La plupart des icônes utilisées dans nos menus sont tirées du site
-        <a href="https://www.flaticon.com">Flaticon</a>.\n
-        Voici la liste des icônes que nous avons utilisées et leurs auteurs :
+    <string name="paragraphe_Flaticon">La plupart des icônes utilisées dans nos menus sont tirées du site
+        <a href="https://www.flaticon.com">Flaticon</a>.\nVoici la liste des icônes que nous avons utilisées et leurs auteurs :
     </string>
 
     <string name="credits_Flaticon_Freepik">
