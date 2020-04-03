@@ -44,6 +44,13 @@
                 android:text="@string/paragraphe_desc" />
 
             <TextView
+                android:id="@+id/lien_GitHub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="@string/lienGitHub" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10sp"
@@ -128,6 +135,18 @@
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:src="@drawable/home_icon_original"
+                    android:layout_margin="10sp" />
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:src="@drawable/start"
+                    android:layout_margin="10sp" />
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:src="@drawable/stop"
                     android:layout_margin="10sp" />
 
             </LinearLayout>

@@ -54,6 +54,12 @@ Voici la liste des icônes que nous avons utilisées et leurs auteurs :
 </a>
 <a href="https://www.flaticon.com/free-icon/home_846449">
   <img src="https://image.flaticon.com/icons/svg/846/846449.svg" height="40" width="40">
+</a>
+<a href="https://www.flaticon.com/free-icon/play_304284">
+  <img src="https://image.flaticon.com/icons/svg/304/304284.svg" height="40" width="40">
+</a>
+<a href="https://www.flaticon.com/free-icon/stop_304285">
+  <img src="https://image.flaticon.com/icons/svg/304/304285.svg" height="40" width="40">
 </a></BR>
  --> Icônes réalisées par <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> de <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
  / Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></BR></BR>
