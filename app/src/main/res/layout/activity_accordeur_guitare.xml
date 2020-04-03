@@ -93,7 +93,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="RE\nD"
+            android:text="RÉ\nD"
             android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
