@@ -3,7 +3,6 @@ package iutbayonne.projet.zicall;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -21,47 +20,64 @@ import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 import iutbayonne.projet.zicall.AccordeurGuitarePackage.Corde;
 
-public class AccordeurGuitare extends AppCompatActivity {
-
+public class AccordeurGuitare extends AppCompatActivity
+{
     private float frequenceDetectee;
+
+    /**
+     * Écart entre la fréquence détectée et la fréquence de référence de la corde sélectionnée.
+     */
     private float margeFrequence;
-    private Thread audioThread;
+
+    /**
+     * Se charge de récupérer la fréquence provenant du microphone.
+     */
     private AudioDispatcher dispatcher;
+
+    /**
+     * Se charge de lancer le dispatcher en continu tant .
+     */
+    private Thread audioThread;
 
     private TextView frequenceMesuree;
     private TextView frequenceReference;
+
+    /**
+     * Indique si l'utilisateur doit tendre sa corde.
+     */
     private TextView erreurGauche;
+
+    /**
+     * Indique si l'utilisateur doit détendre sa corde.
+     */
     private TextView erreurDroite;
 
-    private float frequenceReferenceFloat;
+    /**
+     * Objet permettant de manipuler la corde correspondante.
+     */
+    private Corde cordeMi, cordeLa, cordeRe, cordeSol, cordeSi, cordeMiAigu, cordeSelectionnee;
 
-    private Corde cordeMi;
-    private Corde cordeLa;
-    private Corde cordeRe;
-    private Corde cordeSol;
-    private Corde cordeSi;
-    private Corde cordeMiAigu;
-    private Corde cordeSelectionne;
+    /**
+     * Bouton permettant de sélectionner la corde correspondante.
+     */
+    private CardView mi, la, re, sol, si, mi2;
 
-    private CardView mi;
-    private CardView la;
-    private CardView re;
-    private CardView sol;
-    private CardView si;
-    private CardView mi2;
-
-    private AffichageFrequence affichage = null;
+    /**
+     * Thread qui se charge de l'affichage en temps réel des indications.
+     */
+    private AffichageFrequence affichage;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accordeur_guitare);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All </font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All</font>"));
 
-
+        // Association des variables à leurs ressources graphiques
         this.mi = findViewById(R.id.mi);
         this.la = findViewById(R.id.la);
         this.re = findViewById(R.id.re);
@@ -70,7 +86,6 @@ public class AccordeurGuitare extends AppCompatActivity {
         this.mi2 = findViewById(R.id.mi2);
         this.erreurGauche = findViewById(R.id.erreurGauche);
         this.erreurDroite = findViewById(R.id.erreurDroite);
-
         this.frequenceMesuree = findViewById(R.id.frequenceMesure);
         this.frequenceReference = findViewById(R.id.frequenceReference);
 
@@ -81,6 +96,8 @@ public class AccordeurGuitare extends AppCompatActivity {
         this.cordeSi = Corde.SI;
         this.cordeMiAigu = Corde.MI_AIGU;
 
+        this.affichage = null;
+
         mi.setOnClickListener(new SelectionCorde());
         la.setOnClickListener(new SelectionCorde());
         re.setOnClickListener(new SelectionCorde());
@@ -90,12 +107,12 @@ public class AccordeurGuitare extends AppCompatActivity {
 
         frequenceMesuree.setText("En attente");
 
-        //CREATION DISPATCHER POUR RECUPERER LA FREQUENCE
         // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
         // Création d'un gestionnaire de détection de fréquence
-        PitchDetectionHandler pdh = new PitchDetectionHandler() {
+        PitchDetectionHandler pdh = new PitchDetectionHandler()
+        {
             @Override
             public void handlePitch(PitchDetectionResult res, AudioEvent e)
             {
@@ -110,11 +127,14 @@ public class AccordeurGuitare extends AppCompatActivity {
         AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
         dispatcher.addAudioProcessor(pitchProcessor);
 
-        //CREATION ET LANCEMENT THREAD RECUPERATION FREQUENCE
+        // Création et lancement du thread pour récupérer la fréquence
         audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
     }
 
+    /**
+     * Gestionnaire d'évènements qui se charge de mettre à jour l'affichage lorsque l'on sélectionne une autre corde
+     */
     private class SelectionCorde implements View.OnClickListener
     {
         @Override
@@ -123,49 +143,55 @@ public class AccordeurGuitare extends AppCompatActivity {
             switch(v.getId())
             {
                 case R.id.mi:
-                    cordeSelectionne = cordeMi;
-                    frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
+                    cordeSelectionnee = cordeMi;
                     break;
+
                 case R.id.la:
-                    cordeSelectionne = cordeLa;
-                    frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
+                    cordeSelectionnee = cordeLa;
                     break;
+
                 case R.id.re:
-                    cordeSelectionne = cordeRe;
-                    frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
+                    cordeSelectionnee = cordeRe;
                     break;
+
                 case R.id.sol:
-                    cordeSelectionne = cordeSol;
-                    frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
+                    cordeSelectionnee = cordeSol;
                     break;
+
                 case R.id.si:
-                    cordeSelectionne = cordeSi;
-                    frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
+                    cordeSelectionnee = cordeSi;
                     break;
+
                 case R.id.mi2:
-                    cordeSelectionne = cordeMiAigu;
-                    frequenceReference.setText(String.valueOf(cordeSelectionne.getFrequenceReferenceCorde()));
+                    cordeSelectionnee = cordeMiAigu;
                     break;
             }
 
-            //LANCEMENT THREAD DE L'AFFICHAGE
+            frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+            arreterAffichage();
             affichage = new AffichageFrequence();
         }
     }
 
+    /**
+     * Thread qui se charge d'afficher en continu des indications
+     */
     private class AffichageFrequence extends Thread
     {
-        boolean enMarche;
+        /**
+         * Indique si le Thread doit s'arreter ou non
+         */
+        boolean doitMourrir;
 
         public AffichageFrequence()
         {
-            this.enMarche = true;
+            this.doitMourrir = false;
             start();
         }
 
         public void run()
         {
-            while(enMarche)
+            while(!doitMourrir)
             {
                 runOnUiThread(new Indication());
 
@@ -174,22 +200,23 @@ public class AccordeurGuitare extends AppCompatActivity {
                     Thread.sleep((long) 500);
                 }
                 catch (InterruptedException ie)
-                {
-
-                }
+                {}
             }
         }
 
         public void arreter()
         {
-            this.enMarche = false;
+            this.doitMourrir = true;
             this.interrupt();
         }
     }
 
+    /**
+     * Affiche à l'écran la fréquence détectée par le microphone, ainsi qu'une indication pour
+     * dire à l'utilisateur de tendre ou détendre la corde de sa guitare.
+     */
     private class Indication implements Runnable
     {
-
         public Indication()
         {
 
@@ -197,10 +224,10 @@ public class AccordeurGuitare extends AppCompatActivity {
 
         public void run()
         {
-            // si une fréquence est mesurée
+            // Si une fréquence est mesurée
             if(frequenceDetectee != -1)
             {
-                if(cordeSelectionne.estDansIntervaleFrequenceAcceptable(frequenceDetectee))
+                if(cordeSelectionnee.estDansIntervaleFrequenceAcceptable(frequenceDetectee))
                 {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
                 }
@@ -210,21 +237,35 @@ public class AccordeurGuitare extends AppCompatActivity {
                 }
 
                 frequenceMesuree.setText(String.valueOf((float) (Math.round(frequenceDetectee * 100.0)/100.0)));
-
-                frequenceReferenceFloat = Float.parseFloat(frequenceReference.getText().toString());
-                margeFrequence = frequenceReferenceFloat - frequenceDetectee;
+                margeFrequence = (float)cordeSelectionnee.getFrequenceReferenceCorde() - frequenceDetectee;
 
                 if(margeFrequence > 0)
                 {
-                    erreurDroite.setText("");
                     erreurGauche.setText("Tendre\nla corde");
+                    erreurDroite.setText("");
                 }
                 if(margeFrequence < 0)
                 {
-                    erreurDroite.setText("Détendre\nla corde");
                     erreurGauche.setText("");
+                    erreurDroite.setText("Détendre\nla corde");
                 }
             }
+        }
+    }
+
+    public void arreterAffichage()
+    {
+        if(affichage != null)
+        {
+            affichage.arreter();
+        }
+    }
+
+    public void arreterEcoute()
+    {
+        audioThread.interrupt();
+        if (!dispatcher.isStopped()) {
+            dispatcher.stop();
         }
     }
 
@@ -235,42 +276,44 @@ public class AccordeurGuitare extends AppCompatActivity {
         // Vide la pile des activity
         otherActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        if(affichage != null)
-        {
-            affichage.arreter();
-        }
-        audioThread.interrupt();
-        dispatcher.stop();
+        arreterAffichage();
+        arreterEcoute();
 
         startActivity(otherActivity);
         finish();
     }
 
+    /**
+     * Méthode qui s'exécute lorsque l'on appuye sur le bouton "Retour" du smartphone.
+     * Surchargée afin d'arrêter les proprement les Thread de l'activity en cours avant de la quitter.
+     */
     @Override
     public void onBackPressed()
     {
-        if(affichage != null)
-        {
-            affichage.arreter();
-        }
-        audioThread.interrupt();
-        if(!dispatcher.isStopped())
-        {
-            dispatcher.stop();
-        }
+        arreterAffichage();
+        arreterEcoute();
         super.onBackPressed();
     }
 
+    /**
+     * Récupère l'interface correspondante à la toolbar désirée et l'affiche.
+     */
     @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_touteslesactivites, menu);
         return true;
     }
 
+    /**
+     * Associe chaque bouton de la toolbar à une action.
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case R.id.action_home:
                 accederAccueil();
                 return true;
