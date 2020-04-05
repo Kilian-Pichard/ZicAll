@@ -91,7 +91,12 @@ public class ApprentissagePiano extends AppCompatActivity
     private class JouerMelodie extends Thread
     {
         private Melodie melodie;
+
+        /**
+         * Indique si le Thread doit s'arreter ou non.
+         */
         private boolean doitMourrir;
+
         private ActiverTouche activeurTouche;
         private DesactiverTouche desactiveurTouche;
 
@@ -116,9 +121,12 @@ public class ApprentissagePiano extends AppCompatActivity
         public void jouerToutesLesNotes()
         {
             NoteMelodie noteCourante;
-            for(int nbCouplet = 0; nbCouplet<6; nbCouplet++) {
-                for (int i = 0; i < melodie.getNotesMelodies().length; i++) {
-                    if (!this.doitMourrir()) {
+            for(int nbCouplet = 0; nbCouplet<6; nbCouplet++)
+            {
+                for (int i = 0; i < melodie.getNotesMelodies().length; i++)
+                {
+                    if (!this.doitMourrir())
+                    {
                         noteCourante = melodie.getNotesMelodies()[i];
 
                         jouerNote(noteCourante);
@@ -165,26 +173,29 @@ public class ApprentissagePiano extends AppCompatActivity
             }
         }
 
+        /**
+         * @deprecated Cette méthode n'est plus utlisée. Elle doit être supprimée.
+         */
         public void attendreDebutChant(double secondes){
             try{
                 Thread.sleep((long)secondes*1000);
             }catch(InterruptedException ie){}
         }
 
-        public void desactiverBouton(final ImageView boutton){
+        public void desactiverBouton(final ImageView bouton){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    boutton.setEnabled(false);
+                    bouton.setEnabled(false);
                 }
             });
         }
 
-        public void activerBouton(final ImageView boutton){
+        public void activerBouton(final ImageView bouton){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    boutton.setEnabled(true);
+                    bouton.setEnabled(true);
                 }
             });
         }

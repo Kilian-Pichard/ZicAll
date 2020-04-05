@@ -14,7 +14,7 @@ public class NoteMelodie
     private int audioPianoNote;
 
     /**
-     * Touche du clavier du piano correspondant à la note.
+     * Touche du clavier du piano qui correspond à la note.
      */
     private Touche touche;
 
