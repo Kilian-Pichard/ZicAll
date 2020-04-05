@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,25 +15,34 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Choix_melodie_entrainement_piano;
 
 public class MainActivity extends AppCompatActivity
 {
-    // Tag qui sera utilisé pour afficher des messages dans la console pour le débogage
-    private static final String LOG_TAG = "AudioRecordTest";
+    /**
+     * Tag qui sera utilisé pour afficher des messages dans la console pour le débogage.
+     */
+    private final String LOG_TAG = "AudioRecordTest";
 
-    // Code arbitraire qui sera utilisé lors de la demande de droits et de la réception de la réponse
+    /**
+     * Code arbitraire qui sera utilisé lors de la demande de droits et de la réception de la réponse.
+     */
     private static final int REQUETE_PERMISSION_ENRERISTRER_AUDIO = 1;
 
     private boolean permissionDEnregistrerAccordee = false;
 
-    // Permissions à demander. Ici, seulement la permission pour enregistrer le son provenant du micro.
+    /**
+     * Permissions à demander. Ici, seulement la permission pour enregistrer le son provenant du micro.
+     */
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
 
-    /* Méthode qui s'exécute lorsque l'on reçoit les résultats de toutes les demandes
-    de permission de l'application. Ici, nous ne nous soucions que de la permission pour
-    enregistrer le son provenant du micro. Sans cette permission accordée, l'application se ferme. */
+    /**
+     * Méthode qui s'exécute lorsque l'on reçoit les résultats de toutes les demandes
+     * de permission de l'application. Ici, nous ne nous soucions que de la permission pour
+     * enregistrer le son provenant du micro. Sans cette permission accordée, l'application se ferme.
+     * @param requestCode Code de la requête dont on a obtenu la réponse.
+     * @param grantResults Tableau contenant les résultats des demandes de permissions (-1 si refusée ou 0 si acceptée).
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
@@ -57,10 +65,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private CardView CV_piano;
-    private CardView CV_guitare;
-    private CardView CV_partition;
-    private CardView CV_accordeur;
+    /**
+     * Bouton qui renvoie vers la fonctionnalité correspondante.
+     */
+    private CardView cv_piano, cv_guitare, cv_partition, cv_accordeur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -70,38 +78,38 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All </font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All</font>"));
 
         // Demande la permission d'enregistrer du son
         ActivityCompat.requestPermissions(this, permissions, REQUETE_PERMISSION_ENRERISTRER_AUDIO);
 
-        CV_guitare = findViewById(R.id.guitarecardview);
-        CV_piano = findViewById(R.id.pianocardview);
-        CV_accordeur = findViewById(R.id.accordeurcardview);
-        CV_partition = findViewById(R.id.partitioncardview);
+        cv_guitare = findViewById(R.id.guitarecardview);
+        cv_piano = findViewById(R.id.pianocardview);
+        cv_accordeur = findViewById(R.id.accordeurcardview);
+        cv_partition = findViewById(R.id.partitioncardview);
 
-        CV_guitare.setOnClickListener(new View.OnClickListener() {
+        cv_guitare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 accederApprentissageGuitare(v);
             }
         });
 
-        CV_piano.setOnClickListener(new View.OnClickListener() {
+        cv_piano.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 accederChoixMelodieEntrainementPiano(v);
             }
         });
 
-        CV_accordeur.setOnClickListener(new View.OnClickListener() {
+        cv_accordeur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 accederAccordeurGuitare(v);
             }
         });
 
-        CV_partition.setOnClickListener(new View.OnClickListener() {
+        cv_partition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 accederEcriturePartition(v);
@@ -137,6 +145,9 @@ public class MainActivity extends AppCompatActivity
         startActivity(otherActivity);
     }
 
+    /**
+     * Récupère l'interface correspondante à la toolbar désirée et l'affiche.
+     */
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -144,6 +155,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Associe chaque bouton de la toolbar à une action.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
