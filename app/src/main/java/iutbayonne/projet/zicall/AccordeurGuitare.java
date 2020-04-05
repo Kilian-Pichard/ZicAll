@@ -285,7 +285,7 @@ public class AccordeurGuitare extends AppCompatActivity
 
     /**
      * Méthode qui s'exécute lorsque l'on appuye sur le bouton "Retour" du smartphone.
-     * Surchargée afin d'arrêter les proprement les Thread de l'activity en cours avant de la quitter.
+     * Surchargée afin d'arrêter proprement les Thread de l'activity en cours avant de la quitter.
      */
     @Override
     public void onBackPressed()

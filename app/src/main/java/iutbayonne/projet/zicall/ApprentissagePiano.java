@@ -12,17 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.ClavierPianoPackage.Touche;
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Melodie;
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.NoteMelodie;
 
-public class ApprentissagePiano extends AppCompatActivity {
-
+public class ApprentissagePiano extends AppCompatActivity
+{
     private Melodie melodie;
     private ImageView btnLancerMelodie;
     private ImageView btnArreterMelodie;
@@ -30,7 +27,6 @@ public class ApprentissagePiano extends AppCompatActivity {
     private TextView titreMelodie;
     private static MediaPlayer audioTouche;
     private double vitesseMelodie;
-
     private Spinner s_vitesse;
 
     @Override
@@ -43,42 +39,47 @@ public class ApprentissagePiano extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All</font>"));
 
-        this.melodie = Melodie.BELLA_CIAO;
         this.btnLancerMelodie = findViewById(R.id.btnLancerMelodie);
         this.btnArreterMelodie = findViewById(R.id.btnArreterMelodie);
-        this.btnArreterMelodie.setEnabled(false);
-        this.titreMelodie = findViewById(R.id.titreMelodie);
-        this.titreMelodie.setText(melodie.getTitreMelodie());
-
         this.s_vitesse = findViewById(R.id.S_vitesse);
+        this.titreMelodie = findViewById(R.id.titreMelodie);
+
+        this.btnArreterMelodie.setEnabled(false);
+
+        this.melodie = Melodie.BELLA_CIAO;
+        this.titreMelodie.setText(melodie.getTitreMelodie());
 
         s_vitesse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0)
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                switch(position)
                 {
-                    vitesseMelodie = 1.0;
-                }
-                if(position == 1)
-                {
-                    vitesseMelodie = 0.5;
-                }
-                if(position == 2)
-                {
-                    vitesseMelodie = 0.25;
+                    case 0:
+                        vitesseMelodie = 1.0;
+                        break;
+
+                    case 1:
+                        vitesseMelodie = 0.5;
+                        break;
+
+                    case 2:
+                        vitesseMelodie = 0.25;
+                        break;
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onNothingSelected(AdapterView<?> parent)
+            {
             }
         });
 
         this.joueurDeMelodie = null;
     }
 
-    public void lancerMelodie(View view) {
+    public void lancerMelodie(View view)
+    {
         joueurDeMelodie = new JouerMelodie(melodie);
     }
 
@@ -112,7 +113,8 @@ public class ApprentissagePiano extends AppCompatActivity {
             desactiverBouton(btnArreterMelodie);
         }
 
-        public void jouerToutesLesNotes(){
+        public void jouerToutesLesNotes()
+        {
             NoteMelodie noteCourante;
             for(int nbCouplet = 0; nbCouplet<6; nbCouplet++) {
                 for (int i = 0; i < melodie.getNotesMelodies().length; i++) {
@@ -127,7 +129,8 @@ public class ApprentissagePiano extends AppCompatActivity {
             }
         }
 
-        public void jouerNote(NoteMelodie noteCourante){
+        public void jouerNote(NoteMelodie noteCourante)
+        {
             this.activeurTouche.setNote(noteCourante);
             this.activeurTouche.setAudioTouche(audioTouche);
             runOnUiThread(activeurTouche);
@@ -139,17 +142,24 @@ public class ApprentissagePiano extends AppCompatActivity {
             runOnUiThread(desactiveurTouche);
         }
 
-        public void attendre(float duree){
-            try{
+        public void attendre(float duree)
+        {
+            try
+            {
                 Thread.sleep((long) duree);
-            }catch(InterruptedException ie){}
+            }
+            catch(InterruptedException ie)
+            {}
         }
 
-        public void attendreDelaiEntreDeuxNotesIdentiques(int i, NoteMelodie noteCourante){
+        public void attendreDelaiEntreDeuxNotesIdentiques(int i, NoteMelodie noteCourante)
+        {
             int indiceDerniereNoteDeLaMelodie = melodie.getNotesMelodies().length - 1;
-            if(i < indiceDerniereNoteDeLaMelodie){
+            if(i < indiceDerniereNoteDeLaMelodie)
+            {
                 Touche toucheSuivante = melodie.getNotesMelodies()[i+1].getTouche();
-                if(noteCourante.getTouche() == toucheSuivante){
+                if(noteCourante.getTouche() == toucheSuivante)
+                {
                     attendre(50);
                 }
             }
@@ -266,6 +276,10 @@ public class ApprentissagePiano extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Méthode qui s'exécute lorsque l'on appuye sur le bouton "Retour" du smartphone.
+     * Surchargée afin d'arrêter proprement le Thread de l'activity en cours avant de la quitter.
+     */
     @Override
     public void onBackPressed()
     {
@@ -277,6 +291,9 @@ public class ApprentissagePiano extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    /**
+     * Récupère l'interface correspondante à la toolbar désirée et l'affiche.
+     */
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -284,6 +301,9 @@ public class ApprentissagePiano extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Associe chaque bouton de la toolbar à une action.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

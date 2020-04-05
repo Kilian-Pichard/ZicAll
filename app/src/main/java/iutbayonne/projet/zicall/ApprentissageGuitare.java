@@ -3,9 +3,9 @@ package iutbayonne.projet.zicall;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,10 +13,12 @@ import android.view.View;
 import iutbayonne.projet.zicall.ApprentissageGuitarePackage.Choix_chanson_entrainement_guitare;
 import iutbayonne.projet.zicall.ApprentissageGuitarePackage.Recapitulatif_des_accords;
 
-public class ApprentissageGuitare extends AppCompatActivity {
-
-    private CardView cv_accord;
-    private CardView cv_chanson;
+public class ApprentissageGuitare extends AppCompatActivity
+{
+    /**
+     * Bouton qui renvoie vers la fonctionnalité correspondante.
+     */
+    private CardView cv_accord, cv_chanson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,6 +28,7 @@ public class ApprentissageGuitare extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All</font>"));
 
         cv_accord = findViewById(R.id.accordcardview);
         cv_chanson = findViewById(R.id.chansoncardview);
@@ -70,6 +73,9 @@ public class ApprentissageGuitare extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Récupère l'interface correspondante à la toolbar désirée et l'affiche.
+     */
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -77,6 +83,9 @@ public class ApprentissageGuitare extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Associe chaque bouton de la toolbar à une action.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -1,7 +1,10 @@
 package iutbayonne.projet.zicall.ApprentissagePianoPackage;
 
-public enum Note {
-
+/**
+ * @deprecated Cette classe ne sert plus, elle a été remplacée par NoteMelodie. Elle doit être supprimée.
+ */
+public enum Note
+{
     DO_GAMME_1("Do_gamme_1"),
     DO_DIESE_GAMME_1("Do_diese_gamme_1"),
     RE_GAMME_1("Re_gamme_1"),
@@ -27,10 +30,10 @@ public enum Note {
     LA_DIESE_GAMME_2("La_diese_gamme_2"),
     SI_GAMME_2("Si_gamme_2");
 
-
     private String nomNote;
 
-    Note(String nomNote) {
+    Note(String nomNote)
+    {
         this.nomNote = nomNote;
     }
 }

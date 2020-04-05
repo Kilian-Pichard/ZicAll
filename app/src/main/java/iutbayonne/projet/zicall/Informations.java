@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 public class Informations extends AppCompatActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -69,6 +68,9 @@ public class Informations extends AppCompatActivity
         enleverSoulignementDesLiens(creditsFlaticon4);
     }
 
+    /**
+     * Récupère l'interface correspondante à la toolbar désirée et l'affiche.
+     */
     @Override
     public boolean onCreateOptionsMenu (Menu menu)
     {
@@ -77,6 +79,9 @@ public class Informations extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Associe chaque bouton de la toolbar à une action.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -104,6 +109,7 @@ public class Informations extends AppCompatActivity
     {
         Spannable s = new SpannableString(textView.getText());
         URLSpan[] spans = s.getSpans(0, s.length(), URLSpan.class);
+
         for (URLSpan span: spans)
         {
             int start = s.getSpanStart(span);
@@ -112,9 +118,13 @@ public class Informations extends AppCompatActivity
             span = new URLSpanNoUnderline(span.getURL());
             s.setSpan(span, start, end, 0);
         }
+
         textView.setText(s);
     }
 
+    /**
+     * Classe nécessaire pour enlever le style des liens contenus dans des TextView.
+     */
     private class URLSpanNoUnderline extends URLSpan
     {
         public URLSpanNoUnderline(String url)
