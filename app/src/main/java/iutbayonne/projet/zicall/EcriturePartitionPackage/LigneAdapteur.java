@@ -1,49 +1,71 @@
 package iutbayonne.projet.zicall.EcriturePartitionPackage;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import java.util.List;
-
 import iutbayonne.projet.zicall.R;
 
-import static iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition.NOTE_EN_COURS_MODIFICATION;
-
-public class LigneAdapteur extends BaseAdapter {
+public class LigneAdapteur extends BaseAdapter
+{
+    /**
+     * Instance de l'activité à laquelle l'objet LigneAdapteur appartient.
+     */
     private Context context;
+
     private Partition partition;
+
+    /**
+     * Liste des lignes dont on souhaite configurer l'affichage.
+     */
     private List<Ligne> listeLignes;
+
+    /**
+     * Permet de faire le lien entre l'objet LigneAdapteur et le layout d'une ligne.
+     */
     private LayoutInflater inflater;
 
-    public LigneAdapteur(Context context, List<Ligne> listeLignes, Partition partition) {
+    public LigneAdapteur(Context context, List<Ligne> listeLignes, Partition partition)
+    {
         this.context = context;
         this.listeLignes = listeLignes;
         this.inflater = LayoutInflater.from(context);
         this.partition = partition;
     }
 
+    /**
+     * @return Retourne le nombre de lignes à adapter.
+     */
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return listeLignes.size();
     }
 
+    /**
+     * @return Retourn la ligne dont la position est passée en paramètre.
+     */
     @Override
     public Ligne getItem(int position) {
         return listeLignes.get(position);
     }
 
+    /**
+     * Méthode générée automatiquement. Elle nous est inutile mais ne peut pas être supprimée car elle implémente
+     * une méthode abstraite de la classe mère.
+     */
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return 0;
     }
 
+    /**
+     * @return Retourne la vue générée par le LigneAdapteur.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -72,23 +94,30 @@ public class LigneAdapteur extends BaseAdapter {
         afficherToutesLesNotes(notesDeLaLigne, imagesDesNotesDeLaLigne);
 
         if (!partition.isWritting()){
-            setOncliksImagesNotes(ligneCourante, notesDeLaLigne, imagesDesNotesDeLaLigne, position, context);
+            setOnClicksImagesNotes(ligneCourante, notesDeLaLigne, imagesDesNotesDeLaLigne, position, context);
         }
 
         return convertView;
     }
 
-    public void afficherNote(NotePartition note, ImageView image){
+    public void afficherNote(NotePartition note, ImageView image)
+    {
         image.setImageResource(note.getSourceImage().getSourceImage());
     }
 
-    public void afficherToutesLesNotes(NotePartition[] notes, ImageView[] images){
-        for(int i = 0; i < notes.length; i++){
+    public void afficherToutesLesNotes(NotePartition[] notes, ImageView[] images)
+    {
+        for(int i = 0; i < notes.length; i++)
+        {
             afficherNote(notes[i],images[i]);
         }
     }
 
-    public void setOncliksImagesNotes(final Ligne ligne, final NotePartition[] notes, final ImageView[] images, final int position, final Context context){
+    /**
+     * Rends les notes de la ligne cliquables pour pouvoir les modifier.
+     */
+    public void setOnClicksImagesNotes(final Ligne ligne, final NotePartition[] notes, final ImageView[] images, final int position, final Context context)
+    {
         for (int i = 0; i < notes.length; i++) {
             final int finalI = i;
             images[i].setOnClickListener(new View.OnClickListener() {

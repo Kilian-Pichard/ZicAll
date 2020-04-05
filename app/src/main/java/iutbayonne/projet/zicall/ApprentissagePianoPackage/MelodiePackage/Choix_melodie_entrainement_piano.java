@@ -18,6 +18,9 @@ import iutbayonne.projet.zicall.R;
 
 public class Choix_melodie_entrainement_piano extends AppCompatActivity {
 
+    /**
+     * Bouton qui renvoie vers la mélodie correspondante.
+     */
     private CardView cv_bellaciao;
 
     @Override

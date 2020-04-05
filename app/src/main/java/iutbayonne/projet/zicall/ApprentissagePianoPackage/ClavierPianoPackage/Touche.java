@@ -1,12 +1,13 @@
 package iutbayonne.projet.zicall.ApprentissagePianoPackage.ClavierPianoPackage;
 
-public class Touche {
-
+public class Touche
+{
     private String nomTouche;
     private int idImage;
     private boolean noire;
 
-    Touche(String nomTouche, int idImage, boolean noire) {
+    Touche(String nomTouche, int idImage, boolean noire)
+    {
         this.nomTouche = nomTouche;
         this.idImage = idImage;
         this.noire = noire;

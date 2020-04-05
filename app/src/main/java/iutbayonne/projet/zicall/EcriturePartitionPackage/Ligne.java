@@ -1,12 +1,11 @@
 package iutbayonne.projet.zicall.EcriturePartitionPackage;
 
-public class Ligne {
-    private NotePartition note1;
-    private NotePartition note2;
-    private NotePartition note3;
-    private NotePartition note4;
-    private NotePartition note5;
-    private NotePartition note6;
+public class Ligne
+{
+    /**
+     * Permettent de manipuler les notes d'une ligne.
+     */
+    private NotePartition note1, note2, note3, note4, note5, note6;
 
     public Ligne(NotePartition note1, NotePartition note2, NotePartition note3, NotePartition note4, NotePartition note5, NotePartition note6) {
         this.note1 = note1;
@@ -73,6 +72,10 @@ public class Ligne {
         return note.getSourceImage();
     }
 
+    /**
+     * @param index Index de la note que l'on souhaite récupérer.
+     * @return Retourne la note qui correspond à l'index;
+     */
     public NotePartition getNoteViaIndex(int index){
         NotePartition noteARetourner;
         switch (index){

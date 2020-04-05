@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
-import static iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition.PARTITION_VIERGER;
+import static iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition.PARTITION_VIERGE;
 
 public class Partition {
     private List<Ligne> lignes;
@@ -17,12 +17,12 @@ public class Partition {
 
     public Partition(){
         lignes = new ArrayList<>();
-        this.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER)
+        this.ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE)
                 )
 
         );
@@ -79,12 +79,12 @@ public class Partition {
     }
 
     public void ajouterNouvelleLigneVierge(){
-        ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER),
-                        new NotePartition(PARTITION_VIERGER)
+        ajouterLigne(new Ligne(new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE),
+                        new NotePartition(PARTITION_VIERGE)
                 )
         );
         actualiserIndiceLigneCourante();

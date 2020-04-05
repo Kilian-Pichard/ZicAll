@@ -2,8 +2,8 @@ package iutbayonne.projet.zicall.ApprentissageGuitarePackage;
 
 import iutbayonne.projet.zicall.R;
 
-public enum Accord {
-
+public enum Accord
+{
     DO("Do", R.drawable.do_majeur, R.raw.do_majeur),
     DO_MINEUR("Do_mineur", R.drawable.dom, R.raw.dom),
     DO_DIESE("Do_diese", R.drawable.do_diese, R.raw.dod),
@@ -35,18 +35,20 @@ public enum Accord {
     private int imageAccord;
     private int audioAccord;
 
-    Accord(String nomAccord, int imageAccord, int audioAccord) {
+    Accord(String nomAccord, int imageAccord, int audioAccord)
+    {
         this.nomAccord = nomAccord;
         this.imageAccord = imageAccord;
         this.audioAccord = audioAccord;
     }
 
-
-    public String getNomAccord() {
+    public String getNomAccord()
+    {
         return nomAccord;
     }
 
-    public void setNomAccord(String nomAccord) {
+    public void setNomAccord(String nomAccord)
+    {
         this.nomAccord = nomAccord;
     }
 

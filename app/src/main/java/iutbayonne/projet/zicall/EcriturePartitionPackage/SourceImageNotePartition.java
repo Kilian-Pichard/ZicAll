@@ -2,8 +2,9 @@ package iutbayonne.projet.zicall.EcriturePartitionPackage;
 
 import iutbayonne.projet.zicall.R;
 
-public enum SourceImageNotePartition {
-    PARTITION_VIERGER(R.drawable.partition_vierge),
+public enum SourceImageNotePartition
+{
+    PARTITION_VIERGE(R.drawable.partition_vierge),
     DEBUT_LIGNE(R.drawable.debut_ligne),
     FIN_LIGNE(R.drawable.fin_ligne),
     FIN_PARTITION(R.drawable.fin_partition),
@@ -108,7 +109,9 @@ public enum SourceImageNotePartition {
     LA_DIESE_GAMME_0_BLANCHE(R.drawable.la_diese_gamme_0_blanche),
     LA_DIESE_GAMME_0_RONDE(R.drawable.la_diese_gamme_0_ronde);
 
-
+    /**
+     *  Identifiant de l'image qui correspond à la note.
+     */
     private int sourceImage;
 
     SourceImageNotePartition(int sourceImage) {

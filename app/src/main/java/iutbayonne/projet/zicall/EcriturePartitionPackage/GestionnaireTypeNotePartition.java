@@ -1,24 +1,38 @@
 package iutbayonne.projet.zicall.EcriturePartitionPackage;
+
 import java.util.regex.Pattern;
 
-public class GestionnaireTypeNotePartition {
+public class GestionnaireTypeNotePartition
+{
+    /**
+     * Contient l'identifiant de l'image de la note avant changement de type.
+     */
     private SourceImageNotePartition sourceNoteDeBase;
+
+    /**
+     * Type vers lequel on souhaite modifier la note sélectionnée parmi les types suivants :
+     *  croche, blanche, noire et ronde.
+     */
     private String typeToucheSouhaite;
 
-    public GestionnaireTypeNotePartition(SourceImageNotePartition sourceNoteDeBase, String typeToucheSouhaite) {
+    public GestionnaireTypeNotePartition(SourceImageNotePartition sourceNoteDeBase, String typeToucheSouhaite)
+    {
         this.sourceNoteDeBase = sourceNoteDeBase;
         this.typeToucheSouhaite = typeToucheSouhaite;
     }
 
-    public SourceImageNotePartition getSourceNoteDeBase() {
+    public SourceImageNotePartition getSourceNoteDeBase()
+    {
         return sourceNoteDeBase;
     }
 
-    public void setSourceNoteDeBase(SourceImageNotePartition sourceNoteDeBase) {
+    public void setSourceNoteDeBase(SourceImageNotePartition sourceNoteDeBase)
+    {
         this.sourceNoteDeBase = sourceNoteDeBase;
     }
 
-    public String getTypeToucheSouhaite() {
+    public String getTypeToucheSouhaite()
+    {
         return typeToucheSouhaite;
     }
 
@@ -26,6 +40,9 @@ public class GestionnaireTypeNotePartition {
         this.typeToucheSouhaite = typeToucheSouhaite;
     }
 
+    /**
+     * @return Retourne la nouvelle source de l'image de la note.
+     */
     public SourceImageNotePartition getNouvelleSourceImageNote(){
         SourceImageNotePartition nouvelleSource = getSourceNoteDeBase();
         String source = String.valueOf(sourceNoteDeBase);

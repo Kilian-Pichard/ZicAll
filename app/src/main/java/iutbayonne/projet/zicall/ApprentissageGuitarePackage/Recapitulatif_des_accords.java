@@ -484,7 +484,14 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
      */
     public class SliderAdapter extends PagerAdapter {
 
+        /**
+         * Instance de l'activité à laquelle l'objet SliderAdapter appartient.
+         */
         Context context;
+
+        /**
+         * Permet de faire le lien entre l'objet SliderAdapter et le layout de l'affichage des accords.
+         */
         LayoutInflater layoutInflater;
 
         public SliderAdapter(Context context)
@@ -493,8 +500,7 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         }
 
         /**
-         *
-         * @return Retourne la taille
+         * @return Retourne le nombre d'éléments du slider.
          */
         @Override
         public int getCount() {
