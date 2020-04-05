@@ -162,6 +162,11 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
      * Modifie le son de l'accord lorsqu'on slide vers une image.
      */
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+
+        /**
+         * Méthode générée automatiquement. Elle nous est inutile mais ne peut pas être supprimée car elle implémente
+         * une méthode abstraite de la classe mère.
+         */
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -175,6 +180,10 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
             changerAccord(position);
         }
 
+        /**
+         * Méthode générée automatiquement. Elle nous est inutile mais ne peut pas être supprimée car elle implémente
+         * une méthode abstraite de la classe mère.
+         */
         @Override
         public void onPageScrollStateChanged(int state) {
 
@@ -507,6 +516,10 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
             return Accord.getCount();
         }
 
+        /**
+         * Méthode générée automatiquement. Elle nous est inutile mais ne peut pas être supprimée car elle implémente
+         * une méthode abstraite de la classe mère.
+         */
         @Override
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
