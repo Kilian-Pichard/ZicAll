@@ -128,7 +128,7 @@ public class EcriturePartition extends AppCompatActivity {
         this.croche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!partition.isWritting()) {
+                if (!partition.isWritting() && partition.getNotes().size() > 0) {
                     GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
                             new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "croche");
 
@@ -149,7 +149,7 @@ public class EcriturePartition extends AppCompatActivity {
         this.noire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!partition.isWritting()) {
+                if (!partition.isWritting() && partition.getNotes().size() > 0) {
                     GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
                             new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "noire");
 
@@ -170,7 +170,7 @@ public class EcriturePartition extends AppCompatActivity {
         this.blanche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!partition.isWritting()) {
+                if (!partition.isWritting() && partition.getNotes().size() > 0) {
                     GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
                             new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "blanche");
 
@@ -191,7 +191,7 @@ public class EcriturePartition extends AppCompatActivity {
         this.ronde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!partition.isWritting()) {
+                if (!partition.isWritting() && partition.getNotes().size() > 0) {
                     GestionnaireTypeNotePartition gestionnaireTypeNotePartition =
                             new GestionnaireTypeNotePartition(partition.getLigneCourante().getNoteViaIndex(partition.getIndiceNoteCourante()).getSourceImage(), "ronde");
 

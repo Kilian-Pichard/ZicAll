@@ -84,7 +84,7 @@
                         android:id="@+id/nomMusique2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="La misère est si belle"
+                        android:text="Chanson 2"
                         android:textSize="20sp"
                         android:textStyle="bold"/>
                     <TextView
@@ -101,7 +101,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PNL"
+                        android:text="Auteur 2"
                         android:textSize="15sp"
                         android:layout_below="@+id/nomMusique2"/>
                 </RelativeLayout>
