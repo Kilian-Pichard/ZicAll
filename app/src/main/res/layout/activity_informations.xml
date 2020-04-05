@@ -111,43 +111,57 @@
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:src="@drawable/guitar_icon"
-                    android:layout_margin="10sp" />
+                    android:layout_margin="10sp"
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:src="@drawable/tete_de_guitare"
-                    android:layout_margin="10sp" />
+                    android:layout_margin="10sp"
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:src="@drawable/partition_icon"
-                    android:layout_margin="10sp" />
+                    android:layout_margin="10sp"
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:src="@drawable/chanson_icon"
-                    android:layout_margin="10sp" />
+                    android:layout_margin="10sp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:src="@drawable/home_icon_original"
-                    android:layout_margin="10sp" />
+                    android:layout_margin="10sp"
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:src="@drawable/start"
-                    android:layout_margin="10sp" />
+                    android:layout_margin="10sp"
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:src="@drawable/stop"
-                    android:layout_margin="10sp" />
+                    android:layout_margin="10sp"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
@@ -162,7 +176,8 @@
                 android:layout_width="100px"
                 android:layout_height="100px"
                 android:src="@drawable/piano_icon"
-                android:layout_margin="10sp" />
+                android:layout_margin="10sp"
+                android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:id="@+id/credits_Flaticon_2"
@@ -175,7 +190,8 @@
                 android:layout_width="100px"
                 android:layout_height="100px"
                 android:src="@drawable/accord_icon"
-                android:layout_margin="10sp" />
+                android:layout_margin="10sp"
+                android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:id="@+id/credits_Flaticon_3"
@@ -188,7 +204,8 @@
                 android:layout_width="100px"
                 android:layout_height="100px"
                 android:src="@drawable/info_icon_original"
-                android:layout_margin="10sp" />
+                android:layout_margin="10sp"
+                android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:id="@+id/credits_Flaticon_4"
