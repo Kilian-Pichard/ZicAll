@@ -7,6 +7,10 @@ public enum Melodie
     BELLA_CIAO("Bella ciao", "Chant des partisans italiens \n interprété par Samuel et Thomas Nadal", R.raw.bella_ciao, EnsembleNotesMelodies.NOTES_BELLA_CIAO, 0.6, 1);
 
     private String titreMelodie;
+
+    /**
+     * @deprecated Cet attribut n'est plus utilisé. Il doit être supprimé.
+     */
     private String informationsSupplementaires;
 
     /**

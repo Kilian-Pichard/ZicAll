@@ -23,7 +23,15 @@ public enum Chanson {
 
     private String titreChanson;
     private String informationsSupplementaires;
+
+    /**
+     *  Identifiant du fichier audio dans les ressources du projet.
+     */
     private int audioChanson;
+
+    /**
+     *  Tableau des identifiants des images de la chanson (paroles) dans les ressources du projet.
+     */
     private int[] imagesParolesChanson;
     private Accord[] accords;
 
@@ -75,7 +83,9 @@ public enum Chanson {
         this.accords = accords;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    /**
+     * Affiche le titre, les informations, les paroles ainsi que les accords de la chanson.
+     */
     public void afficher(LinearLayout layout, Chanson chanson, Context context){
         afficherTitre(layout, chanson, context);
         afficherInfos(layout, chanson, context);
@@ -83,7 +93,6 @@ public enum Chanson {
         afficherAccords(layout, context);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void afficherTitre(LinearLayout layout, Chanson chanson, Context context){
         TextView titre = new TextView(context);
         titre.setTextSize(30);
@@ -92,7 +101,6 @@ public enum Chanson {
         layout.addView(titre);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void afficherInfos(LinearLayout layout, Chanson chanson, Context context){
         TextView informations = new TextView(context);
         informations.setTextSize(10);
@@ -100,6 +108,7 @@ public enum Chanson {
         informations.setText(chanson.getInformationsSupplementaires());
         layout.addView(informations);
     }
+
     public void afficherParoles(LinearLayout layout, Chanson chanson, Context context){
         for (int imageCourante : chanson.getImagesParolesChanson()){
             ImageView nouvelleImage = new ImageView(context);
@@ -111,19 +120,11 @@ public enum Chanson {
     }
 
     public void afficherAccords(LinearLayout layout, Context context){
-
         for (Accord accordCourant : getAccords()){
             ImageView nouvelleImage = new ImageView(context);
             ViewGroup.LayoutParams parametres = new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             nouvelleImage.setLayoutParams(parametres);
             nouvelleImage.setBackgroundResource(accordCourant.getImageAccord());
-            layout.addView(nouvelleImage);
-
-            //pour éviter que les bouttons du bas ne soient sur les paroles en bas de page
-            nouvelleImage = new ImageView(context);
-            parametres = new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            nouvelleImage.setLayoutParams(parametres);
-            nouvelleImage.setBackgroundResource(R.drawable.image_vide_paroles_chanson_pour_decalage_boutton);
             layout.addView(nouvelleImage);
         }
     }

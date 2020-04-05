@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +16,9 @@ import iutbayonne.projet.zicall.R;
 
 public class Choix_chanson_entrainement_guitare extends AppCompatActivity {
 
+    /**
+     * Bouton qui renvoie vers la chanson correspondante.
+     */
     private CardView cv_bellaciao;
 
     @Override
@@ -24,6 +28,7 @@ public class Choix_chanson_entrainement_guitare extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All</font>"));
 
         cv_bellaciao = findViewById(R.id.cv_bellaciaoguitare);
 
@@ -52,6 +57,10 @@ public class Choix_chanson_entrainement_guitare extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Méthode qui s'exécute lorsque l'on appuye sur le bouton "Retour" du smartphone.
+     * Surchargée afin d'arrêter proprement les Thread de l'activity en cours avant de la quitter.
+     */
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -59,6 +68,9 @@ public class Choix_chanson_entrainement_guitare extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Récupère l'interface correspondante à la toolbar désirée et l'affiche.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,20 +18,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import iutbayonne.projet.zicall.MainActivity;
 import iutbayonne.projet.zicall.R;
 
 public class Recapitulatif_des_accords extends AppCompatActivity {
 
+    /**
+     * Tableau des accords
+     */
     private Accord[] accords;
+
     private Accord accordCourant;
     private int indiceAccord;
+
+    /**
+     * Lecteur qui permet de jouer la chanson.
+     */
     private MediaPlayer audioAccordCourant;
 
+    /**
+     * Modifie le son de l'accord lorsqu'on slide vers une image.
+     */
     private ViewPager mSlideViewPager;
+
+    /**
+     * Permet d'initialiser les images pour slider de gauche à droite.
+     */
     private SliderAdapter sliderAdapter;
 
+    /**
+     * Bouton qui affiche le popup
+     */
     private CardView cv_accord;
 
     @Override
@@ -41,6 +59,7 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All</font>"));
 
         mSlideViewPager = findViewById(R.id.viewpager);
         sliderAdapter = new SliderAdapter(this);
@@ -61,6 +80,10 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         changerAccord(0);
     }
 
+    /**
+     * Méthode qui s'exécute lorsque l'on retourne sur la page notamment lorsqu'on appuie sur le bouton retour.
+     * Surchargée afin d'arrêter proprement les Thread de l'activity en cours avant de la quitter.
+     */
     @Override
     protected void onRestart()
     {
@@ -135,13 +158,18 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         startActivity(otherActivity);
     }
 
-
+    /**
+     * Modifie le son de l'accord lorsqu'on slide vers une image.
+     */
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
         }
 
+        /**
+         * Change l'accord lorsqu'on slide vers une image.
+         */
         @Override
         public void onPageSelected(int position) {
             changerAccord(position);
@@ -406,6 +434,10 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Méthode qui s'exécute lorsque l'on appuye sur le bouton "Retour" du smartphone.
+     * Surchargée afin d'arrêter proprement les Thread de l'activity en cours avant de la quitter.
+     */
     @Override
     public void onBackPressed()
     {
@@ -422,6 +454,9 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    /**
+     * Récupère l'interface correspondante à la toolbar désirée et l'affiche.
+     */
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -429,6 +464,9 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Associe chaque bouton de la toolbar à une action.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -441,6 +479,9 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
         }
     }
 
+    /**
+     * Permet d'initialiser les images pour slider de gauche à droite.
+     */
     public class SliderAdapter extends PagerAdapter {
 
         Context context;
@@ -451,6 +492,10 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
             this.context = context;
         }
 
+        /**
+         *
+         * @return Retourne la taille
+         */
         @Override
         public int getCount() {
             return Accord.getCount();
@@ -461,6 +506,9 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
             return view == object;
         }
 
+        /**
+         * Initialise les images lorsqu'on slide vers une autre image.
+         */
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
@@ -475,6 +523,9 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
             return view;
         }
 
+        /**
+         * Détruit l'image lorsqu'on à slider vers une autre image
+         */
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             View view = (View) object;

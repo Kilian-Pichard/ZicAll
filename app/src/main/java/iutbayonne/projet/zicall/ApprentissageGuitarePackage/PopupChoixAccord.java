@@ -44,6 +44,9 @@ public class PopupChoixAccord extends Dialog {
         this.aide = findViewById(R.id.aide);
     }
 
+    /**
+     * Affiche le popup
+     */
     public void build()
     {
         show();

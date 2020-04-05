@@ -66,6 +66,9 @@ public enum Accord {
         this.audioAccord = audioAccord;
     }
 
+    /**
+     * @return Retourne le nombre d'accords.
+     */
     public static int getCount()
     {
         return Accord.values().length;
