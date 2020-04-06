@@ -20,13 +20,31 @@ import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.NoteMel
 
 public class ApprentissagePiano extends AppCompatActivity
 {
+    /**
+     * Mélodie à jouer pour apprendre à jouer du piano.
+     */
     private Melodie melodie;
+
     private ImageView btnLancerMelodie;
     private ImageView btnArreterMelodie;
+
+    /**
+     * Thread chargé de jouer la mélodie en illuminant les touches du clavier.
+     */
     private JouerMelodie joueurDeMelodie;
+
     private TextView titreMelodie;
+
+    /**
+     * @deprecated Cette variable n'est plus utilisée. Elle doit être supprimée.
+     */
     private static MediaPlayer audioTouche;
+
     private double vitesseMelodie;
+
+    /**
+     * Lien vers le bouton qui permet de changer la vitesse de mélodie jouée.
+     */
     private Spinner s_vitesse;
 
     @Override
@@ -88,8 +106,14 @@ public class ApprentissagePiano extends AppCompatActivity
         joueurDeMelodie.setDoitMourrir(true);
     }
 
+    /**
+     * Thread chargé de jouer la mélodie en illuminant les touches du clavier.
+     */
     private class JouerMelodie extends Thread
     {
+        /**
+         * Mélodie que le Thread doit jouer.
+         */
         private Melodie melodie;
 
         /**
@@ -97,7 +121,14 @@ public class ApprentissagePiano extends AppCompatActivity
          */
         private boolean doitMourrir;
 
+        /**
+         * Action éxcutée dans le Thread permettant d'illuminer les différentes touches et joue les sons associés.
+         */
         private ActiverTouche activeurTouche;
+
+        /**
+         * Action éxcutée dans le Thread permettant d'éteindre les différentes touches et de couper les sons associés.
+         */
         private DesactiverTouche desactiveurTouche;
 
         public JouerMelodie(Melodie melodie)
@@ -109,6 +140,9 @@ public class ApprentissagePiano extends AppCompatActivity
             start();
         }
 
+        /**
+         * S'exécute au lancement du Thread.
+         */
         public void run()
         {
             desactiverBouton(btnLancerMelodie);
@@ -160,6 +194,12 @@ public class ApprentissagePiano extends AppCompatActivity
             {}
         }
 
+        /**
+         * Méthode appelée lorsque deux notes consécutives sont identiques. Elle laisse le temps à
+         * l'utilisateur de comprendre qu'il faut jouer deux fois la même touche car illuminer de
+         * façon consécutive deux fois la même touche n'est pas perceptible par l'oeil humain.
+         * @param i Indice de la note suivante dans les notes de la mélodie.
+         */
         public void attendreDelaiEntreDeuxNotesIdentiques(int i, NoteMelodie noteCourante)
         {
             int indiceDerniereNoteDeLaMelodie = melodie.getNotesMelodies().length - 1;
@@ -209,9 +249,19 @@ public class ApprentissagePiano extends AppCompatActivity
         }
     }
 
+    /**
+     * Action à exécuter dans le Thread JouerMelodie qui permet d'illuminer une touche et joue le son associé.
+     */
     private class ActiverTouche implements Runnable
     {
+        /**
+         * Note que l'on souhaite activer.
+         */
         private NoteMelodie note;
+
+        /**
+         * Permet de manipuler le fichier audio de la note correspondante.
+         */
         private MediaPlayer audioTouche;
 
         public ActiverTouche(NoteMelodie note, MediaPlayer audioTouche)
@@ -220,6 +270,9 @@ public class ApprentissagePiano extends AppCompatActivity
             this.audioTouche = audioTouche;
         }
 
+        /**
+         * Méthode à exécuter à la création du Runnable.
+         */
         public void run()
         {
             ImageView touche = findViewById(note.getTouche().getIdImage());
@@ -237,9 +290,19 @@ public class ApprentissagePiano extends AppCompatActivity
         }
     }
 
+    /**
+     * Action à exécuter dans le Thread JouerMelodie qui permet d'éteindre une touche et de couper le son associé.
+     */
     private class DesactiverTouche implements Runnable
     {
+        /**
+         * Note que l'on souhaite désactiver.
+         */
         private NoteMelodie note;
+
+        /**
+         * Permet de manipuler le fichier audio de la note correspondante.
+         */
         private MediaPlayer audioTouche;
 
         public DesactiverTouche(NoteMelodie note, MediaPlayer audioTouche)
@@ -248,6 +311,9 @@ public class ApprentissagePiano extends AppCompatActivity
             this.audioTouche = audioTouche;
         }
 
+        /**
+         * Méthode à exécuter à la création du Runnable.
+         */
         public void run()
         {
             ImageView touche = findViewById(note.getTouche().getIdImage());

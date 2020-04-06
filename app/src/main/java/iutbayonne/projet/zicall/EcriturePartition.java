@@ -2,7 +2,6 @@ package iutbayonne.projet.zicall;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,11 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
@@ -26,36 +21,67 @@ import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
-import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.NoteMelodie;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.GestionnaireTypeNotePartition;
-import iutbayonne.projet.zicall.EcriturePartitionPackage.Ligne;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.NotePartition;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.Partition;
-import iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition;
-
 import static iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition.*;
 
 public class EcriturePartition extends AppCompatActivity {
 
     private float frequenceDetectee;
     private boolean ecritureTerminee;
-    private Thread audioThread;
+
+    /**
+     * Se charge de récupérer la fréquence provenant du microphone.
+     */
     private AudioDispatcher dispatcher;
+
+    /**
+     * Se charge de lancer le dispatcher en continu tant .
+     */
+    private Thread audioThread;
+
+    /**
+     * Thread qui se charge de l'affichage en temps réel des notes reconnues.
+     */
     private AffichageNotes affichageNotes;
 
+    /**
+     * Partition manipulée par l'utilisateur.
+     */
     private Partition partition;
+
+    /**
+     * Permet de gérer l'affichage des différentes lignes de la partition.
+     */
     private ListView listeLignesPartition;
+
+    /**
+     * Bouton qui permet de démarrer puis d'arrêter l'écriture.
+     */
     private Button btnDemarrageStopEcriture;
+
+    /**
+     * Permet de jouer l'audio de la partition écrite.
+     */
     private Button btnJouerPartition;
 
-    private ImageView croche;
-    private ImageView noire;
-    private ImageView blanche;
-    private ImageView ronde;
+    /**
+     * Bouton permettant de changer le type de la note sélectionnée
+     * par le type de note associé au bouton.
+     */
+    private ImageView croche, noire, blanche, ronde;
 
+    /**
+     * Thread chargé de jouer la mélodie écrite par l'utilisateur.
+     */
     private JouerPartition joueurDePartition;
+
     private boolean partitionEstEntrainDEtreJouee;
 
+    /**
+     * Intervalles de fréquences correspondants aux différentes notes.
+     */
     private double intervalesFrequencesReconnaissanceNotes[][] = {  {120, 134}, //  do_gamme_0
                                                                     {134, 142}, //  do_diese_gamme_0
                                                                     {142, 150}, //  re_gamme_0
@@ -82,6 +108,9 @@ public class EcriturePartition extends AppCompatActivity {
                                                                     {479, 508} //   si_gamme_1
                                                                 };
 
+    /**
+     * Ensemble des notes que l'on peut écrire sur la partition.
+     */
     private NotePartition listeNotes[] = {  new NotePartition(DO_GAMME_0_NOIRE, R.raw.do1, 1.0),
                                             new NotePartition(DO_DIESE_GAMME_0_NOIRE, R.raw.dod1, 1.0),
                                             new NotePartition(RE_GAMME_0_NOIRE, R.raw.re1, 1.0),
@@ -109,7 +138,8 @@ public class EcriturePartition extends AppCompatActivity {
                                          };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecriture_partition);
 
@@ -285,39 +315,61 @@ public class EcriturePartition extends AppCompatActivity {
         affichageNotes.start();
     }
 
+    /**
+     * Thread qui se charge d'afficher en continu des notes en fonction
+     * des fréquences captées dans le microphone.
+     */
     private class AffichageNotes extends Thread
     {
+        public AffichageNotes()
+        {}
 
-        public AffichageNotes(){}
-
+        /**
+         * S'exécute au lancement du Thread.
+         */
         public void run()
         {
-            while(true) {
-                if(partition.isWritting()) {
+            while(true)
+            {
+                if(partition.isWritting())
+                {
                     runOnUiThread(new EcrireNote());
 
-                    try {
+                    try
+                    {
                         Thread.sleep((long) 1000);
-                    } catch (InterruptedException ie) {
                     }
+                    catch(InterruptedException ie)
+                    {}
                 }
             }
         }
 
-        public void arreter(){
+        public void arreter()
+        {
             this.interrupt();
         }
     }
 
-    private class EcrireNote implements Runnable {
+    /**
+     * Affiche une note à l'écran en fonction de la fréquence captée via le microphone.
+     */
+    private class EcrireNote implements Runnable
+    {
 
-        public EcrireNote() {
-        }
+        public EcrireNote()
+        {}
 
-        public void run() {
-            if (frequenceDetectee != -1) {
-                for(int indiceIntervalFrequence = 0; indiceIntervalFrequence < intervalesFrequencesReconnaissanceNotes.length; indiceIntervalFrequence++ ){
-                    if( intervalesFrequencesReconnaissanceNotes[indiceIntervalFrequence][0] < frequenceDetectee
+        /**
+         * Méthode à exécuter à la création du Runnable.
+         */
+        public void run()
+        {
+            if (frequenceDetectee != -1)
+            {
+                for(int indiceIntervalFrequence = 0; indiceIntervalFrequence < intervalesFrequencesReconnaissanceNotes.length; indiceIntervalFrequence++ )
+                {
+                    if(intervalesFrequencesReconnaissanceNotes[indiceIntervalFrequence][0] < frequenceDetectee
                             &&
                         frequenceDetectee < intervalesFrequencesReconnaissanceNotes[indiceIntervalFrequence][1])
                     {
@@ -330,6 +382,10 @@ public class EcriturePartition extends AppCompatActivity {
         }
     }
 
+    /**
+     * Méthode qui s'exécute lorsque l'on appuye sur le bouton "Retour" du smartphone.
+     * Surchargée afin d'arrêter proprement les Thread de l'activity en cours avant de la quitter.
+     */
     @Override
     public void onBackPressed()
     {
@@ -371,6 +427,9 @@ public class EcriturePartition extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Récupère l'interface correspondante à la toolbar désirée et l'affiche.
+     */
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -378,6 +437,9 @@ public class EcriturePartition extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Associe chaque bouton de la toolbar à une action.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -390,7 +452,11 @@ public class EcriturePartition extends AppCompatActivity {
         }
     }
 
-    public ListView getListeLignesPartition() {
+    /**
+     * @deprecated Cette méthode n'est jamais utilisée. ELle doit être supprimée.
+     */
+    public ListView getListeLignesPartition()
+    {
         return listeLignesPartition;
     }
 
@@ -402,16 +468,25 @@ public class EcriturePartition extends AppCompatActivity {
         joueurDePartition = new JouerPartition();
     }
 
+    /**
+     * Thread chargé de jouer la partition écrite par l'utilisateur.
+     */
     private class JouerPartition extends Thread
     {
-        private boolean enMarche;
+        /**
+         * Indique si le Thread doit s'arreter ou non
+         */
+        private boolean doitMourrir;
 
         public JouerPartition()
         {
-            this.enMarche = true;
+            this.doitMourrir = false;
             start();
         }
 
+        /**
+         * S'exécute au lancement du Thread.
+         */
         public void run()
         {
             partitionEstEntrainDEtreJouee = true;
@@ -426,7 +501,7 @@ public class EcriturePartition extends AppCompatActivity {
 
             for(int i=0; i <liste.size(); i++)
             {
-                if(this.enMarche)
+                if(!this.doitMourrir)
                 {
                     noteCourante = liste.get(i);
                     jouerNote(noteCourante);
@@ -464,7 +539,7 @@ public class EcriturePartition extends AppCompatActivity {
 
         public void arreter()
         {
-            this.enMarche = false;
+            this.doitMourrir = true;
             partitionEstEntrainDEtreJouee = false;
             this.interrupt();
         }

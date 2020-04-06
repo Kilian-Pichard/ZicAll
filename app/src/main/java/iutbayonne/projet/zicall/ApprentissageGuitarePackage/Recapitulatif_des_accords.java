@@ -24,7 +24,7 @@ import iutbayonne.projet.zicall.R;
 public class Recapitulatif_des_accords extends AppCompatActivity {
 
     /**
-     * Tableau des accords
+     * Tableau des différents accords.
      */
     private Accord[] accords;
 
@@ -32,7 +32,7 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
     private int indiceAccord;
 
     /**
-     * Lecteur qui permet de jouer la chanson.
+     * Lecteur qui permet de jouer l'accord sélectionné.
      */
     private MediaPlayer audioAccordCourant;
 

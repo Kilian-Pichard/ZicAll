@@ -146,6 +146,9 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
             start();
         }
 
+        /**
+         * S'exécute au lancement du Thread.
+         */
         public void run()
         {
             while(enMarche && audioChanson.isPlaying())

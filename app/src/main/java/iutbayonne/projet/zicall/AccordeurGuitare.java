@@ -189,6 +189,9 @@ public class AccordeurGuitare extends AppCompatActivity
             start();
         }
 
+        /**
+         * S'exécute au lancement du Thread.
+         */
         public void run()
         {
             while(!doitMourrir)
@@ -222,6 +225,9 @@ public class AccordeurGuitare extends AppCompatActivity
 
         }
 
+        /**
+         * Méthode à exécuter à la création du Runnable.
+         */
         public void run()
         {
             // Si une fréquence est mesurée
