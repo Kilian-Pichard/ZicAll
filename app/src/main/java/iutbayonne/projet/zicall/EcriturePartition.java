@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import java.util.List;
+import java.util.Locale;
+
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
@@ -269,12 +271,18 @@ public class EcriturePartition extends AppCompatActivity {
 
 
         btnDemarrageStopEcriture = findViewById(R.id.btnDemarrageStopEcriture);
+
         btnDemarrageStopEcriture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!partition.isWritting())
                 {
-                    btnDemarrageStopEcriture.setText("Arrêter écriture");
+                    if(Locale.getDefault().getLanguage() == "fr"){
+                        btnDemarrageStopEcriture.setText("ARRÊTER L'ÉCRITURE");
+                    }
+                    else{
+                        btnDemarrageStopEcriture.setText("STOP WRITING");
+                    }
                     partition.setWritting(true);
                 }
                 else
@@ -283,7 +291,12 @@ public class EcriturePartition extends AppCompatActivity {
                     dispatcher.stop();
                     audioThread.interrupt();
                     affichageNotes.arreter();
-                    btnDemarrageStopEcriture.setText("Demarrer écriture");
+                    if(Locale.getDefault().getLanguage() == "fr"){
+                        btnDemarrageStopEcriture.setText("DÉMARRER L'ÉCRITURE");
+                    }
+                    else{
+                        btnDemarrageStopEcriture.setText("START WRITING");
+                    }
                     partition.setWritting(false);
                     partition.initialiserModificationPartition();
                     btnJouerPartition.setEnabled(true);

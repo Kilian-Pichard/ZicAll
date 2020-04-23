@@ -2,25 +2,31 @@
     <string name="app_name">Zic\'All</string>
     <string name="start_button">START</string>
 
+    <!-- Page d'accueil -->
+    <string name="vue_guitare">Guitare</string>
+    <string name="vue_piano">Piano</string>
+    <string name="vue_accordeur">Accordeur</string>
+    <string name="vue_partition">Partiton</string>
+
+
+    <!-- Page d'informations -->
+    <string name="titre_description">Description de l\'application</string>
+    <string name="titre_credits">Crédits</string>
     <string name="paragraphe_desc">Zic\'All
         est une application développée pour smartphones sur Android 5.0 ou plus par Christopher Mirambeau,
         Ayoub Moustakim, Thomas Nadal-Elizalde, et Kilian Pichard dans le cadre d\'un projet universitaire à
         l\'<a href="https://www.iutbayonne.univ-pau.fr/">IUT de Bayonne et du Pays Basque</a>. Ce projet suit une
         license GNU GPL v3.0.
     </string>
-
     <string name="lienGitHub">Voici le lien vers le code
         de l\'application :\n<a href="https://github.com/Kilian-Pichard/ZicAll">https://github.com/Kilian-Pichard/ZicAll</a>
     </string>
-
     <string name="paragraphe_audio">Toutes les sources audio (chansons, notes, accords, etc...)
         que vous pouvez entendre dans Zic\'All ont été enregistrées par notre groupe de projet.
     </string>
-
     <string name="lien_TarsosDSP">
         <a href="https://github.com/JorenSix/TarsosDSP">TarsosDSP</a>
     </string>
-
     <string name="paragraphe_TarsosDSP">Zic\'All utilise dans ses fonctionnalités "Accordeur" et "Partition" la bibliothèque
         <a href="https://github.com/JorenSix/TarsosDSP">TarsosDSP</a>, pour récupérer la fréquence d\'un
         son au travers du microphone du smartphone de l\'utilisateur.
@@ -28,41 +34,68 @@
         <a href="https://schoolofartsgent.be/">University College Ghent, School of Arts</a> entre 2009 et 2013.
         Depuis fin 2013, le projet est supporté par l\'<a href="http://www.ipem.ugent.be/">University Ghent, IPEM</a>.
     </string>
-
     <string name="lien_Flaticon">
         <a href="https://www.flaticon.com">Flaticon</a>
     </string>
-
     <string name="paragraphe_Flaticon">La plupart des icônes utilisées dans nos menus sont tirées du site
         <a href="https://www.flaticon.com">Flaticon</a>.\nVoici la liste des icônes que nous avons utilisées et leurs auteurs :
     </string>
-
     <string name="credits_Flaticon_Freepik">
         --> Icônes réalisées par <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
         de <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
          / Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
         from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
     </string>
-
     <string name="credits_Flaticon_mynamepong">
         --> Icône réalisée par <a href="https://www.flaticon.com/authors/mynamepong" title="mynamepong">mynamepong</a>
         de <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> / Icon made by
         <a href="https://www.flaticon.com/authors/mynamepong" title="mynamepong">mynamepong</a> from
         <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
     </string>
-
     <string name="credits_Flaticon_iconixar">
         --> Icône réalisée par <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a>
         de <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> / Icon made by
         <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a> from
         <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
     </string>
-
     <string name="credits_Flaticon_bqlqn">
         --> Icône réalisée par <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a>
         de <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> / Icon made by
         <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a> from
         <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
     </string>
+
+
+    <!-- Page accueil apprentissage guitare -->
+    <string name="vue_accords">Accords</string>
+    <string name="vue_chansons">Chansons</string>
+
+
+    <!-- Page apprentissage piano -->
+    <string name="vitesse_lecture">Vitesse de lecture</string>
+    <string name="changer_melodie">Choisir une autre mélodie</string>
+
+
+    <!-- Page d'écriture de partition -->
+    <string name="demarrer_ecriture">DÉMARRER L\'ÉCRITURE</string>
+    <string name="jouer_partition">JOUER LA PARTITION</string>
+    <string name="texte_arreter">ARRÊTER L\'ÉCRITURE</string>
+
+
+    <!-- Page recapitulatif accords -->
+    <string name="selection_accord">Sélectionnez un accord</string>
+    <string name="entrainement">S\'entraîner avec des chansons</string>
+
+
+    <!-- Popup choix accord -->
+    <string name="comment_sentrainer">Comment lire une\ntablature ?</string>
+
+
+    <!-- Page accordeur guitare -->
+    <string name="attente">En attente</string>
+
+
+    <!-- Page chanson entrainement -->
+    <string name="jouer_chanson">Jouer</string>
 
 </resources>

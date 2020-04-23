@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zic\'All</string>
+    <string name="start_button">START</string>
+
+    <!-- Page d'accueil -->
+    <string name="vue_guitare">Guitar</string>
+    <string name="vue_piano">Piano</string>
+    <string name="vue_accordeur">Tuner</string>
+    <string name="vue_partition">Partiton</string>
+
+
+    <!-- Page d'informations -->
+    <string name="titre_description">Description of the application</string>
+    <string name="titre_credits">Credits</string>
+    <string name="paragraphe_desc">Zic\'All
+        is an application developed for smartphones on Android 5.0 or higher by Christopher Mirambeau,
+        Ayoub Moustakim, Thomas Nadal-Elizalde, and Kilian Pichard as part of a university project at
+        the <a href="https://www.iutbayonne.univ-pau.fr/">IUT of Bayonne and the Basque Country</a>. This
+        project follows a GNU GPL v3.0 license.
+    </string>
+    <string name="lienGitHub">Here is the link to
+        the application code:\n<a href="https://github.com/Kilian-Pichard/ZicAll">https://github.com/Kilian-Pichard/ZicAll</a>
+    </string>
+    <string name="paragraphe_audio">All the audio sources (songs, notes, chords, etc.) that
+        you can hear in Zic\'All have been recorded by our project group.
+    </string>
+    <string name="lien_TarsosDSP">
+        <a href="https://github.com/JorenSix/TarsosDSP">TarsosDSP</a>
+    </string>
+    <string name="paragraphe_TarsosDSP">Zic\'All uses in its "Tuner" and "Partition" functions the
+        <a href="https://github.com/JorenSix/TarsosDSP">TarsosDSP</a> library to recover the frequency
+        of a sound through the microphone of the user\'s smartphone.
+        <a href="https://github.com/JorenSix/TarsosDSP">TarsosDSP</a> was developed at the
+        <a href="https://schoolofartsgent.be/">University College Ghent, School of Arts</a> between 2009 and 2013.
+        Since the end of 2013, the project has been supported by <a href="http://www.ipem.ugent.be/">Ghent University, IPEM</a>.
+    </string>
+    <string name="lien_Flaticon">
+        <a href="https://www.flaticon.com">Flaticon</a>
+    </string>
+    <string name="paragraphe_Flaticon">Most of the icons used in our menus are taken from the
+        <a href="https://www.flaticon.com">Flaticon</a> site.\nHere is the list of icons we used and their authors:
+    </string>
+    <string name="credits_Flaticon_Freepik">
+        Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+        from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>.
+    </string>
+    <string name="credits_Flaticon_mynamepong">
+        Icon made by <a href="https://www.flaticon.com/authors/mynamepong" title="mynamepong">mynamepong</a>
+        from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>.
+    </string>
+    <string name="credits_Flaticon_iconixar">
+        Icon made by <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a>
+        from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>.
+    </string>
+    <string name="credits_Flaticon_bqlqn">
+        Icon made by <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a>
+        from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>.
+    </string>
+
+
+    <!-- Page accueil apprentissage guitare -->
+    <string name="vue_accords">Chords</string>
+    <string name="vue_chansons">Songs</string>
+
+
+    <!-- Page apprentissage piano -->
+    <string name="vitesse_lecture">Reading speed</string>
+    <string name="changer_melodie">Choose another melody</string>
+
+
+    <!-- Page d'écriture de partition -->
+    <string name="demarrer_ecriture">START WRITING</string>
+    <string name="jouer_partition">PLAY THE SHEET</string>
+    <string name="texte_arreter">STOP WRITING</string>
+
+
+    <!-- Page recapitulatif accords -->
+    <string name="selection_accord">Select a chord</string>
+    <string name="entrainement">Practice with songs</string>
+
+
+    <!-- Popup choix accord -->
+    <string name="comment_sentrainer">How to read a\ntablature?</string>
+
+
+    <!-- Page accordeur guitare -->
+    <string name="attente">Waiting</string>
+
+
+    <!-- Page chanson entrainement -->
+    <string name="jouer_chanson">Play</string>
+
+</resources>

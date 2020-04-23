@@ -16,6 +16,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,15 +27,16 @@
             android:id="@+id/btnDemarrageStopEcriture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Demarrer écriture"
+            android:text="@string/demarrer_ecriture"
             android:textSize="10dp" />
 
         <Button
             android:id="@+id/btnJouerPartition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jouer la partition"
+            android:text="@string/jouer_partition"
             android:textSize="10dp" />
+
 
     </LinearLayout>
 
@@ -81,7 +83,6 @@
         android:id="@+id/partition_List_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
 
 
     </ListView>

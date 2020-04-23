@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Guitare"
+                    android:text="@string/vue_guitare"
                     android:textColor="#6f6f6f"
                     android:textSize="18sp" />
 
@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Piano"
+                    android:text="@string/vue_piano"
                     android:textColor="#6f6f6f"
                     android:textSize="18sp" />
 
@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Accordeur"
+                    android:text="@string/vue_accordeur"
                     android:textColor="#6f6f6f"
                     android:textSize="18sp" />
 
@@ -163,7 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Partition"
+                    android:text="@string/vue_partition"
                     android:textColor="#6f6f6f"
                     android:textSize="18sp" />
             </LinearLayout>

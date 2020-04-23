@@ -33,6 +33,7 @@
 
     <TextView
         android:id="@+id/frequenceMesure"
+        android:text="@string/attente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"

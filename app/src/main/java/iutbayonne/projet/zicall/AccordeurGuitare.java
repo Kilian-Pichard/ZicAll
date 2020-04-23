@@ -105,8 +105,6 @@ public class AccordeurGuitare extends AppCompatActivity
         si.setOnClickListener(new SelectionCorde());
         mi2.setOnClickListener(new SelectionCorde());
 
-        frequenceMesuree.setText("En attente");
-
         // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 

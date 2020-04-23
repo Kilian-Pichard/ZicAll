@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10sp"
-                android:text="Description de l'application"
+                android:text="@string/titre_description"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10sp"
-                android:text="Crédits"
+                android:text="@string/titre_credits"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

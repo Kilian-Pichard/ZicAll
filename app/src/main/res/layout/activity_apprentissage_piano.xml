@@ -88,7 +88,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="Vitesse de lecture"
+                    android:text="@string/vitesse_lecture"
                     android:textSize="18sp"
                     android:gravity="center"/>
 
@@ -301,7 +301,7 @@
                 android:onClick="accederChoixMelodie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choisir une autre mélodie" />
+                android:text="@string/changer_melodie" />
         </LinearLayout>
 
 

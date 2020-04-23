@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sélectionner un accord"
+            android:text="@string/selection_accord"
             android:textColor="#6f6f6f"
             android:textSize="18sp" />
 
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="accederChoixChansonEntrainement"
-        android:text="S'entraîner avec des chansons"
+        android:text="@string/entrainement"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.535"

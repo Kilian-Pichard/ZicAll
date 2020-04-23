@@ -16,6 +16,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
+import java.util.Locale;
+
 import iutbayonne.projet.zicall.MainActivity;
 import iutbayonne.projet.zicall.R;
 
@@ -82,13 +85,23 @@ public class Chanson_entrainement_guitare extends AppCompatActivity
         {
             this.audioChanson.start();
             this.autoScroll = new AutoScroll();
-            this.btnStartPauseAudio.setText("Pause");
+            if(Locale.getDefault().getLanguage() == "fr"){
+                btnStartPauseAudio.setText("Pause");
+            }
+            else{
+                btnStartPauseAudio.setText("STOP");
+            }
         }
         else
         {
             this.audioChanson.pause();
             this.autoScroll.arreter();
-            this.btnStartPauseAudio.setText("Play");
+            if(Locale.getDefault().getLanguage() == "fr"){
+                btnStartPauseAudio.setText("Jouer");
+            }
+            else{
+                btnStartPauseAudio.setText("Play");
+            }
         }
     }
 

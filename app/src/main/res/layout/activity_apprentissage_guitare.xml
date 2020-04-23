@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Accords"
+                    android:text="@string/vue_accords"
                     android:textColor="#6f6f6f"
                     android:textSize="18sp" />
 
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Chansons"
+                    android:text="@string/vue_chansons"
                     android:textColor="#6f6f6f"
                     android:textSize="18sp" />
 
