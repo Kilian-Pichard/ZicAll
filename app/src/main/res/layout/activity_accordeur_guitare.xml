@@ -71,6 +71,7 @@
         app:layout_constraintTop_toTopOf="@+id/frequenceMesure" />
 
     <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/re"
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -79,6 +80,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="40sp"
+        card_view:cardBackgroundColor="#FFFF"
         app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +101,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/la"
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -107,6 +110,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="40sp"
+        card_view:cardBackgroundColor="#FFFF"
         app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,6 +130,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/mi"
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -134,6 +139,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="40sp"
+        card_view:cardBackgroundColor="#FFFF"
         app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -153,6 +159,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/si"
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -161,6 +168,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="40sp"
+        card_view:cardBackgroundColor="#FFFF"
         app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,6 +188,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sol"
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -188,6 +197,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="40sp"
+        card_view:cardBackgroundColor="#FFFF"
         app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -207,6 +217,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/mi2"
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -215,6 +226,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="40sp"
+        card_view:cardBackgroundColor="#FFFF"
         app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -232,5 +244,27 @@
             android:text="mi\nE"
             android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/abc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <CheckBox
+            android:id="@+id/checkBox_auto"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="337dp"
+            android:layout_marginLeft="337dp"
+            android:layout_marginTop="57dp"
+            android:checked="false"
+            android:text="Auto" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
