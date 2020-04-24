@@ -138,7 +138,7 @@ public class AccordeurGuitare extends AppCompatActivity
         audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
 
-        auto.setChecked(true);
+        //auto.setChecked(true);
         frequenceReference.setText("...");
     }
 
@@ -213,37 +213,6 @@ public class AccordeurGuitare extends AppCompatActivity
                     backgroudWhite();
                     if(((CheckBox)v).isChecked()) {
                         frequenceReference.setText("...");
-                        if( (frequenceDetectee >= cordeMi.getFrequenceReferenceCorde()-10) && (frequenceDetectee >= cordeMi.getFrequenceReferenceCorde()+10) ){
-                            mi.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                            cordeSelectionnee = cordeMi;
-                            frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                        }
-                        if( (frequenceDetectee >= cordeLa.getFrequenceReferenceCorde()-10) && (frequenceDetectee >= cordeLa.getFrequenceReferenceCorde()+10) ){
-                            la.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                            cordeSelectionnee = cordeLa;
-                            frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                        }
-                        if( (frequenceDetectee >= cordeRe.getFrequenceReferenceCorde()-10) && (frequenceDetectee >= cordeRe.getFrequenceReferenceCorde()+10) ){
-                            re.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                            cordeSelectionnee = cordeRe;
-                            frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                        }
-                        if( (frequenceDetectee >= cordeSol.getFrequenceReferenceCorde()-10) && (frequenceDetectee >= cordeSol.getFrequenceReferenceCorde()+10) ){
-                            sol.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                            cordeSelectionnee = cordeSol;
-                            frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                        }
-                        if( (frequenceDetectee >= cordeSi.getFrequenceReferenceCorde()-10) && (frequenceDetectee >= cordeSi.getFrequenceReferenceCorde()+10) ){
-                            si.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                            cordeSelectionnee = cordeSi;
-                            frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                        }
-                        if( (frequenceDetectee >= cordeMiAigu.getFrequenceReferenceCorde()-10) && (frequenceDetectee >= cordeMiAigu.getFrequenceReferenceCorde()+10) ){
-                            mi2.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                            cordeSelectionnee = cordeMiAigu;
-                            frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                        }
-
                     }
                     else{
                         mi.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
@@ -319,10 +288,41 @@ public class AccordeurGuitare extends AppCompatActivity
          */
         public void run()
         {
-
             // Si une fréquence est mesurée
             if(frequenceDetectee != -1)
             {
+                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeMi.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeMi.getFrequenceReferenceCorde()+10.0) ){
+                    mi.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
+                    cordeSelectionnee = cordeMi;
+                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                }
+                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeLa.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeLa.getFrequenceReferenceCorde()+10.0) ){
+                    la.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
+                    cordeSelectionnee = cordeLa;
+                    //frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                    frequenceReference.setText(Double.toString(cordeLa.getFrequenceReferenceCorde()));
+                }
+                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeRe.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeRe.getFrequenceReferenceCorde()+10.0) ){
+                    re.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
+                    cordeSelectionnee = cordeRe;
+                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                }
+                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeSol.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeSol.getFrequenceReferenceCorde()+10.0) ){
+                    sol.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
+                    cordeSelectionnee = cordeSol;
+                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                }
+                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeSi.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeSi.getFrequenceReferenceCorde()+10.0) ){
+                    si.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
+                    cordeSelectionnee = cordeSi;
+                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                }
+                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeMiAigu.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeMiAigu.getFrequenceReferenceCorde()+10.0) ){
+                    mi2.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
+                    cordeSelectionnee = cordeMiAigu;
+                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                }
+
                 if(cordeSelectionnee.estDansIntervaleFrequenceAcceptable(frequenceDetectee))
                 {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
