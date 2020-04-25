@@ -71,7 +71,6 @@
         app:layout_constraintTop_toTopOf="@+id/frequenceMesure" />
 
     <androidx.cardview.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/re"
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -80,7 +79,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="40sp"
-        card_view:cardBackgroundColor="#FFFF"
+        app:cardBackgroundColor="#FFFF"
         app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,11 +91,13 @@
         app:layout_constraintVertical_bias="0.499">
 
         <TextView
+            android:id="@+id/texteRe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="RÉ\nD"
+            android:textColor="@color/cardview_dark_background"
             android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
@@ -122,11 +123,13 @@
         app:layout_constraintVertical_bias="0.713">
 
         <TextView
+            android:id="@+id/texteLa"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="LA\nA"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/cardview_dark_background" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -151,11 +154,13 @@
         app:layout_constraintVertical_bias="0.913">
 
         <TextView
+            android:id="@+id/texteMi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="MI\nE"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/cardview_dark_background" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -180,11 +185,13 @@
         app:layout_constraintVertical_bias="0.714" >
 
         <TextView
+            android:id="@+id/texteSi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="SI\nB"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/cardview_dark_background" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -209,11 +216,13 @@
         app:layout_constraintVertical_bias="0.499" >
 
         <TextView
+            android:id="@+id/texteSol"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="SOL\nG"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/cardview_dark_background" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -238,11 +247,13 @@
         app:layout_constraintVertical_bias="0.913" >
 
         <TextView
+            android:id="@+id/texteMiAigu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="mi\nE"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/cardview_dark_background" />
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout

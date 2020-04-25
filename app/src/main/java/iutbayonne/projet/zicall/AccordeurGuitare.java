@@ -13,6 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.CheckBox;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
@@ -65,6 +69,11 @@ public class AccordeurGuitare extends AppCompatActivity
     private CardView mi, la, re, sol, si, mi2;
 
     /**
+     * Texte des boutons des différentes cordes.
+     */
+    private TextView texteMi, texteLa, texteRe, texteSol, texteSi, texteMi2;
+
+    /**
      * Thread qui se charge de l'affichage en temps réel des indications.
      */
     private AffichageFrequence affichage;
@@ -73,6 +82,16 @@ public class AccordeurGuitare extends AppCompatActivity
      * Case à cocher qui permet de mettre l'accordeur de guitare en automatique
      */
     private CheckBox auto;
+
+    /**
+     * Map qui va servir a associer les vues aux différentes cordes.
+     */
+    Map<View,Corde> mapVueCorde = new HashMap<>();
+
+    /**
+     * Map qui va servir a associer les textes des vues aux différentes cordes.
+     */
+    Map<TextView,Corde> mapTexteVueCorde = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -97,6 +116,13 @@ public class AccordeurGuitare extends AppCompatActivity
         this.frequenceMesuree = findViewById(R.id.frequenceMesure);
         this.frequenceReference = findViewById(R.id.frequenceReference);
 
+        this.texteMi = findViewById(R.id.texteMi);
+        this.texteLa = findViewById(R.id.texteLa);
+        this.texteRe = findViewById(R.id.texteRe);
+        this.texteSol = findViewById(R.id.texteSol);
+        this.texteSi = findViewById(R.id.texteSi);
+        this.texteMi2 = findViewById(R.id.texteMiAigu);
+
         this.cordeMi = Corde.MI;
         this.cordeLa = Corde.LA;
         this.cordeRe = Corde.RE;
@@ -113,6 +139,20 @@ public class AccordeurGuitare extends AppCompatActivity
         si.setOnClickListener(new SelectionCorde());
         mi2.setOnClickListener(new SelectionCorde());
         auto.setOnClickListener(new SelectionCorde());
+
+        mapVueCorde.put(mi,cordeMi);
+        mapVueCorde.put(la,cordeLa);
+        mapVueCorde.put(re,cordeRe);
+        mapVueCorde.put(sol,cordeSol);
+        mapVueCorde.put(si,cordeSi);
+        mapVueCorde.put(mi2,cordeMiAigu);
+
+        mapTexteVueCorde.put(texteMi,cordeMi);
+        mapTexteVueCorde.put(texteLa,cordeLa);
+        mapTexteVueCorde.put(texteRe,cordeRe);
+        mapTexteVueCorde.put(texteSol,cordeSol);
+        mapTexteVueCorde.put(texteSi,cordeSi);
+        mapTexteVueCorde.put(texteMi2,cordeMiAigu);
 
         // Relie l'AudioDispatcher à l'entrée par défaut du smartphone (micro)
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
@@ -142,87 +182,47 @@ public class AccordeurGuitare extends AppCompatActivity
         frequenceReference.setText("...");
     }
 
+    public void allBackgroudWhite(){
+        mi.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
+        la.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
+        re.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
+        sol.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
+        si.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
+        mi2.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
+    }
+
     /**
      * Gestionnaire d'évènements qui se charge de mettre à jour l'affichage lorsque l'on sélectionne une autre corde
      */
     private class SelectionCorde implements View.OnClickListener
     {
-        public void backgroudWhite(){
-            mi.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
-            la.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
-            re.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
-            sol.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
-            si.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
-            mi2.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
-        }
-
         @Override
-        public void onClick(View v)
+        public void onClick(View view)
         {
-            switch(v.getId())
-            {
-                case R.id.mi:
-                    auto.setChecked(false);
-                    backgroudWhite();
-                    mi.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
+            if(view.getId() != R.id.checkBox_auto) {
+                auto.setChecked(false);
+                view.setBackgroundColor(Color.parseColor("#20A0D3"));
+                for (Map.Entry<View, Corde> entry : mapVueCorde.entrySet()) {
+                    if (entry.getKey() == view) {
+                        cordeSelectionnee = entry.getValue();
+                        frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                    } else {
+                        entry.getKey().setBackgroundColor(Color.parseColor("#FEFFFF"));
+                    }
+                }
+            }
+            else {
+                allBackgroudWhite();
+                if(((CheckBox)view).isChecked()) {
+                    frequenceReference.setText("...");
+                }
+                else
+                {
+                    mi.setCardBackgroundColor(Color.parseColor("#20A0D3"));
                     cordeSelectionnee = cordeMi;
                     frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    break;
-
-                case R.id.la:
-                    auto.setChecked(false);
-                    backgroudWhite();
-                    la.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeLa;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    break;
-
-                case R.id.re:
-                    auto.setChecked(false);
-                    backgroudWhite();
-                    re.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeRe;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    break;
-
-                case R.id.sol:
-                    auto.setChecked(false);
-                    backgroudWhite();
-                    sol.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeSol;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    break;
-
-                case R.id.si:
-                    auto.setChecked(false);
-                    backgroudWhite();
-                    si.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeSi;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    break;
-
-                case R.id.mi2:
-                    auto.setChecked(false);
-                    backgroudWhite();
-                    mi2.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeMiAigu;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    break;
-
-                case R.id.checkBox_auto:
-                    backgroudWhite();
-                    if(((CheckBox)v).isChecked()) {
-                        frequenceReference.setText("...");
-                    }
-                    else{
-                        mi.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                        cordeSelectionnee = cordeMi;
-                        frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    }
-                    break;
+                }
             }
-
-            //frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
             arreterAffichage();
             affichage = new AffichageFrequence();
         }
@@ -271,6 +271,7 @@ public class AccordeurGuitare extends AppCompatActivity
     }
 
 
+
     /**
      * Affiche à l'écran la fréquence détectée par le microphone, ainsi qu'une indication pour
      * dire à l'utilisateur de tendre ou détendre la corde de sa guitare.
@@ -279,9 +280,7 @@ public class AccordeurGuitare extends AppCompatActivity
     {
         public Indication()
         {
-
         }
-
 
         /**
          * Méthode à exécuter à la création du Runnable.
@@ -291,41 +290,27 @@ public class AccordeurGuitare extends AppCompatActivity
             // Si une fréquence est mesurée
             if(frequenceDetectee != -1)
             {
-                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeMi.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeMi.getFrequenceReferenceCorde()+10.0) ){
-                    mi.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeMi;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                }
-                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeLa.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeLa.getFrequenceReferenceCorde()+10.0) ){
-                    la.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeLa;
-                    //frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    frequenceReference.setText(Double.toString(cordeLa.getFrequenceReferenceCorde()));
-                }
-                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeRe.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeRe.getFrequenceReferenceCorde()+10.0) ){
-                    re.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeRe;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                }
-                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeSol.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeSol.getFrequenceReferenceCorde()+10.0) ){
-                    sol.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeSol;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                }
-                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeSi.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeSi.getFrequenceReferenceCorde()+10.0) ){
-                    si.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeSi;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                }
-                if( ((Math.round(frequenceDetectee * 100.0)/100.0) >= cordeMiAigu.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= cordeMiAigu.getFrequenceReferenceCorde()+10.0) ){
-                    mi2.setCardBackgroundColor(Color.parseColor("#4A9CCE"));
-                    cordeSelectionnee = cordeMiAigu;
-                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                for(Map.Entry<View,Corde> entry : mapVueCorde.entrySet())
+                {
+                    if(entry.getValue().estDansLIntervalleDeFrequence(frequenceDetectee))
+                    {
+                        allBackgroudWhite();
+                        entry.getKey().setBackgroundColor(Color.parseColor("#20A0D3"));
+                        cordeSelectionnee = entry.getValue();
+                        frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                    }
                 }
 
                 if(cordeSelectionnee.estDansIntervaleFrequenceAcceptable(frequenceDetectee))
                 {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
+                    //Changer couleur texte si corde bien accordée
+                    for (Map.Entry<TextView, Corde> entry : mapTexteVueCorde.entrySet()) {
+                        if(cordeSelectionnee == entry.getValue())
+                        {
+                            entry.getKey().setTextColor(Color.parseColor("#148235"));
+                        }
+                    }
                 }
                 else
                 {
