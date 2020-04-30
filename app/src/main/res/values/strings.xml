@@ -6,8 +6,10 @@
     <string name="vue_guitare">Guitare</string>
     <string name="vue_piano">Piano</string>
     <string name="vue_accordeur">Accordeur</string>
-    <string name="vue_partition">Partiton</string>
+    <string name="vue_partition">Partition</string>
 
+    <!-- Page Langue -->
+    <string name="choisirLangue">Choisir une langue :</string>
 
     <!-- Page d'informations -->
     <string name="titre_description">Description de l\'application</string>

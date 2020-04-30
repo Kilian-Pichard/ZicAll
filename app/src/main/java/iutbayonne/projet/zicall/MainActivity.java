@@ -1,13 +1,18 @@
 package iutbayonne.projet.zicall;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -15,6 +20,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.util.Locale;
+
 import iutbayonne.projet.zicall.ApprentissagePianoPackage.MelodiePackage.Choix_melodie_entrainement_piano;
 
 public class MainActivity extends AppCompatActivity
@@ -47,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        chargerParam();
 
         switch(requestCode)
         {
@@ -167,8 +177,59 @@ public class MainActivity extends AppCompatActivity
                 startActivity(otherActivity);
                 return true;
 
+            case R.id.action_lang:
+                afficherChangementLangue();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void afficherChangementLangue() {
+        final String[] listLangues = {"Français", "English"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        mBuilder.setTitle(R.string.choisirLangue);
+        mBuilder.setSingleChoiceItems(listLangues, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                switch (i) {
+                    case 0 :
+                        setLocale("fr");
+                        recreate();
+                        break;
+                    case 1 :
+                        setLocale("en");
+                        recreate();
+                        break;
+                    default:
+                        setLocale("en");
+                        recreate();
+                        break;
+                }
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+    }
+
+    private void setLocale(String langue) {
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        // save
+        SharedPreferences.Editor editor = getSharedPreferences("parametres", MODE_PRIVATE).edit();
+        editor.putString("Langue", langue);
+        editor.apply();
+    }
+
+    public void chargerParam() {
+        SharedPreferences preferences = getSharedPreferences("parametres", Activity.MODE_PRIVATE);
+        String langue = preferences.getString("Langue", "");
+        setLocale(langue);
     }
 }

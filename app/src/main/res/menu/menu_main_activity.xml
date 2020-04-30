@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_lang"
+        android:icon="@drawable/langue_icone_40dp"
+        android:title="Langage"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_info"
         android:icon="@drawable/info_icon"
         android:title="Informations"
