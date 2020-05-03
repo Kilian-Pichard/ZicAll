@@ -75,6 +75,8 @@
     <string name="demarrer_ecriture">START WRITING</string>
     <string name="jouer_partition">PLAY THE SHEET</string>
     <string name="texte_arreter">STOP WRITING</string>
+    <string name="enregistrer">SAVE</string>
+    <string name="recupererPartition">RECOVER</string>
 
 
     <!-- Page recapitulatif accords -->

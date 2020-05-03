@@ -86,12 +86,23 @@ public class AccordeurGuitare extends AppCompatActivity
     /**
      * Map qui va servir a associer les vues aux différentes cordes.
      */
-    Map<View,Corde> mapVueCorde = new HashMap<>();
+    Map<CardView,Corde> mapVueCorde = new HashMap<>();
 
     /**
      * Map qui va servir a associer les textes des vues aux différentes cordes.
      */
     Map<TextView,Corde> mapTexteVueCorde = new HashMap<>();
+
+    /**
+     * Permet de savoir quelle est la vue actuellement séléctionnée
+     */
+    private CardView laVueCourante;
+
+    /**
+     * Permet de savoir si on a appuyé sur un bouton d'une corde
+     */
+    Boolean premiereCordeSelectionnee = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -138,7 +149,7 @@ public class AccordeurGuitare extends AppCompatActivity
         sol.setOnClickListener(new SelectionCorde());
         si.setOnClickListener(new SelectionCorde());
         mi2.setOnClickListener(new SelectionCorde());
-        auto.setOnClickListener(new SelectionCorde());
+        auto.setOnClickListener(new SelectionBoutonAuto());
 
         mapVueCorde.put(mi,cordeMi);
         mapVueCorde.put(la,cordeLa);
@@ -182,7 +193,7 @@ public class AccordeurGuitare extends AppCompatActivity
         frequenceReference.setText("...");
     }
 
-    public void allBackgroudWhite(){
+    public void allBackgroundWhite(){
         mi.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
         la.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
         re.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
@@ -190,6 +201,7 @@ public class AccordeurGuitare extends AppCompatActivity
         si.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
         mi2.setCardBackgroundColor(Color.parseColor("#FEFFFF"));
     }
+
 
     /**
      * Gestionnaire d'évènements qui se charge de mettre à jour l'affichage lorsque l'on sélectionne une autre corde
@@ -199,30 +211,58 @@ public class AccordeurGuitare extends AppCompatActivity
         @Override
         public void onClick(View view)
         {
-            if(view.getId() != R.id.checkBox_auto) {
-                auto.setChecked(false);
-                view.setBackgroundColor(Color.parseColor("#20A0D3"));
-                for (Map.Entry<View, Corde> entry : mapVueCorde.entrySet()) {
-                    if (entry.getKey() == view) {
-                        cordeSelectionnee = entry.getValue();
-                        frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    } else {
-                        entry.getKey().setBackgroundColor(Color.parseColor("#FEFFFF"));
-                    }
-                }
-            }
-            else {
-                allBackgroudWhite();
-                if(((CheckBox)view).isChecked()) {
-                    frequenceReference.setText("...");
-                }
-                else
+            premiereCordeSelectionnee = true;
+            auto.setChecked(false);
+            view.setBackgroundColor(Color.parseColor("#20A0D3"));
+            for (Map.Entry<CardView, Corde> entry : mapVueCorde.entrySet())
+            {
+                if (entry.getKey() == view)
                 {
-                    mi.setCardBackgroundColor(Color.parseColor("#20A0D3"));
-                    cordeSelectionnee = cordeMi;
+                    cordeSelectionnee = entry.getValue();
                     frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
                 }
+                else {
+                    entry.getKey().setBackgroundColor(Color.parseColor("#FEFFFF"));
+                }
             }
+
+            arreterAffichage();
+            affichage = new AffichageFrequence();
+        }
+    }
+
+
+    /**
+     * Gestionnaire d'évènements qui se charge de mettre à jour l'affichage et la corde séléctionnée lorsque l'on appuie sur le bouton Auto
+     */
+    private class SelectionBoutonAuto implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View view)
+        {
+            if(((CheckBox)view).isChecked())
+            {
+                if (premiereCordeSelectionnee)
+                {
+                    for (Map.Entry<CardView,Corde> entry : mapVueCorde.entrySet())
+                    {
+                        if(cordeSelectionnee == entry.getValue())
+                        {
+                            laVueCourante = entry.getKey();
+                        }
+                    }
+                    laVueCourante.setBackgroundColor(Color.parseColor("#FEFFFF"));
+                }
+                frequenceReference.setText("...");
+            }
+            else
+            {
+                allBackgroundWhite();
+                mi.setCardBackgroundColor(Color.parseColor("#20A0D3"));
+                cordeSelectionnee = cordeMi;
+                frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+            }
+
             arreterAffichage();
             affichage = new AffichageFrequence();
         }
@@ -290,11 +330,11 @@ public class AccordeurGuitare extends AppCompatActivity
             // Si une fréquence est mesurée
             if(frequenceDetectee != -1)
             {
-                for(Map.Entry<View,Corde> entry : mapVueCorde.entrySet())
+                allBackgroundWhite();
+                for(Map.Entry<CardView,Corde> entry : mapVueCorde.entrySet())
                 {
                     if(entry.getValue().estDansLIntervalleDeFrequence(frequenceDetectee))
                     {
-                        allBackgroudWhite();
                         entry.getKey().setBackgroundColor(Color.parseColor("#20A0D3"));
                         cordeSelectionnee = entry.getValue();
                         frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
@@ -304,7 +344,7 @@ public class AccordeurGuitare extends AppCompatActivity
                 if(cordeSelectionnee.estDansIntervaleFrequenceAcceptable(frequenceDetectee))
                 {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
-                    //Changer couleur texte si corde bien accordée
+                    //Changer couleur texte si corde bien accordée -> mettre en vert
                     for (Map.Entry<TextView, Corde> entry : mapTexteVueCorde.entrySet()) {
                         if(cordeSelectionnee == entry.getValue())
                         {

@@ -82,6 +82,8 @@
     <string name="demarrer_ecriture">DÉMARRER L\'ÉCRITURE</string>
     <string name="jouer_partition">JOUER LA PARTITION</string>
     <string name="texte_arreter">ARRÊTER L\'ÉCRITURE</string>
+    <string name="enregistrer">ENREGISTRER</string>
+    <string name="recupererPartition">RÉCUPÉRER</string>
 
 
     <!-- Page recapitulatif accords -->
