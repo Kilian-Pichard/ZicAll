@@ -1,5 +1,6 @@
 package iutbayonne.projet.zicall;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,9 +9,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.lang.String;
@@ -67,7 +71,6 @@ public class EcriturePartition extends AppCompatActivity {
      */
     private Partition partition;
 
-
     /**
      * Permet de gérer l'affichage des différentes lignes de la partition.
      */
@@ -104,7 +107,20 @@ public class EcriturePartition extends AppCompatActivity {
      */
     private JouerPartition joueurDePartition;
 
+    /**
+     * Booleen qui permet de savoir si la partition est en train d'etre jouée
+     */
     private boolean partitionEstEntrainDEtreJouee;
+
+    /**
+     * Ensemble des notes qui vont etre enrgsitrées
+     */
+    private String lesNotes;
+
+    /**
+     * Ensemble des notes qui sont présentes dans la partition
+     */
+    private String laListeDesNotes = "listeVide";
 
     /**
      * Intervalles de fréquences correspondants aux différentes notes.
@@ -163,86 +179,6 @@ public class EcriturePartition extends AppCompatActivity {
             new NotePartition("LA_DIESE_GAMME_1_NOIRE",LA_DIESE_GAMME_1_NOIRE, R.raw.lad2, 1.0),
             new NotePartition("SI_GAMME_1_NOIRE",SI_GAMME_1_NOIRE, R.raw.si2, 1.0),
     };
-
-    /*
-    public boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state))
-        {
-            Toast.makeText(this, "Memoire externe disponible en écriture", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return false;
-    }
-
-    private void enregistrerPartition()
-    {
-
-        NotePartition noteCourante;
-        List<NotePartition> listeNotesPartition = partition.getNotes();
-        String laListeDesNotes = listeNotesPartition.toString();
-
-        if(isExternalStorageWritable())
-        {
-            FileOutputStream output = null;
-
-            try
-            {
-                output = openFileOutput("fichier.txt", MODE_PRIVATE);
-                output.write(laListeDesNotes.getBytes());
-                if(output != null)
-                {
-                    output.close();
-                    Toast.makeText(getApplicationContext(), "Partition sauvegardé", Toast.LENGTH_LONG).show();
-                }
-            }
-            catch (FileNotFoundException e)
-            {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Impossible de sauvegarder la partition", Toast.LENGTH_LONG).show();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Impossible de sauvegarder la partition", Toast.LENGTH_LONG).show();
-            }
-
-////////////
-
-            // le message a écrire dans le fichier
-            String data = laListeDesNotes;
-
-            //création du fichier
-            try
-            {
-                File myFile = new File(path);
-                FileOutputStream fileOut = new FileOutputStream(myFile);
-                OutputStreamWriter myOutWriter = new OutputStreamWriter(fileOut);
-                myOutWriter.append(data);
-                myOutWriter.close();
-                fileOut.close();
-
-                Toast.makeText(getApplicationContext(), "La partition a été sauvegardé", Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), laListeDesNotes, Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), path, Toast.LENGTH_LONG).show();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Impossible de sauvegarder la partition", Toast.LENGTH_LONG).show();
-            }
-
-        }
-
-
-        else
-        {
-            Toast.makeText(this, "Disque externe non disponible,ou non diponible en écriture", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -382,25 +318,29 @@ public class EcriturePartition extends AppCompatActivity {
                 if (!partition.isWritting()) {
                     if (Locale.getDefault().getLanguage() == "fr") {
                         btnDemarrageStopEcriture.setText("ARRÊTER L'ÉCRITURE");
-                    } else {
+                    }
+                    else {
                         btnDemarrageStopEcriture.setText("STOP WRITING");
                     }
                     partition.setWritting(true);
-                } else {
+                    btnRecupererPartition.setEnabled(false);
+                }
+                else {
                     ecritureTerminee = true;
                     dispatcher.stop();
                     audioThread.interrupt();
                     affichageNotes.arreter();
                     if (Locale.getDefault().getLanguage() == "fr") {
                         btnDemarrageStopEcriture.setText("DÉMARRER L'ÉCRITURE");
-                    } else {
+                    }
+                    else {
                         btnDemarrageStopEcriture.setText("START WRITING");
                     }
+                    btnRecupererPartition.setEnabled(true);
                     partition.setWritting(false);
                     partition.initialiserModificationPartition();
                     btnJouerPartition.setEnabled(true);
                     btnEnregistrerPartition.setEnabled(true);
-                    btnRecupererPartition.setEnabled(true);
                 }
 
                 if (ecritureTerminee) {
@@ -412,7 +352,7 @@ public class EcriturePartition extends AppCompatActivity {
 
         this.btnJouerPartition = findViewById(R.id.btnJouerPartition);
         this.btnJouerPartition.setEnabled(false);
-        this.btnJouerPartition.setOnClickListener(new View.OnClickListener() {
+        this.btnJouerPartition.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!partition.isEnCoursDeModification() && !partitionEstEntrainDEtreJouee) {
@@ -422,12 +362,7 @@ public class EcriturePartition extends AppCompatActivity {
         });
 
 
-
-
-        NotePartition noteCourante;
-        List<NotePartition> listeNotesPartition = partition.getNotes();
-        final String laListeDesNotes = listeNotesPartition.toString();
-        final String fileName = "fichier32.txt";
+        final String fileName = "fichier31.txt";
 
         // On crée un fichier qui correspond à l'emplacement extérieur
         Context context = getApplicationContext();
@@ -437,60 +372,71 @@ public class EcriturePartition extends AppCompatActivity {
         this.btnEnregistrerPartition = findViewById(R.id.btnEnregistrerPartition);
         this.btnEnregistrerPartition.setEnabled(false);
         this.btnEnregistrerPartition.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View pView) {
-                try {
-                    // Flux interne
-                    FileOutputStream output = openFileOutput(fileName, MODE_PRIVATE);
+                lesNotes = recupererNotes();
+                if (laListeDesNotes != "listeVide") {
+                    try {
+                        lesNotes = recupererNotes();
+                        Toast.makeText(getApplicationContext(), lesNotes, Toast.LENGTH_LONG).show();
 
-                    // On écrit dans le flux interne
-                    output.write(laListeDesNotes.getBytes());
+                        // Flux interne
+                        FileOutputStream output = openFileOutput(fileName, MODE_PRIVATE);
 
-                    if (output != null)
-                    {
-                        output.close();
-                    }
-                    // Si le fichier est lisible et qu'on peut écrire dedans
-                    if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                            && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState()))
-                    {
-                        // On crée un nouveau fichier. Si le fichier existe déjà, il ne sera pas créé
-                        myFile.createNewFile();
-                        output = new FileOutputStream(myFile);
-                        output.write(laListeDesNotes.getBytes());
-                        String test = output.toString();
-                        if (output != null){
+                        // On écrit dans le flux interne
+                        output.write(lesNotes.getBytes());
+
+                        if (output != null) {
                             output.close();
                         }
-                        Toast.makeText(getApplicationContext(), "Le fichier " + fileName + " a été créé.", Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "Impossible de creer fichier", Toast.LENGTH_LONG).show();
-                    }
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                        // Si le fichier est lisible et qu'on peut écrire dedans
+                        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                                && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState())) {
+                            // On crée un nouveau fichier. Si le fichier existe déjà, il ne sera pas créé
+                            myFile.createNewFile();
+                            output = new FileOutputStream(myFile);
+                            output.write(lesNotes.getBytes());
+                            String test = output.toString();
+                            if (output != null) {
+                                output.close();
+                            }
+                            Toast.makeText(getApplicationContext(), "Le fichier " + fileName + " a été créé.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), myFile.toString(), Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Impossible de creer fichier", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (FileNotFoundException e) {
+                        Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
 
-                    e.printStackTrace();
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Aucune note n'a été jouée", Toast.LENGTH_LONG).show();
                 }
             }
-            //enregistrerPartition();
         });
 
 
 
         this.btnRecupererPartition = findViewById(R.id.btnRecupererPartition);
-        this.btnRecupererPartition.setEnabled(false);
+        this.btnRecupererPartition.setEnabled(true);
         this.btnRecupererPartition.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View pView) {
                 try {
-                    FileInputStream input = openFileInput("fichier32.txt");
+
+                    FileInputStream input = openFileInput("fichier62.txt");
+                    
                     int value;
+
                     // On utilise un StringBuffer pour construire la chaîne au fur et à mesure
                     StringBuffer lu = new StringBuffer();
+
                     // On lit les caractères les uns après les autres
                     while((value = input.read()) != -1) {
                         // On écrit dans le fichier le caractère lu
@@ -499,7 +445,7 @@ public class EcriturePartition extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Interne : " + lu.toString(), Toast.LENGTH_SHORT).show();
                     if(input != null)
                         input.close();
-
+                    /*
                     if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                         lu = new StringBuffer();
                         input = new FileInputStream(myFile);
@@ -510,7 +456,7 @@ public class EcriturePartition extends AppCompatActivity {
                         if(input != null)
                             input.close();
                     }
-
+                    */
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -754,6 +700,34 @@ public class EcriturePartition extends AppCompatActivity {
             partitionEstEntrainDEtreJouee = false;
             this.interrupt();
         }
+    }
+
+    private static String convertirTableauDeStringEnString(String[] leTab, String delimiteur)
+    {
+        StringBuilder sb = new StringBuilder();
+        for(String leString : leTab)
+        {
+            sb.append(leString).append(delimiteur);
+        }
+        return sb.substring(0, sb.length() - 1);
+
+    }
+
+    public String recupererNotes()
+    {
+        List<NotePartition> listeNotesPartition = partition.getNotes();
+        NotePartition[] noteCourante = new NotePartition[listeNotesPartition.size()];
+        String[] tabDesNotes = new String[listeNotesPartition.size()];
+
+        if (!listeNotesPartition.isEmpty()){
+            for(int i = 0; i < listeNotesPartition.size() ; i++)
+            {
+                    noteCourante[i] = listeNotesPartition.get(i);
+                    tabDesNotes[i] = noteCourante[i].getNomNote() + "," + noteCourante[i].getDuree();
+            }
+            laListeDesNotes = convertirTableauDeStringEnString(tabDesNotes,";");
+        }
+        return laListeDesNotes;
     }
 
 }
