@@ -35,14 +35,16 @@ public class MainActivity extends AppCompatActivity
     /**
      * Code arbitraire qui sera utilisé lors de la demande de droits et de la réception de la réponse.
      */
-    private static final int REQUETE_PERMISSION_ENRERISTRER_AUDIO = 1;
+    private static final int REQUETE_PERMISSIONS = 1;
 
     private boolean permissionDEnregistrerAccordee = false;
+    private boolean permissionDEcrireDansStockage = false;
+    private boolean permissionDeLireDansStockage = false;
 
     /**
-     * Permissions à demander. Ici, seulement la permission pour enregistrer le son provenant du micro.
+     * Permissions à demander. Ici, seulement la permission pour enregistrer le son provenant du micro, écrire et lire dans le stockage.
      */
-    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+    private String [] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
     /**
      * Méthode qui s'exécute lorsque l'on reçoit les résultats de toutes les demandes
@@ -60,9 +62,12 @@ public class MainActivity extends AppCompatActivity
 
         switch(requestCode)
         {
-            case REQUETE_PERMISSION_ENRERISTRER_AUDIO:
+            case REQUETE_PERMISSIONS:
                 permissionDEnregistrerAccordee  = (grantResults[0] == PackageManager.PERMISSION_GRANTED);
+                permissionDEcrireDansStockage  = (grantResults[0] == PackageManager.PERMISSION_GRANTED);
+                permissionDeLireDansStockage  = (grantResults[0] == PackageManager.PERMISSION_GRANTED);
                 break;
+
 
             // On devrait rajouter des case si on avait d'autres permissions à demander
         }
@@ -70,7 +75,19 @@ public class MainActivity extends AppCompatActivity
         if (!permissionDEnregistrerAccordee)
         {
             // Envoi d'un message d'erreur dans la console puis fermeture de l'appli
-            Log.e(LOG_TAG, "Permission d'enregistrer non approuvée");
+            Log.e(LOG_TAG, "Permission d'enregistrer le son non approuvée");
+            finish();
+        }
+        if (!permissionDEcrireDansStockage)
+        {
+            // Envoi d'un message d'erreur dans la console puis fermeture de l'appli
+            Log.e(LOG_TAG, "Permission d'écrire dans le stockage non approuvée");
+            finish();
+        }
+        if (!permissionDeLireDansStockage)
+        {
+            // Envoi d'un message d'erreur dans la console puis fermeture de l'appli
+            Log.e(LOG_TAG, "Permission de lire le stockage non approuvée");
             finish();
         }
     }
@@ -90,8 +107,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Zic'All</font>"));
 
-        // Demande la permission d'enregistrer du son
-        ActivityCompat.requestPermissions(this, permissions, REQUETE_PERMISSION_ENRERISTRER_AUDIO);
+        // Demande des permissions
+        ActivityCompat.requestPermissions(this, permissions, REQUETE_PERMISSIONS);
+
 
         cv_guitare = findViewById(R.id.guitarecardview);
         cv_piano = findViewById(R.id.pianocardview);

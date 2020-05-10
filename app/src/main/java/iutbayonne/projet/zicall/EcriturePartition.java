@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -362,7 +363,7 @@ public class EcriturePartition extends AppCompatActivity {
         });
 
 
-        final String fileName = "fichier31.txt";
+        final String fileName = "fichier100.txt";
 
         // On crée un fichier qui correspond à l'emplacement extérieur
         Context context = getApplicationContext();
@@ -429,6 +430,18 @@ public class EcriturePartition extends AppCompatActivity {
 
             public void onClick(View pView) {
                 try {
+                    String lesFichiers = "Les fichiers : \n";
+                    String path = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString();
+                    File directory = new File(path);
+                    File[] files = directory.listFiles();
+                    for (int i = 0; i < files.length; i++)
+                    {
+                        lesFichiers = lesFichiers + files[i].getName() + "\n";
+                    }
+                    Toast.makeText(getApplicationContext(), lesFichiers, Toast.LENGTH_SHORT).show();
+
+
+
 
                     FileInputStream input = openFileInput("fichier62.txt");
                     
