@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/home_icon"
+        android:title="Accueil"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_guitare"
+        android:title="@string/choix_guitare"/>
+    <item
+        android:id="@+id/action_ukulele"
+        android:title="@string/choix_ukulele"/>
+</menu>

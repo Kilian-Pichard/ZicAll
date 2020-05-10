@@ -102,4 +102,8 @@
     <!-- Page chanson entrainement -->
     <string name="jouer_chanson">Jouer</string>
 
+    <!-- Page accordeur -->
+    <string name="choix_guitare">Guitare</string>
+    <string name="choix_ukulele">Ukulélé</string>
+
 </resources>
