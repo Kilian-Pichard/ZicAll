@@ -12,4 +12,7 @@
     <item
         android:id="@+id/action_ukulele"
         android:title="@string/choix_ukulele"/>
+    <item
+        android:id="@+id/action_basse"
+        android:title="@string/choix_basse"/>
 </menu>

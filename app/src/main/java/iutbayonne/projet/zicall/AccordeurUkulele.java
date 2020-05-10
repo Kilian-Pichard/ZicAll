@@ -280,20 +280,27 @@ public class AccordeurUkulele extends AppCompatActivity
             // Si une fréquence est mesurée
             if(frequenceDetectee != -1)
             {
-                allBackgroundWhite();
-                for(Map.Entry<CardView, CordeUkulele> entry : mapVueCorde.entrySet())
-                {
-                    if(entry.getValue().estDansLIntervalleDeFrequence(frequenceDetectee))
+                if (auto.isChecked()){
+                    allBackgroundWhite();
+
+                    for(Map.Entry<CardView, CordeUkulele> entry : mapVueCorde.entrySet())
                     {
-                        entry.getKey().setBackgroundColor(Color.parseColor("#20A0D3"));
-                        cordeSelectionnee = entry.getValue();
-                        frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
-                    }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_LONG).show();
+                        if(entry.getValue().estDansLIntervalleDeFrequenceDeCorde(frequenceDetectee))
+                        {
+                            entry.getKey().setBackgroundColor(Color.parseColor("#20A0D3"));
+                            cordeSelectionnee = entry.getValue();
+                            frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                        }
+                        else {
+                            entry.getKey().setBackgroundColor(Color.parseColor("#FEFFFF"));
+                        }
                     }
                 }
+                else
+                {
+                    frequenceReference.setText(String.valueOf(cordeSelectionnee.getFrequenceReferenceCorde()));
+                }
+
                 if(cordeSelectionnee.estDansIntervaleFrequenceAcceptable(frequenceDetectee))
                 {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
@@ -321,10 +328,6 @@ public class AccordeurUkulele extends AppCompatActivity
                     erreurGauche.setText("");
                     erreurDroite.setText("Détendre\nla corde");
                 }
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(), "La fréquence ne peut pas être lue", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -361,6 +364,15 @@ public class AccordeurUkulele extends AppCompatActivity
         arreterEcoute();
         startActivity(otherActivity);
     }
+
+    public void changerPourBasse()
+    {
+        Intent otherActivity;
+        otherActivity = new Intent(getApplicationContext(), AccordeurBasse.class);
+        arreterEcoute();
+        startActivity(otherActivity);
+    }
+
     /**
      * Méthode qui s'exécute lorsque l'on appuye sur le bouton "Retour" du smartphone.
      * Surchargée afin d'arrêter proprement les Thread de l'activity en cours avant de la quitter.
@@ -399,6 +411,10 @@ public class AccordeurUkulele extends AppCompatActivity
                 return true;
 
             case R.id.action_ukulele:
+                return true;
+
+            case R.id.action_basse:
+                changerPourBasse();
                 return true;
 
             default:

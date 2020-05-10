@@ -54,8 +54,21 @@ public enum CordeUkulele {
         return this.nomCorde;
     }
 
-    public boolean estDansLIntervalleDeFrequence(float frequenceDetectee)
+    public boolean estDansLIntervalleDeFrequenceDeCorde(float frequenceDetectee)
     {
-        return ( ((Math.round(frequenceDetectee * 100.0)/100.0) >= this.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= this.getFrequenceReferenceCorde()+10.0) );
+        boolean resultat;
+        if (this.nomCorde == "do")
+        {
+            resultat = ((Math.round(frequenceDetectee * 100.0)/100.0) <= this.getFrequenceReferenceCorde()+10.0);
+        }
+        else if(this.nomCorde == "la")
+        {
+            resultat = ((Math.round(frequenceDetectee * 100.0)/100.0) >= this.getFrequenceReferenceCorde()-10.0);
+        }
+        else
+        {
+            resultat = ((Math.round(frequenceDetectee * 100.0)/100.0) >= this.getFrequenceReferenceCorde()-10.0) && ((Math.round(frequenceDetectee * 100.0)/100.0) <= this.getFrequenceReferenceCorde()+10.0);
+        }
+        return resultat;
     }
 }

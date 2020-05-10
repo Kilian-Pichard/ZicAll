@@ -1,14 +1,12 @@
 package iutbayonne.projet.zicall.AccordeurPackage;
 
 
-public enum CordeGuitare
+public enum CordeBasse
 {
-    MI("mi",82.4),
-    LA("la",110.0),
-    RE("re",146.8),
-    SOL("sol",196.0),
-    SI("si",246.9),
-    MI_AIGU("miAigu",329.6);
+    MI("mi",41.2),
+    LA("la",55.0),
+    RE("re",73.42),
+    SOL("sol",98.0);
 
     /**
      * Nom de la corde.
@@ -26,7 +24,7 @@ public enum CordeGuitare
      */
     private final double ECART_MAXIMAL = 0.5;
 
-    CordeGuitare(String nomCorde, double frequenceReferenceCorde)
+    CordeBasse(String nomCorde, double frequenceReferenceCorde)
     {
         this.nomCorde = nomCorde;
         this.frequenceReferenceCorde = frequenceReferenceCorde;
@@ -65,7 +63,7 @@ public enum CordeGuitare
         {
             resultat = ((Math.round(frequenceDetectee * 100.0)/100.0) <= this.getFrequenceReferenceCorde()+10.0);
         }
-        else if(this.nomCorde == "miAigu")
+        else if(this.nomCorde == "sol")
         {
             resultat = ((Math.round(frequenceDetectee * 100.0)/100.0) >= this.getFrequenceReferenceCorde()-10.0);
         }

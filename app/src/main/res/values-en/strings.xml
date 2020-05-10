@@ -98,5 +98,6 @@
     <!-- Page accordeur -->
     <string name="choix_guitare">Guitar</string>
     <string name="choix_ukulele">Ukulele</string>
+    <string name="choix_basse">Bass</string>
 
 </resources>
