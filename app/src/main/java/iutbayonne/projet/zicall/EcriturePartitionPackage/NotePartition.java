@@ -16,12 +16,15 @@ public class NotePartition
 
     private String nomNote;
 
-    public NotePartition(String nomNote, SourceImageNotePartition sourceImage, int audioNote, double duree)
+    private String typeDeNote;
+
+    public NotePartition(String nomNote, String typeDeNote,SourceImageNotePartition sourceImage, int audioNote, double duree)
     {
         this.nomNote = nomNote;
         this.sourceImage = sourceImage;
         this.audioNote = audioNote;
         this.duree = duree;
+        this.typeDeNote = typeDeNote;
     }
 
     public NotePartition(SourceImageNotePartition sourceImage) {
@@ -41,7 +44,7 @@ public class NotePartition
     }
 
     public int getAudioNote() {
-        return audioNote;
+        return this.audioNote;
     }
 
     public void setDuree(double duree) {
@@ -49,12 +52,18 @@ public class NotePartition
     }
 
     public double getDuree() {
-        return duree;
+        return this.duree;
     }
 
     public void setNomNote(String nomNote) { this.nomNote = nomNote;}
 
     public String getNomNote() {
-        return nomNote;
+        return this.nomNote + "_" + this.typeDeNote;
+    }
+
+    public void setTypeDeNote(String typeDeNote) { this.typeDeNote = typeDeNote;}
+
+    public String getTypeDeNote() {
+        return this.typeDeNote;
     }
 }

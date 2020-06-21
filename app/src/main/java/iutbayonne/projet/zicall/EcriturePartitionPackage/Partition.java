@@ -54,6 +54,11 @@ public class Partition
         listView.setAdapter(new LigneAdapteur(context, getLignes(), this));
     }
 
+    public void effacer(ListView listView, Context context)
+    {
+        listView.setAdapter(new LigneAdapteur(context, getLignes(), this));
+    }
+
     public void ajouterLigne(Ligne ligne)
     {
         getLignes().add(ligne);

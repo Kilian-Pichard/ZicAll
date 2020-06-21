@@ -77,6 +77,14 @@
     <string name="texte_arreter">STOP WRITING</string>
     <string name="enregistrer">SAVE</string>
     <string name="recupererPartition">RECOVER</string>
+    <string name="saisirNomPartition">Enter the name of the partition</string>
+    <string name="impossibleCreerPartition">Unable to create partition</string>
+    <string name="nommerPartition">Please name your partition</string>
+    <string name="partitionSuivanteCreee">The following partition has been created: </string>
+    <string name="aucuneNoteJouee">No notes were played</string>
+    <string name="choisirPartition">Choose a partition</string>
+    <string name="auncunePartitionEnregistrees">You have no partitions recorded</string>
+
 
 
     <!-- Page recapitulatif accords -->
@@ -90,6 +98,8 @@
 
     <!-- Page accordeur guitare -->
     <string name="attente">Waiting</string>
+    <string name="tendre_corde">"Stretch\nthe rope"</string>
+    <string name="detendre_corde">"Relax\nthe rope"</string>
 
 
     <!-- Page chanson entrainement -->

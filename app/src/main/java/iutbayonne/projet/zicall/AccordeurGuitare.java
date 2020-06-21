@@ -353,7 +353,6 @@ public class AccordeurGuitare extends AppCompatActivity
                 if(cordeSelectionnee.estDansIntervaleFrequenceAcceptable(frequenceDetectee))
                 {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.vert));
-                    //Changer couleur texte si corde bien accordée -> mettre en vert
                     for (Map.Entry<TextView, CordeGuitare> entry : mapTexteVueCorde.entrySet()) {
                         if(cordeSelectionnee == entry.getValue())
                         {
@@ -361,6 +360,7 @@ public class AccordeurGuitare extends AppCompatActivity
                         }
                     }
                 }
+
                 else
                 {
                     frequenceMesuree.setTextColor(getResources().getColor(R.color.rouge));
@@ -371,13 +371,13 @@ public class AccordeurGuitare extends AppCompatActivity
 
                 if(margeFrequence > 0)
                 {
-                    erreurGauche.setText("Tendre\nla corde");
+                    erreurGauche.setText(getString(R.string.tendre_corde));
                     erreurDroite.setText("");
                 }
                 if(margeFrequence < 0)
                 {
                     erreurGauche.setText("");
-                    erreurDroite.setText("Détendre\nla corde");
+                    erreurDroite.setText(getString(R.string.detendre_corde));
                 }
             }
         }

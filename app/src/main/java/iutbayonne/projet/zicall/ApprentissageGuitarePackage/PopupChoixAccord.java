@@ -14,7 +14,7 @@ public class PopupChoixAccord extends Dialog {
                     aide;
 
     public PopupChoixAccord(Activity activity){
-        super(activity, R.style.Theme_AppCompat_Dialog);
+        super(activity,R.style.Theme_AppCompat_Dialog);
         setContentView(R.layout.popup_choix_accord);
 
         this.doMajeur = findViewById(R.id.btnDo);

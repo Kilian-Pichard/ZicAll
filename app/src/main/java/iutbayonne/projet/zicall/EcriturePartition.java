@@ -5,22 +5,23 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.text.Html;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,8 +30,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.lang.String;
@@ -45,6 +47,7 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.GestionnaireTypeNotePartition;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.NotePartition;
 import iutbayonne.projet.zicall.EcriturePartitionPackage.Partition;
+
 import static iutbayonne.projet.zicall.EcriturePartitionPackage.SourceImageNotePartition.*;
 
 public class EcriturePartition extends AppCompatActivity {
@@ -155,31 +158,51 @@ public class EcriturePartition extends AppCompatActivity {
     /**
      * Ensemble des notes que l'on peut écrire sur la partition.
      */
-    private NotePartition listeNotes[] = {  new NotePartition("DO_GAMME_0_NOIRE",DO_GAMME_0_NOIRE, R.raw.do1, 1.0),
-            new NotePartition("DO_DIESE_GAMME_0_NOIRE",DO_DIESE_GAMME_0_NOIRE, R.raw.dod1, 1.0),
-            new NotePartition("RE_GAMME_0_NOIRE",RE_GAMME_0_NOIRE, R.raw.re1, 1.0),
-            new NotePartition("RE_DIESE_GAMME_0_NOIRE",RE_DIESE_GAMME_0_NOIRE, R.raw.red1, 1.0),
-            new NotePartition("MI_GAMME_0_NOIRE",MI_GAMME_0_NOIRE, R.raw.mi1, 1.0),
-            new NotePartition("FA_GAMME_0_NOIRE",FA_GAMME_0_NOIRE, R.raw.fa1, 1.0),
-            new NotePartition("FA_DIESE_GAMME_0_NOIRE",FA_DIESE_GAMME_0_NOIRE, R.raw.fad1, 1.0),
-            new NotePartition("SOL_GAMME_0_NOIRE",SOL_GAMME_0_NOIRE, R.raw.sol1, 1.0),
-            new NotePartition("SOL_DIESE_GAMME_0_NOIRE",SOL_DIESE_GAMME_0_NOIRE, R.raw.sold1, 1.0),
-            new NotePartition("LA_GAMME_0_NOIRE",LA_GAMME_0_NOIRE, R.raw.la1, 1.0),
-            new NotePartition("LA_DIESE_GAMME_0_NOIRE",LA_DIESE_GAMME_0_NOIRE, R.raw.lad1, 1.0),
-            new NotePartition("SI_GAMME_0_NOIRE",SI_GAMME_0_NOIRE, R.raw.si1, 1.0),
-            new NotePartition("DO_GAMME_1_NOIRE",DO_GAMME_1_NOIRE, R.raw.do2, 1.0),
-            new NotePartition("DO_DIESE_GAMME_1_NOIRE",DO_DIESE_GAMME_1_NOIRE, R.raw.dod2, 1.0),
-            new NotePartition("RE_GAMME_1_NOIRE",RE_GAMME_1_NOIRE, R.raw.re2, 1.0),
-            new NotePartition("RE_DIESE_GAMME_1_NOIRE",RE_DIESE_GAMME_1_NOIRE, R.raw.red2, 1.0),
-            new NotePartition("MI_GAMME_1_NOIRE",MI_GAMME_1_NOIRE, R.raw.mi2, 1.0),
-            new NotePartition("FA_GAMME_1_NOIRE",FA_GAMME_1_NOIRE, R.raw.fa2, 1.0),
-            new NotePartition("FA_DIESE_GAMME_1_NOIRE",FA_DIESE_GAMME_1_NOIRE, R.raw.fad2, 1.0),
-            new NotePartition("SOL_GAMME_1_NOIRE",SOL_GAMME_1_NOIRE, R.raw.sol2, 1.0),
-            new NotePartition("SOL_DIESE_GAMME_1_NOIRE",SOL_DIESE_GAMME_1_NOIRE, R.raw.sold2, 1.0),
-            new NotePartition("LA_GAMME_1_NOIRE",LA_GAMME_1_NOIRE, R.raw.la2, 1.0),
-            new NotePartition("LA_DIESE_GAMME_1_NOIRE",LA_DIESE_GAMME_1_NOIRE, R.raw.lad2, 1.0),
-            new NotePartition("SI_GAMME_1_NOIRE",SI_GAMME_1_NOIRE, R.raw.si2, 1.0),
+    private NotePartition listeNotes[] = {  new NotePartition("DO_GAMME_0_NOIRE","NOIRE",DO_GAMME_0_NOIRE, R.raw.do1, 1.0),
+            new NotePartition("DO_DIESE_GAMME_0","NOIRE",DO_DIESE_GAMME_0_NOIRE, R.raw.dod1, 1.0),
+            new NotePartition("RE_GAMME_0","NOIRE",RE_GAMME_0_NOIRE, R.raw.re1, 1.0),
+            new NotePartition("RE_DIESE_GAMME_0","NOIRE",RE_DIESE_GAMME_0_NOIRE, R.raw.red1, 1.0),
+            new NotePartition("MI_GAMME_0","NOIRE",MI_GAMME_0_NOIRE, R.raw.mi1, 1.0),
+            new NotePartition("FA_GAMME_0","NOIRE",FA_GAMME_0_NOIRE, R.raw.fa1, 1.0),
+            new NotePartition("FA_DIESE_GAMME_0","NOIRE",FA_DIESE_GAMME_0_NOIRE, R.raw.fad1, 1.0),
+            new NotePartition("SOL_GAMME_0","NOIRE",SOL_GAMME_0_NOIRE, R.raw.sol1, 1.0),
+            new NotePartition("SOL_DIESE_GAMME_0","NOIRE",SOL_DIESE_GAMME_0_NOIRE, R.raw.sold1, 1.0),
+            new NotePartition("LA_GAMME_0","NOIRE",LA_GAMME_0_NOIRE, R.raw.la1, 1.0),
+            new NotePartition("LA_DIESE_GAMME_0","NOIRE",LA_DIESE_GAMME_0_NOIRE, R.raw.lad1, 1.0),
+            new NotePartition("SI_GAMME_0","NOIRE",SI_GAMME_0_NOIRE, R.raw.si1, 1.0),
+            new NotePartition("DO_GAMME_1","NOIRE",DO_GAMME_1_NOIRE, R.raw.do2, 1.0),
+            new NotePartition("DO_DIESE_GAMME_1","NOIRE",DO_DIESE_GAMME_1_NOIRE, R.raw.dod2, 1.0),
+            new NotePartition("RE_GAMME_1","NOIRE",RE_GAMME_1_NOIRE, R.raw.re2, 1.0),
+            new NotePartition("RE_DIESE_GAMME_1","NOIRE",RE_DIESE_GAMME_1_NOIRE, R.raw.red2, 1.0),
+            new NotePartition("MI_GAMME_1","NOIRE",MI_GAMME_1_NOIRE, R.raw.mi2, 1.0),
+            new NotePartition("FA_GAMME_1","NOIRE",FA_GAMME_1_NOIRE, R.raw.fa2, 1.0),
+            new NotePartition("FA_DIESE_GAMME_1","NOIRE",FA_DIESE_GAMME_1_NOIRE, R.raw.fad2, 1.0),
+            new NotePartition("SOL_GAMME_1_NOIRE","NOIRE",SOL_GAMME_1_NOIRE, R.raw.sol2, 1.0),
+            new NotePartition("SOL_DIESE_GAMME_1","NOIRE",SOL_DIESE_GAMME_1_NOIRE, R.raw.sold2, 1.0),
+            new NotePartition("LA_GAMME_1","NOIRE",LA_GAMME_1_NOIRE, R.raw.la2, 1.0),
+            new NotePartition("LA_DIESE_GAMME_1","NOIRE",LA_DIESE_GAMME_1_NOIRE, R.raw.lad2, 1.0),
+            new NotePartition("SI_GAMME_1","NOIRE",SI_GAMME_1_NOIRE, R.raw.si2, 1.0),
     };
+
+    /**
+     * Nom du fichier partition créé par l'utilisateur.
+     */
+    String fileName;
+
+    /**
+     * Nom du chemin qui mène au stockage interne de l'application.
+     */
+    String path;
+
+    /**
+     * Nom de la partition que l'on aura créé.
+     */
+    File myFile;
+
+    Boolean partitionRecuperee = false;
+
+    Partition nouvellePartition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,6 +236,10 @@ public class EcriturePartition extends AppCompatActivity {
 
                     //on met à jour la vue
                     partition.afficher(listeLignesPartition, getApplicationContext());
+
+                    //on met à jour le type de la note
+                    partition.getNotes().get(partition.getIndiceNoteCourante()).setTypeDeNote("CROCHE");
+
                     partition.setEnCoursDeModification(false);
                 }
             }
@@ -234,6 +261,10 @@ public class EcriturePartition extends AppCompatActivity {
 
                     //on met à jour la vue
                     partition.afficher(listeLignesPartition, getApplicationContext());
+
+                    //on met à jour le type de la note
+                    partition.getNotes().get(partition.getIndiceNoteCourante()).setTypeDeNote("NOIRE");
+
                     partition.setEnCoursDeModification(false);
                 }
             }
@@ -255,6 +286,10 @@ public class EcriturePartition extends AppCompatActivity {
 
                     //on met à jour la vue
                     partition.afficher(listeLignesPartition, getApplicationContext());
+
+                    //on met à jour le type de la note
+                    partition.getNotes().get(partition.getIndiceNoteCourante()).setTypeDeNote("BLANCHE");
+
                     partition.setEnCoursDeModification(false);
                 }
             }
@@ -276,6 +311,10 @@ public class EcriturePartition extends AppCompatActivity {
 
                     //on met à jour la vue
                     partition.afficher(listeLignesPartition, getApplicationContext());
+
+                    //on met à jour le type de la note
+                    partition.getNotes().get(partition.getIndiceNoteCourante()).setTypeDeNote("RONDE");
+
                     partition.setEnCoursDeModification(false);
                 }
             }
@@ -312,7 +351,6 @@ public class EcriturePartition extends AppCompatActivity {
 
 
         btnDemarrageStopEcriture = findViewById(R.id.btnDemarrageStopEcriture);
-
         btnDemarrageStopEcriture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -362,14 +400,7 @@ public class EcriturePartition extends AppCompatActivity {
             }
         });
 
-
-        final String fileName = "fichier100.txt";
-
         // On crée un fichier qui correspond à l'emplacement extérieur
-        Context context = getApplicationContext();
-        File exStore = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        final String path = exStore.getAbsolutePath() + "/" + fileName;
-        final File myFile = new File(path);
         this.btnEnregistrerPartition = findViewById(R.id.btnEnregistrerPartition);
         this.btnEnregistrerPartition.setEnabled(false);
         this.btnEnregistrerPartition.setOnClickListener(new View.OnClickListener() {
@@ -378,102 +409,255 @@ public class EcriturePartition extends AppCompatActivity {
             public void onClick(View pView) {
                 lesNotes = recupererNotes();
                 if (laListeDesNotes != "listeVide") {
-                    try {
-                        lesNotes = recupererNotes();
-                        Toast.makeText(getApplicationContext(), lesNotes, Toast.LENGTH_LONG).show();
+                    final AlertDialog alertDialog = new AlertDialog.Builder(EcriturePartition.this).create();
+                    alertDialog.setTitle(getString(R.string.saisirNomPartition));
+                    final EditText texteSaisie = new EditText(EcriturePartition.this);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT);
+                    texteSaisie.setLayoutParams(layoutParams);
+                    alertDialog.setView(texteSaisie);
+                    alertDialog.setIcon(R.drawable.partition_icon);
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                fileName = texteSaisie.getText().toString();
+                                if(!fileName.isEmpty())
+                                {
+                                    path = getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+                                    String leChemin = path + "/" + fileName;
+                                    myFile = new File(leChemin);
+                                    lesNotes = recupererNotes();
 
-                        // Flux interne
-                        FileOutputStream output = openFileOutput(fileName, MODE_PRIVATE);
+                                    FileOutputStream output = openFileOutput(fileName, MODE_PRIVATE);
+                                    output.write(lesNotes.getBytes());
+                                    if (output != null)
+                                    {
+                                        output.close();
+                                    }
 
-                        // On écrit dans le flux interne
-                        output.write(lesNotes.getBytes());
+                                    if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                                            && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState()))
+                                    {
+                                        // On crée un nouveau fichier. Si le fichier existe déjà, il ne sera pas créé
+                                        myFile.createNewFile();
+                                        output = new FileOutputStream(myFile);
+                                        output.write(lesNotes.getBytes());
+                                        if (output != null)
+                                        {
+                                            output.close();
+                                        }
 
-                        if (output != null) {
-                            output.close();
-                        }
-                        // Si le fichier est lisible et qu'on peut écrire dedans
-                        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                                && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState())) {
-                            // On crée un nouveau fichier. Si le fichier existe déjà, il ne sera pas créé
-                            myFile.createNewFile();
-                            output = new FileOutputStream(myFile);
-                            output.write(lesNotes.getBytes());
-                            String test = output.toString();
-                            if (output != null) {
-                                output.close();
+                                        Toast.makeText(getApplicationContext(), getString(R.string.partitionSuivanteCreee) + " " + fileName, Toast.LENGTH_LONG).show();
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getApplicationContext(), getString(R.string.impossibleCreerPartition), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                else
+                                    {
+                                        Toast.makeText(getApplicationContext(), getString(R.string.nommerPartition), Toast.LENGTH_LONG).show();
+                                    }
+                                alertDialog.dismiss();
                             }
-                            Toast.makeText(getApplicationContext(), "Le fichier " + fileName + " a été créé.", Toast.LENGTH_LONG).show();
-                            Toast.makeText(getApplicationContext(), myFile.toString(), Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Impossible de creer fichier", Toast.LENGTH_LONG).show();
+                            catch (FileNotFoundException e)
+                            {
+                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                e.printStackTrace();
+                            }
+                            catch (IOException e)
+                            {
+                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                e.printStackTrace();
+                            }
                         }
-                    } catch (FileNotFoundException e) {
-                        Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-
-                        e.printStackTrace();
-                    }
+                    });
+                    alertDialog.show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Aucune note n'a été jouée", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.aucuneNoteJouee), Toast.LENGTH_LONG).show();
                 }
+                Log.d("LOG","Les notes enregistrees : " + lesNotes);
             }
         });
-
 
 
         this.btnRecupererPartition = findViewById(R.id.btnRecupererPartition);
         this.btnRecupererPartition.setEnabled(true);
         this.btnRecupererPartition.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View pView) {
-                try {
-                    String lesFichiers = "Les fichiers : \n";
-                    String path = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString();
-                    File directory = new File(path);
+                path = getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+                final File directory = new File(path);
+                if (directory.listFiles() != null)
+                {
                     File[] files = directory.listFiles();
-                    for (int i = 0; i < files.length; i++)
-                    {
+                    String lesFichiers = null;
+                    final String[] nomsFichiers = new String[files.length];
+                    final CharSequence[] items = new CharSequence[files.length];
+                    for (int i = 0; i < files.length; i++) {
                         lesFichiers = lesFichiers + files[i].getName() + "\n";
+                        nomsFichiers[i] = files[i].getName();
+                        items[i] = nomsFichiers[i];
                     }
-                    Toast.makeText(getApplicationContext(), lesFichiers, Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EcriturePartition.this);
+                    builder.setTitle(getString(R.string.choisirPartition));
+                    builder.setItems(items, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int item) {
+                            try{
+                                fileName = items[item].toString();
+                                Partition partition = new Partition();
+                                FileInputStream input = openFileInput(fileName);
+                                int value;
+                                int taillePartitionRecuperee = 1;
+                                // On utilise un StringBuffer pour construire la chaîne au fur et à mesure
+                                StringBuffer partitionLu = new StringBuffer();
+                                String charCourant = null;
+                                HashMap<Integer,String> mapDeNote = new HashMap<Integer,String>();
+                                HashMap<Integer,String> mapDeDuree = new HashMap<Integer,String>();
+                                HashMap<Integer,String> mapDeTypeDeNote = new HashMap<Integer,String>();
+                                int i = 0;
+                                int nbDeTiret = 0;
+                                int nbDePointVirgule = 0;
+                                int nbDeVirgule = 0;
+                                int leNombreDeNote = 1;
+                                int emplacementDernierTiret = 0;
+                                int laTaille = 0;
+
+                                int nbNotes = 0;
+                                int nbTypeNote = 0;
+                                int nbDuree = 0;
+
+                                // On lit les caractères les uns après les autres
+                                while((value = input.read()) != -1) {
+                                    // On écrit dans le fichier le caractère partitionLu
+                                    charCourant = partitionLu.append((char)value).toString();
+                                    laTaille++;
+
+                                    if (charCourant.endsWith(";")) {
+                                        nbDePointVirgule++;
+                                        taillePartitionRecuperee += 1;
+                                        mapDeDuree.put(i,charCourant.substring(charCourant.length()-4,charCourant.length()-1));
+                                        nbDuree++;
+                                        i++;
+                                    }
+
+                                    if (charCourant.endsWith("_")) {
+                                        nbDeTiret++;
+                                        if (nbDeTiret == 4*leNombreDeNote)
+                                        {
+                                            //emplacementDernierTiret = charCourant.indexOf(charCourant.substring(charCourant.length()-2,charCourant.length()-1));
+                                            emplacementDernierTiret = charCourant.length();
+                                            if(taillePartitionRecuperee == 1)
+                                            {
+                                                mapDeNote.put(0,charCourant.substring(0,charCourant.length()-1)); nbNotes++;
+                                                leNombreDeNote++;
+                                            }
+                                            else
+                                            {/*
+                                                int tailleTotaleAvantPointVirgule = 0;
+                                                for (int j = 0 ; j < i ; j++)
+                                                {
+                                                    tailleTotaleAvantPointVirgule += mapDeNote.get(j).length() + mapDeTypeDeNote.get(j).length() + mapDeDuree.get(j).length() + nbDeTiret + nbDePointVirgule + nbDeVirgule;
+                                                }*/
+                                                mapDeNote.put(i,charCourant.substring(charCourant.indexOf(";",laTaille-1)+1,charCourant.length()-1)); nbNotes++;
+                                                leNombreDeNote++;
+                                            }
+                                        }
+                                    }
+
+                                    if (charCourant.endsWith(",")){
+                                        nbDeVirgule++;
+                                        if (taillePartitionRecuperee == 1){
+                                            mapDeTypeDeNote.put(0,charCourant.substring(0,charCourant.length()-1)); nbTypeNote++;
+                                        }
+                                        else
+                                        {
+                                            mapDeTypeDeNote.put(i,charCourant.substring(charCourant.indexOf("_",emplacementDernierTiret-1),charCourant.length()-1)); nbTypeNote++;
+                                        }
+                                    }
+                                }
+
+                                if ( (input.read() == -1) )
+                                {
+                                        mapDeDuree.put(i,charCourant.substring(charCourant.length()-3));
+                                        nbDuree++;
+                                }
+
+                                if(input != null)
+                                {
+                                    input.close();
+                                }
+
+                                Log.d("LES NOTES", "toutes les notes:" + charCourant);
+
+                                Log.d("LE LOG", "nbNote:"+nbNotes+" - nbTypeNote:"+nbTypeNote+" - nbDuree:"+nbDuree);
 
 
+                                String messageNotesTot = "Les notes : \n";
+                                String messageTypeDeNotesTot = "Les typesDeNotes : \n";
+                                for (int lm = 0 ; lm < mapDeNote.size() ; lm++)
+                                {
+                                    messageNotesTot += mapDeNote.get(lm) + "\n";
+                                    messageTypeDeNotesTot += mapDeTypeDeNote.get(lm) + "\n";
+                                }
+                                Log.d("Log notes tot", messageNotesTot);
+                                Log.d("Log typeDeNotes tot", messageTypeDeNotesTot);
 
+                                Toast.makeText(getApplicationContext(), "Taille partition : " + mapDeNote.size(), Toast.LENGTH_LONG).show();
 
-                    FileInputStream input = openFileInput("fichier62.txt");
-                    
-                    int value;
+                                // Creer nouvelle partition
 
-                    // On utilise un StringBuffer pour construire la chaîne au fur et à mesure
-                    StringBuffer lu = new StringBuffer();
+                                int nombreNotes = 0;
+                                nouvellePartition = new Partition();
+                                listeLignesPartition = findViewById(R.id.partition_List_view);
+                                nouvellePartition.afficher(listeLignesPartition, getApplicationContext());
 
-                    // On lit les caractères les uns après les autres
-                    while((value = input.read()) != -1) {
-                        // On écrit dans le fichier le caractère lu
-                        lu.append((char)value);
-                    }
-                    Toast.makeText(getApplicationContext(), "Interne : " + lu.toString(), Toast.LENGTH_SHORT).show();
-                    if(input != null)
-                        input.close();
-                    /*
-                    if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-                        lu = new StringBuffer();
-                        input = new FileInputStream(myFile);
-                        while((value = input.read()) != -1)
-                            lu.append((char)value);
+                                for (int noteCourante = 0 ; noteCourante <= mapDeNote.size() ; noteCourante++)
+                                {
+                                    for(int noteConnu = 0 ; noteConnu <= listeNotes.length-1 ; noteConnu++)
+                                    {
+                                        if (listeNotes[noteConnu].getNomNote().equals(mapDeNote.get(noteCourante)))
+                                        {
+                                            nombreNotes++;
+                                            nouvellePartition.ajouterNote(listeNotes[noteConnu],listeLignesPartition,getApplicationContext());
+                                            listeNotes[noteConnu].setDuree(Double.parseDouble(mapDeDuree.get(noteCourante)));
+                                            changerDuree(listeNotes[noteConnu]);
+                                        }
+                                    }
+                                }
 
-                        Toast.makeText(getApplicationContext(), "Externe : " + lu.toString(), Toast.LENGTH_SHORT).show();
-                        if(input != null)
-                            input.close();
-                    }
-                    */
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                                btnJouerPartition.setEnabled(true);
+                                partitionRecuperee = true;
+/*
+                                Toast.makeText(getApplicationContext(), "Taille partition après " + nouvellePartition.getNotes().size(), Toast.LENGTH_LONG).show();
+
+                                Log.d("Taille", "La taille de mapDeNote : " + mapDeNote.size());
+                                Log.d("Log1", "nbNotes : " + nombreNotes);
+                                Log.d("Log2", "listeNotes.length-1 : " + listeNotes.length);
+
+                                String message = "Les notes : \n";
+                                for (int lm = 0 ; lm < nouvellePartition.getNotes().size() ; lm++)
+                                {
+                                    message += nouvellePartition.getNotes().get(lm).getNomNote() + "\n";
+                                }
+                                Log.d("Log notes", message);
+*/
+
+                                dialog.dismiss();
+                            }
+                            catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.auncunePartitionEnregistrees), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -667,7 +851,16 @@ public class EcriturePartition extends AppCompatActivity {
         public void jouerToutesLesNotes()
         {
             NotePartition noteCourante;
-            List<NotePartition> liste = partition.getNotes();
+            List<NotePartition> liste;
+
+            if (partitionRecuperee)
+            {
+                liste = nouvellePartition.getNotes();
+            }
+            else
+            {
+                liste = partition.getNotes();
+            }
 
             for(int i=0; i <liste.size(); i++)
             {
@@ -731,7 +924,6 @@ public class EcriturePartition extends AppCompatActivity {
         List<NotePartition> listeNotesPartition = partition.getNotes();
         NotePartition[] noteCourante = new NotePartition[listeNotesPartition.size()];
         String[] tabDesNotes = new String[listeNotesPartition.size()];
-
         if (!listeNotesPartition.isEmpty()){
             for(int i = 0; i < listeNotesPartition.size() ; i++)
             {
@@ -743,4 +935,20 @@ public class EcriturePartition extends AppCompatActivity {
         return laListeDesNotes;
     }
 
+    private HashMap<String, Double> mapDesNotesAvecDurees = new HashMap<String, Double>();
+
+    public void changerDuree(NotePartition notePartition)
+    {
+        mapDesNotesAvecDurees.put("CROCHE",0.5);
+        mapDesNotesAvecDurees.put("NOIRE",1.0);
+        mapDesNotesAvecDurees.put("BLANCHE",2.0);
+        mapDesNotesAvecDurees.put("RONDE",4.0);
+
+        for (HashMap.Entry mapentry : mapDesNotesAvecDurees.entrySet()) {
+            if (mapentry.getValue().equals(notePartition.getDuree()))
+            {
+                notePartition.setTypeDeNote(mapentry.getKey().toString());
+            }
+        }
+    }
 }

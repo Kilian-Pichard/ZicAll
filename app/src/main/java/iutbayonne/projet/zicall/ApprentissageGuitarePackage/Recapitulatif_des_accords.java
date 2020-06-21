@@ -207,7 +207,6 @@ public class Recapitulatif_des_accords extends AppCompatActivity {
             }
         });
 
-
         unPopup.doMineur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

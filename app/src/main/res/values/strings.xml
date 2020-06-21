@@ -84,6 +84,13 @@
     <string name="texte_arreter">ARRÊTER L\'ÉCRITURE</string>
     <string name="enregistrer">ENREGISTRER</string>
     <string name="recupererPartition">RÉCUPÉRER</string>
+    <string name="saisirNomPartition">Saisissez le nom de la partition</string>
+    <string name="impossibleCreerPartition">Impossible de créer la partition</string>
+    <string name="nommerPartition">Veuillez nommer votre partition</string>
+    <string name="partitionSuivanteCreee">La partition suivante a été créée : </string>
+    <string name="aucuneNoteJouee">Aucune note n\'a été jouée</string>
+    <string name="choisirPartition">Choisissez une partition</string>
+    <string name="auncunePartitionEnregistrees">Vous n\'avez aucune partition enregistrées</string>
 
 
     <!-- Page recapitulatif accords -->
@@ -97,6 +104,8 @@
 
     <!-- Page accordeur guitare -->
     <string name="attente">En attente</string>
+    <string name="tendre_corde">"Tendre\nla corde"</string>
+    <string name="detendre_corde">"Detendre\nla corde"</string>
 
 
     <!-- Page chanson entrainement -->
